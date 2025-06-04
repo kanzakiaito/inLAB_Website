@@ -263,7 +263,7 @@ export default function VTuberDepartment() {
               ></div>
               <div className="lg:w-1/2 relative overflow-hidden">
                 <Image
-                  src="/img/Team/inLab_Core.png"
+                  src="/img/Team/inLAB_Core.png"
                   alt="Core Team"
                   fill
                   className=""
