@@ -191,7 +191,7 @@ export default function CoreTeam() {
         th: "รีวิวเทคโนโลยี",
       },
       avatar: "/img/inLAB_Core/Sanwhann.png",
-      logo: "/img/Logo/Sanwhann.png",
+      logo: "/img/Logo/Sanwhann.PNG",
       model: "/img/Model/Sanwhann.png",
       description: {
         en: "Captivating young snake researcher who blends science and flavor to bring people together.",
