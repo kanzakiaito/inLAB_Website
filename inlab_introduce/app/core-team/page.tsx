@@ -434,11 +434,11 @@ export default function CoreTeam() {
 
       {/* Member Details Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-lg md:max-w-xl lg:max-w-5xl max-h-[90vh] overflow-y-auto rounded-lg shadow-lg p-6">
+        <DialogContent className="sm:max-w-lg md:max-w-xl lg:max-w-5xl max-h-[90vh] overflow-y-auto rounded-lg shadow-lg p-0">
           {selectedMember && (
-            <div className="grid grid-cols-3 gap-6">
-              {/* Left Section */}
-              <div className="col-span-1 flex flex-col items-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+              {/* Left Section: Orange background */}
+              <div className="md:col-span-1 flex flex-col items-center justify-start bg-orange-400 py-10 px-6 rounded-t-lg md:rounded-t-none md:rounded-l-lg">
                 <Image
                   src={selectedMember.model || "/placeholder.svg"}
                   alt={selectedMember.name[language]}
@@ -449,50 +449,54 @@ export default function CoreTeam() {
                 <h3 className="text-lg font-bold text-gray-900 font-mono">
                   {selectedMember.name[language]}
                 </h3>
-                <div className="mt-2">
-                  <h4 className="text-sm font-semibold text-gray-600 font-mono">
-                    Social Links
-                  </h4>
-                  <div className="flex flex-col gap-2 mt-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="flex items-center gap-2 font-mono"
-                      onClick={() =>
-                        window.open(selectedMember.socials.youtube, "_blank")
-                      }
-                    >
-                      <Youtube className="w-4 h-4" />
-                      YouTube
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="flex items-center gap-2 font-mono"
-                      onClick={() =>
-                        window.open(selectedMember.socials.twitter, "_blank")
-                      }
-                    >
-                      <Twitter className="w-4 h-4" />
-                      Twitter
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="flex items-center gap-2 font-mono"
-                      onClick={() =>
-                        window.open(selectedMember.socials.twitch, "_blank")
-                      }
-                    >
-                      <Twitch className="w-4 h-4" />
-                      Twitch
-                    </Button>
-                  </div>
+                <Badge
+                    variant="outline"
+                    className="text-orange-400 border-orange-400 font-mono bg-black whitespace-nowrap mb-2"
+                  >
+                    {selectedMember.department[language]}
+                </Badge>
+                <h4 className="text-sm font-semibold text-gray-700 font-mono mb-2">
+                  Social Links
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex items-center gap-2 font-mono"
+                    onClick={() =>
+                      window.open(selectedMember.socials.youtube, "_blank")
+                    }
+                  >
+                    <Youtube className="w-4 h-4" />
+                    YouTube
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex items-center gap-2 font-mono"
+                    onClick={() =>
+                      window.open(selectedMember.socials.twitter, "_blank")
+                    }
+                  >
+                    <Twitter className="w-4 h-4" />
+                    Twitter
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex items-center gap-2 font-mono"
+                    onClick={() =>
+                      window.open(selectedMember.socials.twitch, "_blank")
+                    }
+                  >
+                    <Twitch className="w-4 h-4" />
+                    Twitch
+                  </Button>
                 </div>
               </div>
 
-              {/* Right Section */}
-              <div className="col-span-2">
+              {/* Right Section: Black background, white text */}
+              <div className="md:col-span-2 bg-black text-white py-10 px-4 md:px-10 flex flex-col rounded-b-lg md:rounded-b-none md:rounded-r-lg">
                 <div className="flex justify-center items-center mb-4">
                   <Image
                     src={selectedMember.logo || "/img/placeholder.png"}
@@ -502,59 +506,51 @@ export default function CoreTeam() {
                     className="w-auto h-auto object-cover"
                   />
                 </div>
-                {/* Department and Specialty */}
-                <div className="flex justify-center items-center gap-4 mb-4">
-                  <Badge
-                    variant="outline"
-                    className="text-orange-600 border-orange-600 font-mono"
-                  >
-                    {selectedMember.department[language]}
-                  </Badge>
-                  <Badge variant="outline" className="font-mono">
-                    Area Of Interest: {selectedMember.specialty[language]}
-                  </Badge>
-                </div>
-
-                {/* Detailed Description */}
                 <div className="mb-6">
-                  <h4 className="text-lg font-bold text-gray-900 mb-3 font-mono">
+                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                     Description
                   </h4>
-                  <p className="text-gray-700 leading-relaxed font-mono text-justify whitespace-pre-wrap">
+                  <p className="text-gray-200 leading-relaxed font-mono text-justify whitespace-pre-wrap">
                     {selectedMember.detailedDescription?.[language] ||
                       selectedMember.description[language]}
                   </p>
                 </div>
-
-                {/* Birthday and Fansign Section */}
+                {/* Area of Interest Section */}
+                <div className="mb-6">
+                    <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                    Area of Interest
+                    </h4>
+                  <p className="text-gray-200 leading-relaxed font-mono text-justify whitespace-pre-wrap">
+                    {selectedMember.specialty[language]}
+                  </p>
+                </div>
                 <div className="flex gap-6 mb-6">
                   {/* Birthday Section */}
-                  {selectedMember.birthday && (
-                    <div className="flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 mb-3 font-mono">
-                        Birthday
-                      </h4>
-                      <p className="text-gray-700 leading-relaxed font-mono text-justify">
-                        {selectedMember.birthday[language]}
-                      </p>
-                    </div>
-                  )}
-
+                  {selectedMember.birthday &&
+                    selectedMember.birthday[language] && (
+                      <div className="flex-1">
+                        <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                          Birthday
+                        </h4>
+                        <p className="text-gray-200 leading-relaxed font-mono text-justify">
+                          {selectedMember.birthday[language]}
+                        </p>
+                      </div>
+                    )}
                   {/* Fanmark Section */}
                   <div className="flex-1">
-                    <h4 className="text-lg font-bold text-gray-900 mb-3 font-mono">
+                    <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                       Fanmark
                     </h4>
-                    <p className="text-gray-700 leading-relaxed font-mono text-justify">
+                    <p className="text-gray-200 leading-relaxed font-mono text-justify">
                       {selectedMember.fanmark}
                     </p>
                   </div>
                 </div>
-
                 {/* Achievements */}
                 {selectedMember.achievements && (
                   <div>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3 font-mono">
+                    <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                       Achievements
                     </h4>
                     <ul className="space-y-2">
@@ -562,9 +558,9 @@ export default function CoreTeam() {
                         (achievement, index) => (
                           <li
                             key={index}
-                            className="flex items-center gap-2 font-mono"
+                            className="flex items-center gap-2 font-mono text-gray-200"
                           >
-                            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
                             {achievement}
                           </li>
                         )
