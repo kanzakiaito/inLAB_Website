@@ -18,8 +18,8 @@ const staatliches = Staatliches({
 })
 
 export const metadata: Metadata = {
-  title: 'VTuber Department',
-  description: 'Virtual Talent Division',
+  title: 'inLAB - Outreach Division',
+  description: 'inLAB - Outreach Division',
 }
 
 export default function RootLayout({

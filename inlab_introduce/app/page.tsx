@@ -1,30 +1,21 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Youtube, Twitter, Twitch, Globe } from "lucide-react";
-import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import type React from "react"
 
-type Language = "en" | "th";
+import { useState } from "react"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Globe } from "lucide-react"
+import { useRouter, usePathname } from "next/navigation" // Import useRouter for navigation
 
-interface Member {
-  name: { en: string; th: string };
-  department: { en: string; th: string };
-  code: string;
-  specialty: { en: string; th: string };
-  avatar: string;
-  description: { en: string; th: string };
-  socials: { youtube: string; twitter: string; twitch: string };
-}
+type Language = "en" | "th"
 
-export default function VTuberDepartment() {
-  const [language, setLanguage] = useState<Language>("en");
+export default function InLAB() {
+  const [language, setLanguage] = useState<Language>("en")
   // State to manage hover for the Discord button
-  const [isDiscordHovered, setIsDiscordHovered] = useState(false);
-  const router = useRouter(); // Initialize useRouter
+  const [isDiscordHovered, setIsDiscordHovered] = useState(false)
+  const router = useRouter() // Initialize useRouter
+  const pathname = usePathname(); // Get the current pathname
 
   const translations = {
     en: {
@@ -43,7 +34,7 @@ export default function VTuberDepartment() {
       intern: "INTERN",
       aboutUs: "ABOUT US",
       coreTeamTitle: "CORE TEAM",
-      internTeamTitle: "INTERN TEAM",
+      internTeamTitle: "INTERN",
       coreTeamDescription:
         "Meet the pioneer specialists who form the backbone of inLAB, driving innovation and leading our key initiatives.",
       internTeamDescription:
@@ -54,12 +45,10 @@ export default function VTuberDepartment() {
       subtitle: "ส่วนการประชาสัมพันธ์",
       section: "ส่วน",
       meetTalent: "พบกับพรสวรรค์ของเรา",
-      description:
-        "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
+      description: "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
       follow: "ติดตาม",
       joinCommunity: "เข้าร่วมชุมชนของเรา",
-      communityDescription:
-        "รับข้อมูลอัปเดตล่าสุดเกี่ยวกับสตรีม กิจกรรม และประกาศจากแผนก VTuber ที่มีพรสวรรค์ของเรา",
+      communityDescription: "รับข้อมูลอัปเดตล่าสุดเกี่ยวกับสตรีม กิจกรรม และประกาศจากแผนก VTuber ที่มีพรสวรรค์ของเรา",
       joinDiscord: "เข้าร่วม Discord",
       // Navigation items
       coreTeam: "ทีมหลัก",
@@ -67,12 +56,11 @@ export default function VTuberDepartment() {
       aboutUs: "เกี่ยวกับเรา",
       coreTeamTitle: "ทีมหลัก",
       internTeamTitle: "ทีมนักศึกษาฝึกงาน",
-      coreTeamDescription:
-        "พบกับบุคคลากรหลักที่ขับเคลื่อนองค์กรของเรา สร้างสรรค์นวัตกรรม และเป็นผู้นำในโครงการสำคัญของเรา",
+      coreTeamDescription: "พบกับบุคคลากรหลักที่ขับเคลื่อนองค์กรของเรา สร้างสรรค์นวัตกรรม และเป็นผู้นำในโครงการสำคัญของเรา",
       internTeamDescription:
         "พบกับนักศึกษาฝึกงานที่มีความสามารถของเรา ผู้ซึ่งนำเสนอแนวคิดใหม่ๆ และมีส่วนร่วมอย่างแข็งขันในโครงการและการวิจัยของเรา",
     },
-  };
+  }
 
   const navigationItems = [
     {
@@ -93,39 +81,25 @@ export default function VTuberDepartment() {
       code: "AB-03",
       link: "about-us",
     },
-  ];
+  ]
 
-  // Data for the Intern Team members
-  const internTeamMembers = [
-    {
-      name: { en: "Alex Chen", th: "อเล็กซ์ เฉิน" },
-      role: { en: "Research Intern", th: "นักศึกษาฝึกงานวิจัย" },
-      avatar: "/img/team/alex_chen.jpg", // Replace with your image path
-    },
-    {
-      name: { en: "Maria Garcia", th: "มาเรีย กาเซีย" },
-      role: { en: "Marketing Intern", th: "นักศึกษาฝึกงานการตลาด" },
-      avatar: "/img/team/maria_garcia.jpg", // Replace with your image path
-    },
-    {
-      name: { en: "Kenji Tanaka", th: "เคนจิ ทานากะ" },
-      role: { en: "Development Intern", th: "นักศึกษาฝึกงานพัฒนา" },
-      avatar: "/img/team/kenji_tanaka.jpg", // Replace with your image path
-    },
-    // Add more intern team members as needed
-  ];
-
-  const t = translations[language];
+  const t = translations[language]
 
   // Updated handleNavClick to use Next.js router
   const handleNavClick = (section: string) => {
-    router.push(`/${section}`);
-  };
+    router.push(`/${section}`)
+  }
 
   // Function to prevent right-click context menu
   const handleContextMenu = (e: React.MouseEvent) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
+
+  // Function to prevent image dragging
+  const handleDragStart = (e: React.DragEvent) => {
+    e.preventDefault()
+  }
+  
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-400 via-orange-500 to-amber-600">
@@ -138,7 +112,7 @@ export default function VTuberDepartment() {
           className="bg-white/20 border-white/30 text-black hover:bg-white/30"
         >
           <Globe className="w-4 h-4 mr-2" />
-          {language === "en" ? "ไทย" : "EN"}
+          {language === "en" ? "TH" : "EN"}
         </Button>
       </div>
 
@@ -146,9 +120,15 @@ export default function VTuberDepartment() {
       <div className="relative">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col lg:flex-row items-center justify-between">
-            <div className="flex items-center gap-2 sm:mb-5">
-              {" "}
-              {/* Added flex and gap */}
+            {/* Make the logo and text group clickable */}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default link behavior
+                router.push('/');
+              }}
+              className="flex items-center gap-2 sm:mb-5 cursor-pointer"
+            >
               <Image
                 src="/img/INLABLOGO.png" // Assuming you have a separate logo-only file
                 alt="InLAB Logo"
@@ -157,41 +137,34 @@ export default function VTuberDepartment() {
                 className="object-contain"
               />
               <div className="flex flex-col">
-                {" "}
-                {/* This div will hold InLAB and Outreach vertically */}
                 <h1
-                  className="text-6xl lg:text-8xl text-black tracking-tight font-staatliches" // Added leading-none
+                  className="text-6xl lg:text-8xl text-black tracking-tight font-staatliches"
                 >
                   {t.department}
                 </h1>
                 <p className="text-xl text-black/80 font-medium font-staatliches -mt-2 lg:-mt-4">
-                  {" "}
-                  {/* Adjusted negative margin-top */}
                   {t.subtitle}
                 </p>
               </div>
-            </div>
+            </a>
 
             {/* Center: Navigation - Left Aligned Text */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 text-black mb-2 lg:mb-0">
-              {navigationItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="text-left cursor-pointer hover:opacity-80 transition-opacity"
-                  onClick={() => handleNavClick(item.link)}
-                >
-                  {/* Increased font size for CORE TEAM, INTERN, ABOUT US */}
-                  <div className="text-lg md:text-2xl lg:text-3xl mb-1 font-staatliches">
-                    {item.title[language]}
+              {navigationItems.map((item, index) => {
+                const isActive = pathname === `/${item.link}`;
+                return (
+                  <div
+                    key={index}
+                    className={`text-left cursor-pointer transition-colors duration-300 p-2 rounded-lg 
+                      ${isActive ? 'bg-white shadow-md' : 'hover:opacity-80'}`}
+                    onClick={() => handleNavClick(item.link)}
+                  >
+                    <div className="text-lg md:text-2xl lg:text-3xl mb-1 font-staatliches">{item.title[language]}</div>
+                    <div className="text-xs lg:text-sm opacity-80 font-mono">{item.members[language]}</div>
+                    <div className="text-xs opacity-60 font-mono">{item.code}</div>
                   </div>
-                  <div className="text-xs lg:text-sm opacity-80 font-mono">
-                    {item.members[language]}
-                  </div>
-                  <div className="text-xs opacity-60 font-mono">
-                    {item.code}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Right: Section Info and Logo */}
@@ -243,81 +216,101 @@ export default function VTuberDepartment() {
         <div className="w-full">
           {/* Core Team Section */}
           <div className="mb-0 bg-orange-400">
-            <div className="flex flex-col lg:flex-row min-h-[60vh]">
+            <div className="flex flex-col lg:flex-row min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] xl:min-h-[70vh]">
               {/* Left side - Text content */}
-              <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-16 py-16">
-                <h2 className="text-4xl lg:text-6xl font-staatliches text-gray-800 mb-8 text-left">
+              <div className="lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 md:py-16 lg:py-20">
+                <a 
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-staatliches text-gray-800 mb-4 sm:mb-6 md:mb-8 text-left underline"
+                  href="/core-team">
                   {t.coreTeamTitle}
-                </h2>
-                <p className="text-lg text-gray-700 text-left leading-relaxed">
-                  {t.coreTeamDescription}
-                </p>
+                </a>
+                <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 text-left leading-relaxed">
+                    {t.coreTeamDescription}
+                  </p>
+                </div>
               </div>
               {/* Right side - Image */}
               <div
                 className="border-l-10 border-black"
                 style={{
-                  borderImage:
-                    "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
+                  borderImage: "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
                 }}
               ></div>
-              <div className="lg:w-1/2 relative overflow-hidden">
+              <div className="lg:w-3/4 relative overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto">
                 <Image
                   src="/img/Team/inLAB_Core.png"
                   alt="Core Team"
                   fill
-                  className=""
-                  onContextMenu={handleContextMenu}
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                  onContextMenu={handleContextMenu} // Prevents right-click
+                  onDragStart={handleDragStart} // Prevents dragging
                 />
               </div>
             </div>
           </div>
 
-          <div className="h-2 bg-black"></div>
+          <div 
+            className="h-3 w-full bg-black" // Added w-full to ensure it spans the whole width
+            style={{
+              borderImage: "repeating-linear-gradient(90deg, black 0, black 10px, orange 10px, orange 20px) 8",
+              borderWidth: "3px 0 3px 0", // Apply border to top and botto
+              borderStyle: "solid",
+            }}
+          ></div>
 
           {/* Intern Team Section */}
           <div className="mb-0 bg-gray-800">
-            <div className="flex flex-col lg:flex-row min-h-[60vh]">
+            <div className="flex flex-col lg:flex-row min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] xl:min-h-[70vh]">
               {/* Left side - Image */}
-              <div className="lg:w-1/2 relative order-2 lg:order-1 overflow-hidden">
+              <div className="lg:w-3/4 relative order-2 lg:order-1 overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto">
                 <Image
                   src="/img/Team/inLAB_Intern.png"
                   alt="Intern Team"
                   fill
-                  className=""
-                  onContextMenu={handleContextMenu}
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                  onContextMenu={handleContextMenu} // Prevents right-click
+                  onDragStart={handleDragStart} // Prevents dragging
                 />
               </div>
               {/* Right side - Text content */}
               <div
                 className="flex flex-col justify-center order-1 lg:order-2 border-l-10 border-black"
                 style={{
-                  borderImage:
-                    "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
+                  borderImage: "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
                 }}
               />
-              <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-16 py-16 order-1 lg:order-2">
-                <h2 className="text-4xl lg:text-6xl font-staatliches text-orange-400 mb-8 text-right">
+              <div className="lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 md:py-16 lg:py-20 order-1 lg:order-2">
+                <a className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-staatliches text-orange-400 mb-4 sm:mb-6 md:mb-8 text-right underline" href = "/intern">
                   {t.internTeamTitle}
-                </h2>
-                <p className="text-lg text-orange-500 text-right leading-relaxed">
-                  {t.internTeamDescription}
-                </p>
+                </a>
+                <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-orange-500 text-right leading-relaxed">
+                    {t.internTeamDescription}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div 
+            className="h-3 w-full bg-black" // Added w-full to ensure it spans the whole width
+            style={{
+              borderImage: "repeating-linear-gradient(90deg, black 0, black 10px, orange 10px, orange 20px) 8",
+              borderWidth: "3px 0 3px 0", // Apply border to top and botto
+              borderStyle: "solid",
+            }}
+          ></div>
+
       {/* Footer */}
-      <div className="bg-black text-white py-12">
+      <div className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold mb-4 font-mono">
-            {t.joinCommunity}
-          </h3>
-          <p className="text-gray-400 mb-6 max-w-2xl mx-auto font-mono">
-            {t.communityDescription}
-          </p>
+          <h3 className="text-2xl font-bold mb-4 font-mono">{t.joinCommunity}</h3>
+          <p className="text-gray-400 mb-6 max-w-2xl mx-auto font-mono">{t.communityDescription}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://discord.gg/yK6bxAFx7F" // Set the Discord invite link here
@@ -332,11 +325,7 @@ export default function VTuberDepartment() {
                 className="bg-indigo-500 border-white text-white hover:bg-white hover:text-black font-mono cursor-pointer"
               >
                 <Image
-                  src={
-                    isDiscordHovered
-                      ? "/img/discord_black.png"
-                      : "/img/discord.png"
-                  }
+                  src={isDiscordHovered ? "/img/discord_black.png" : "/img/discord.png"}
                   alt="Discord Icon"
                   width={24}
                   height={24}
@@ -347,7 +336,8 @@ export default function VTuberDepartment() {
             </a>
           </div>
         </div>
+        <div className="text-center pt-8 text-sm text-orange-300">© 2025 InLAB, Outreach division.</div>
       </div>
     </div>
-  );
+  )
 }

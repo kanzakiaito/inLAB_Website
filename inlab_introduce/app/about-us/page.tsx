@@ -11,6 +11,7 @@ import {
   Twitch,
   Globe,
 } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation"; // Import useRouter and usePathname
 
 type Language = "en" | "th";
 
@@ -24,10 +25,11 @@ interface Member {
   socials: { youtube: string; twitter: string; twitch: string };
 }
 
-export default function VTuberDepartment() {
+export default function AboutUs() {
   const [language, setLanguage] = useState<Language>("en");
-  // State to manage hover for the Discord button
   const [isDiscordHovered, setIsDiscordHovered] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname(); // Get the current pathname
 
   const translations = {
     en: {
@@ -42,7 +44,6 @@ export default function VTuberDepartment() {
       communityDescription:
         "Get in touch with our inLAB specialist",
       joinDiscord: "Join Discord",
-      // Navigation items
       coreTeam: "CORE TEAM",
       intern: "INTERN",
       aboutUs: "ABOUT US",
@@ -59,7 +60,6 @@ export default function VTuberDepartment() {
       communityDescription:
         "รับข้อมูลอัปเดตล่าสุดเกี่ยวกับสตรีม กิจกรรม และประกาศจากแผนก VTuber ที่มีพรสวรรค์ของเรา",
       joinDiscord: "เข้าร่วม Discord",
-      // Navigation items
       coreTeam: "ทีมหลัก",
       intern: "นักศึกษาฝึกงาน",
       aboutUs: "เกี่ยวกับเรา",
@@ -141,7 +141,7 @@ export default function VTuberDepartment() {
   const t = translations[language];
 
   const handleNavClick = (section: string) => {
-    console.log(`Navigating to: ${section}`);
+    router.push(`/${section}`); // Use router.push for navigation
   };
 
   // Function to prevent right-click context menu
@@ -168,9 +168,15 @@ export default function VTuberDepartment() {
       <div className="relative">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col lg:flex-row items-center justify-between">
-            <div className="flex items-center gap-2 sm:mb-5">
-              {" "}
-              {/* Added flex and gap */}
+            {/* Make the logo and text group clickable */}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default link behavior
+                router.push('/');
+              }}
+              className="flex items-center gap-2 sm:mb-5 cursor-pointer"
+            >
               <Image
                 src="/img/INLABLOGO.png" // Assuming you have a separate logo-only file
                 alt="InLAB Logo"
@@ -179,57 +185,48 @@ export default function VTuberDepartment() {
                 className="object-contain"
               />
               <div className="flex flex-col">
-                {" "}
-                {/* This div will hold InLAB and Outreach vertically */}
                 <h1
-                  className="text-6xl lg:text-8xl text-black tracking-tight font-staatliches" // Added leading-none
+                  className="text-6xl lg:text-8xl text-black tracking-tight font-staatliches"
                 >
                   {t.department}
                 </h1>
                 <p className="text-xl text-black/80 font-medium font-staatliches -mt-2 lg:-mt-4">
-                  {" "}
-                  {/* Adjusted negative margin-top */}
                   {t.subtitle}
                 </p>
               </div>
-            </div>
-
+            </a>
+      
             {/* Center: Navigation - Left Aligned Text */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 text-black mb-2 lg:mb-0">
-              {navigationItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="text-left cursor-pointer hover:opacity-80 transition-opacity"
-                  onClick={() => handleNavClick(item.link)}
-                >
-                  {/* Increased font size for CORE TEAM, INTERN, ABOUT US */}
-                  <div className="text-lg md:text-2xl lg:text-3xl mb-1 font-staatliches">
-                    {item.title[language]}
+              {navigationItems.map((item, index) => {
+                const isActive = pathname === `/${item.link}`; // Check if current path matches item link
+                return (
+                  <div
+                    key={index}
+                    className={`text-left cursor-pointer transition-colors duration-300 p-2 rounded-lg 
+                      ${isActive ? 'bg-white shadow-md' : 'hover:opacity-80'}`} // Apply active styles
+                    onClick={() => handleNavClick(item.link)}
+                  >
+                    <div className="text-lg md:text-2xl lg:text-3xl mb-1 font-staatliches">{item.title[language]}</div>
+                    <div className="text-xs lg:text-sm opacity-80 font-mono">{item.members[language]}</div>
+                    <div className="text-xs opacity-60 font-mono">{item.code}</div>
                   </div>
-                  <div className="text-xs lg:text-sm opacity-80 font-mono">
-                    {item.members[language]}
-                  </div>
-                  <div className="text-xs opacity-60 font-mono">
-                    {item.code}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
-
+      
             {/* Right: Section Info and Logo */}
             <div className="hidden lg:block">
               <div className="text-right text-black flex items-center gap-4">
                 <div>
                   <div className="text-4xl font-staatliches">{t.section}</div>
-                  <div className="text-xl font-mono">
-                    Sun Synchronous Orbit
-                  </div>
+                  <div className="text-xl font-mono">Sun Synchronous Orbit</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
+      
         {/* Black bar */}
         <div className="h-4 bg-black"></div>
       </div>
@@ -364,6 +361,7 @@ export default function VTuberDepartment() {
             </a>
           </div>
         </div>
+        <div className="text-center pt-8 text-sm text-orange-300">© 2025 InLAB, Outreach division.</div>
       </div>
     </div>
   );
