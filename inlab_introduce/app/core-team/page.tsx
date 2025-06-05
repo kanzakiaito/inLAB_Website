@@ -66,15 +66,15 @@ export default function CoreTeam() {
     },
     th: {
       department: "InLAB",
-      subtitle: "ส่วนการประชาสัมพันธ์",
-      section: "ส่วน",
+      subtitle: "Outreach division",
+      section: "ISV Andøya Expedition",
       meetTalent: "พบกับพรสวรรค์ของเรา",
       description:
         "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
       follow: "ติดตาม",
-      joinCommunity: "เข้าร่วมชุมชนของเรา",
+      joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
       communityDescription:
-        "รับข้อมูลอัปเดตล่าสุดเกี่ยวกับสตรีม กิจกรรม และประกาศจากแผนก VTuber ที่มีพรสวรรค์ของเรา",
+        "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
       joinDiscord: "เข้าร่วม Discord",
       coreTeam: "ทีมหลัก",
       intern: "นักศึกษาฝึกงาน",
@@ -89,20 +89,20 @@ export default function CoreTeam() {
 
   const navigationItems = [
     {
-      title: { en: "CORE TEAM", th: "ทีมหลัก" },
-      members: { en: "SCIENCE", th: "วิศวกรรม" },
+      title: { en: "CORE TEAM", th: "CORE TEAM" },
+      members: { en: "SCIENCE", th: "SCIENCE" },
       code: "CT-01",
       link: "core-team",
     },
     {
-      title: { en: "INTERN", th: "นักศึกษาฝึกงาน" },
-      members: { en: "RESEARCH", th: "วิจัย" },
+      title: { en: "INTERN", th: "INTERN" },
+      members: { en: "RESEARCH", th: "RESEARCH" },
       code: "IN-02",
       link: "intern",
     },
     {
-      title: { en: "ABOUT US", th: "เกี่ยวกับเรา" },
-      members: { en: "INFORMATION", th: "ข้อมูล" },
+      title: { en: "ABOUT US", th: "ABOUT US" },
+      members: { en: "INFORMATION", th: "INFORMATION" },
       code: "AB-03",
       link: "about-us",
     },
@@ -115,11 +115,11 @@ export default function CoreTeam() {
       code: "S1M-S",
       specialty: { en: "FPS & Strategy", th: "FPS และกลยุทธ์" },
       avatar: "/img/inLAB_Core/Selma.png",
-      logo: "",
-      model: "",
+      logo: "/img/Logo/ScientificCryptid.png",
+      model: "/img/Model/Selma.png",
       description: {
         en: "A mischievous orange cat-man scientist aboard ISV Andøya, here to explore Earth's tech and stir up a little chaos.",
-        th: "🧪 มนุษย์แมวส้มผู้มาเก็บตัวอย่างและสำรวจเทคโนโลยีของดาวโลก และแอบก่อความวินาศวายป่วงด้วยวิทยาศาสตร์ในยามว่าง",
+        th: "มนุษย์แมวส้มผู้มาเก็บตัวอย่างและสำรวจเทคโนโลยีของดาวโลก และแอบก่อความวินาศวายป่วงด้วยวิทยาศาสตร์ในยามว่าง",
       },
       detailedDescription: {
         en: "A professional esports player turned content creator, Selma brings years of competitive gaming experience to the team. With tournament victories in multiple FPS titles and strategic gameplay analysis, she provides educational content for aspiring gamers while entertaining audiences with high-level gameplay demonstrations.",
@@ -152,8 +152,8 @@ export default function CoreTeam() {
       code: "S2R-B",
       specialty: { en: "Tech Reviews", th: "รีวิวเทคโนโลยี" },
       avatar: "/img/inLAB_Core/Soren.png",
-      logo: "",
-      model: "",
+      logo: "/img/Logo/ScientificCryptid.png",
+      model: "/img/Model/Soren.png",
       description: {
         en: "A biochemistry black cat-man PhD with a habit of eyeing your arm veins.",
         th: "มนุษย์แมวดำพี่ของมนุษย์แมวส้ม ดีกรีจบเอกชีวเคมีและชอบจ้องจะจิ้มเส้นเลือดแขนคน",
@@ -229,8 +229,8 @@ export default function CoreTeam() {
       code: "A4B-P",
       specialty: { en: "Cooking Shows", th: "รายการทำอาหาร" },
       avatar: "/img/inLAB_Core/Archbas.png",
-      logo: "",
-      model: "",
+      logo: "/img/Logo/Archbas.png",
+      model: "/img/Model/Archbas.png",
       description: {
         en: "Gained awareness through data from the starship's supercomputer. Continuously upgrading itself in pursuit of knowledge (and maybe a personality).",
         th: "Living code นักเรียนรู้ ผู้พัฒนาตัวเองจนมีสตินึกคิด โดยเรียนรู้จากข้อมูลใน Supercomputer ของยาน ",
@@ -385,9 +385,9 @@ export default function CoreTeam() {
       <div className="bg-white flex-grow">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-mono">
-              {t.description}
-            </p>
+<p className={`text-lg text-gray-600 max-w-2xl mx-auto ${language === "th" ? "font-kanit" : "font-mono"}`}>
+  {t.description}
+</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -417,13 +417,19 @@ export default function CoreTeam() {
                     </h3>
                     <Badge
                       variant="outline"
-                      className="text-orange-600 border-orange-600 font-mono"
+                      className={`text-orange-600 border-orange-600 ${
+                        language === "th" ? "font-kanit" : "font-mono"
+                      }`}
                     >
                       {member.department[language]}
                     </Badge>
                   </div>
 
-                  <p className="text-sm text-gray-600 mb-4 font-mono text-justify">
+                  <p
+                    className={`text-sm text-gray-600 mb-4 font-mono text-justify ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
                     {member.description[language]}
                   </p>
                 </CardContent>
@@ -452,18 +458,26 @@ export default function CoreTeam() {
                 </h3>
                 <Badge
                   variant="outline"
-                  className="text-orange-400 border-orange-400 font-mono bg-black whitespace-nowrap mb-2"
+                  className={`text-orange-400 border-orange-400 ${
+                    language === "th" ? "font-kanit" : "font-mono"
+                  } bg-black whitespace-nowrap mb-2`}
                 >
                   {selectedMember.department[language]}
                 </Badge>
-                <h4 className="text-sm font-semibold text-gray-700 font-mono mb-2">
+                <h4
+                  className={`text-sm font-semibold text-gray-700 mb-2 ${
+                    language === "th" ? "font-kanit" : "font-mono"
+                  }`}
+                >
                   Social Links
                 </h4>
                 <div className="flex flex-col gap-2">
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-red-500 hover:text-white hover:border-red-600"
+                    className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-red-500 hover:text-white hover:border-red-600 ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
                     onClick={() =>
                       window.open(selectedMember.socials.youtube, "_blank")
                     }
@@ -474,7 +488,9 @@ export default function CoreTeam() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-black hover:text-white hover:border-black"
+                    className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-black hover:text-white hover:border-black ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
                     onClick={() =>
                       window.open(selectedMember.socials.twitter, "_blank")
                     }
@@ -486,7 +502,9 @@ export default function CoreTeam() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600"
+                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600 ${
+                          language === "th" ? "font-kanit" : "font-mono"
+                        }`}
                         onClick={() =>
                           window.open(selectedMember.socials.twitch, "_blank")
                         }
@@ -510,20 +528,36 @@ export default function CoreTeam() {
                   />
                 </div>
                 <div className="mb-6">
-                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                  <h4
+                    className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
                     Description
                   </h4>
-                  <p className="text-gray-200 leading-relaxed font-mono text-justify whitespace-pre-wrap">
+                  <p
+                    className={`text-gray-200 leading-relaxed text-justify whitespace-pre-wrap ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
                     {selectedMember.detailedDescription?.[language] ||
                       selectedMember.description[language]}
                   </p>
                 </div>
                 {/* Area of Interest Section */}
                 <div className="mb-6">
-                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                  <h4
+                    className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
                     Area of Interest
                   </h4>
-                  <p className="text-gray-200 leading-relaxed font-mono text-center whitespace-pre-wrap">
+                  <p
+                    className={`text-gray-200 leading-relaxed text-center whitespace-pre-wrap ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
                     {selectedMember.specialty[language]}
                   </p>
                 </div>
@@ -532,20 +566,36 @@ export default function CoreTeam() {
                   {selectedMember.birthday &&
                     selectedMember.birthday[language] && (
                       <div className="flex-1">
-                        <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                        <h4
+                          className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
+                            language === "th" ? "font-kanit" : "font-mono"
+                          }`}
+                        >
                           Birthday
                         </h4>
-                        <p className="text-gray-200 leading-relaxed font-mono text-center">
+                        <p
+                          className={`text-gray-200 leading-relaxed text-center ${
+                            language === "th" ? "font-kanit" : "font-mono"
+                          }`}
+                        >
                           {selectedMember.birthday[language]}
                         </p>
                       </div>
                     )}
                   {/* Fanmark Section */}
                   <div className="flex-1">
-                    <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                    <h4
+                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
+                        language === "th" ? "font-kanit" : "font-mono"
+                      }`}
+                    >
                       Fanmark
                     </h4>
-                    <p className="text-gray-200 leading-relaxed font-mono text-center">
+                    <p
+                      className={`text-gray-200 leading-relaxed text-center ${
+                        language === "th" ? "font-kanit" : "font-mono"
+                      }`}
+                    >
                       {selectedMember.fanmark}
                     </p>
                   </div>
@@ -553,7 +603,11 @@ export default function CoreTeam() {
                 {/* Achievements */}
                 {selectedMember.achievements && (
                   <div>
-                    <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                    <h4
+                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
+                        language === "th" ? "font-kanit" : "font-mono"
+                      }`}
+                    >
                       Achievements
                     </h4>
                     <ul className="space-y-2">
@@ -561,7 +615,9 @@ export default function CoreTeam() {
                         (achievement, index) => (
                           <li
                             key={index}
-                            className="flex items-center gap-2 font-mono text-gray-200"
+                            className={`flex items-center gap-2 text-gray-200 ${
+                              language === "th" ? "font-kanit" : "font-mono"
+                            }`}
                           >
                             <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
                             {achievement}
@@ -578,26 +634,36 @@ export default function CoreTeam() {
       </Dialog>
 
       {/* Footer */}
-      <div className="bg-black text-white py-12">
+      <div className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold mb-4 font-mono">
+          <h3
+            className={`text-2xl font-bold mb-4 ${
+              language === "th" ? "font-kanit" : "font-mono"
+            }`}
+          >
             {t.joinCommunity}
           </h3>
-          <p className="text-gray-400 mb-6 max-w-2xl mx-auto font-mono">
+          <p
+            className={`text-gray-400 mb-6 max-w-2xl mx-auto ${
+              language === "th" ? "font-kanit" : "font-mono"
+            }`}
+          >
             {t.communityDescription}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://discord.gg/yK6bxAFx7F"
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setIsDiscordHovered(true)}
-              onMouseLeave={() => setIsDiscordHovered(false)}
+              href="https://discord.gg/yK6bxAFx7F" // Set the Discord invite link here
+              target="_blank" // Opens in a new tab
+              rel="noopener noreferrer" // Recommended for security with target="_blank"
+              onMouseEnter={() => setIsDiscordHovered(true)} // Keep hover effect on anchor
+              onMouseLeave={() => setIsDiscordHovered(false)} // Keep hover effect on anchor
             >
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-indigo-500 border-white text-white hover:bg-white hover:text-black font-mono cursor-pointer"
+                className={`bg-indigo-500 border-white text-white hover:bg-white hover:text-black cursor-pointer ${
+                  language === "th" ? "font-kanit" : "font-mono"
+                }`}
               >
                 <Image
                   src={

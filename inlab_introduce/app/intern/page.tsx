@@ -66,15 +66,14 @@ export default function CoreTeam() {
     },
     th: {
       department: "InLAB",
-      subtitle: "ส่วนการประชาสัมพันธ์",
-      section: "ส่วน",
+      subtitle: "Outreach division",
+      section: "ISV Andøya Expedition",
       meetTalent: "พบกับพรสวรรค์ของเรา",
       description:
         "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
       follow: "ติดตาม",
-      joinCommunity: "เข้าร่วมชุมชนของเรา",
-      communityDescription:
-        "รับข้อมูลอัปเดตล่าสุดเกี่ยวกับสตรีม กิจกรรม และประกาศจากแผนก VTuber ที่มีพรสวรรค์ของเรา",
+      joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
+      communityDescription: "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
       joinDiscord: "เข้าร่วม Discord",
       coreTeam: "ทีมหลัก",
       intern: "นักศึกษาฝึกงาน",
@@ -89,20 +88,20 @@ export default function CoreTeam() {
 
   const navigationItems = [
     {
-      title: { en: "CORE TEAM", th: "ทีมหลัก" },
-      members: { en: "SCIENCE", th: "วิศวกรรม" },
+      title: { en: "CORE TEAM", th: "CORE TEAM" },
+      members: { en: "SCIENCE", th: "SCIENCE" },
       code: "CT-01",
       link: "core-team",
     },
     {
-      title: { en: "INTERN", th: "นักศึกษาฝึกงาน" },
-      members: { en: "RESEARCH", th: "วิจัย" },
+      title: { en: "INTERN", th: "INTERN" },
+      members: { en: "RESEARCH", th: "RESEARCH" },
       code: "IN-02",
       link: "intern",
     },
     {
-      title: { en: "ABOUT US", th: "เกี่ยวกับเรา" },
-      members: { en: "INFORMATION", th: "ข้อมูล" },
+      title: { en: "ABOUT US", th: "ABOUT US" },
+      members: { en: "INFORMATION", th: "INFORMATION" },
       code: "AB-03",
       link: "about-us",
     },
@@ -116,7 +115,7 @@ export default function CoreTeam() {
       specialty: { en: "FPS & Strategy", th: "FPS และกลยุทธ์" },
       avatar: "/img/inLAB_Intern/Aito.png",
       logo: "",
-      model: "",
+      model: "/img/Model/Aito.png",
       description: {
         en: "Elite gaming specialist with expertise in competitive FPS and real-time strategy games.",
         th: "ผู้เชี่ยวชาญด้านเกมระดับสูงที่มีความเชี่ยว เจนในเกม FPS แข่งขันและเกมกลยุทธ์แบบเรียลไทม์",
@@ -148,10 +147,10 @@ export default function CoreTeam() {
     },
     {
       name: { en: "LYRIC URSAE", th: "ลูน่า เทค" },
-      department: { en: "BIOLOGY", th: "วิทยาศาสตร์" },
-      code: "S2R-B",
+      department: { en: "VETERINARY MEDICINE", th: "วิทยาศาสตร์" },
+      code: "S2R-V",
       specialty: { en: "Tech Reviews", th: "รีวิวเทคโนโลยี" },
-      avatar: "",
+      avatar: "/img/inLAB_Intern/Lyric.png",
       logo: "",
       model: "",
       description: {
@@ -191,7 +190,7 @@ export default function CoreTeam() {
         en: "Plant-based food, Drinking, Digital marketing",
         th: "รีวิวเทคโนโลยี",
       },
-      avatar: "",
+      avatar: "/img/inLAB_Intern/Arithmos.png",
       logo: "/img/Logo/Sanwhann.PNG",
       model: "/img/Model/Sanwhann.png",
       description: {
@@ -348,9 +347,9 @@ export default function CoreTeam() {
       <div className="bg-white flex-grow">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-mono">
-              {t.description}
-            </p>
+            <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${language === "th" ? "font-kanit" : "font-mono"}`}>
+  {t.description}
+</p>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
@@ -541,47 +540,37 @@ export default function CoreTeam() {
       </Dialog>
 
       {/* Footer */}
-      <div className="bg-black text-white py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold mb-4 font-mono">
-            {t.joinCommunity}
-          </h3>
-          <p className="text-gray-400 mb-6 max-w-2xl mx-auto font-mono">
-            {t.communityDescription}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://discord.gg/yK6bxAFx7F"
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setIsDiscordHovered(true)}
-              onMouseLeave={() => setIsDiscordHovered(false)}
-            >
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-indigo-500 border-white text-white hover:bg-white hover:text-black font-mono cursor-pointer"
-              >
-                <Image
-                  src={
-                    isDiscordHovered
-                      ? "/img/discord_black.png"
-                      : "/img/discord.png"
-                  }
-                  alt="Discord Icon"
-                  width={24}
-                  height={24}
-                  className="mr-2"
-                />
-                {t.joinDiscord}
-              </Button>
-            </a>
-          </div>
-        </div>
-        <div className="text-center pt-8 text-sm text-orange-300">
-          © 2025 InLAB, Outreach division.
-        </div>
-      </div>
+            <div className="bg-gray-900 text-white py-12">
+              <div className="container mx-auto px-4 text-center">
+                <h3 className={`text-2xl font-bold mb-4 ${language === "th" ? "font-kanit" : "font-mono"}`}>{t.joinCommunity}</h3>
+                <p className={`text-gray-400 mb-6 max-w-2xl mx-auto ${language === "th" ? "font-kanit" : "font-mono"}`}>{t.communityDescription}</p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a
+                    href="https://discord.gg/yK6bxAFx7F" // Set the Discord invite link here
+                    target="_blank" // Opens in a new tab
+                    rel="noopener noreferrer" // Recommended for security with target="_blank"
+                    onMouseEnter={() => setIsDiscordHovered(true)} // Keep hover effect on anchor
+                    onMouseLeave={() => setIsDiscordHovered(false)} // Keep hover effect on anchor
+                  >
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className={`bg-indigo-500 border-white text-white hover:bg-white hover:text-black cursor-pointer ${language === "th" ? "font-kanit" : "font-mono"}`}
+                    >
+                      <Image
+                        src={isDiscordHovered ? "/img/discord_black.png" : "/img/discord.png"}
+                        alt="Discord Icon"
+                        width={24}
+                        height={24}
+                        className="mr-2"
+                      />
+                      {t.joinDiscord}
+                    </Button>
+                  </a>
+                </div>
+              </div>
+              <div className="text-center pt-8 text-sm text-orange-300">© 2025 InLAB, Outreach division.</div>
+            </div>
     </div>
   );
 }
