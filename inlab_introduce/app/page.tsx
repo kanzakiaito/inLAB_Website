@@ -19,12 +19,10 @@ export default function InLAB() {
 
   const translations = {
     en: {
-      department: "InLAB",
+      department: "INLAB",
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
       meetTalent: "- Meet Our Specialists -",
-      description:
-        "Discover the exceptional inLAB specialists who drive our outreach initiatives, each contributing distinctive insights and specialized experience to elevate your experience.",
       follow: "Follow",
       joinCommunity: "Join Our Community",
       communityDescription: "Get in touch with our inLAB specialist",
@@ -41,43 +39,42 @@ export default function InLAB() {
         "Discover our talented interns, bringing fresh perspectives and new experience to everyone.",
     },
     th: {
-      department: "InLAB",
-      subtitle: "ส่วนการประชาสัมพันธ์",
-      section: "ส่วน",
+      department: "INLAB",
+      subtitle: "Outreach division",
+      section: "ISV Andøya Expedition",
       meetTalent: "พบกับพรสวรรค์ของเรา",
-      description: "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
       follow: "ติดตาม",
-      joinCommunity: "เข้าร่วมชุมชนของเรา",
-      communityDescription: "รับข้อมูลอัปเดตล่าสุดเกี่ยวกับสตรีม กิจกรรม และประกาศจากแผนก VTuber ที่มีพรสวรรค์ของเรา",
+      joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
+      communityDescription: "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
       joinDiscord: "เข้าร่วม Discord",
       // Navigation items
-      coreTeam: "ทีมหลัก",
-      intern: "นักศึกษาฝึกงาน",
-      aboutUs: "เกี่ยวกับเรา",
-      coreTeamTitle: "ทีมหลัก",
-      internTeamTitle: "ทีมนักศึกษาฝึกงาน",
-      coreTeamDescription: "พบกับบุคคลากรหลักที่ขับเคลื่อนองค์กรของเรา สร้างสรรค์นวัตกรรม และเป็นผู้นำในโครงการสำคัญของเรา",
+      coreTeam: "CORE TEAM",
+      intern: "INTERN",
+      aboutUs: "ABOUT US",
+      coreTeamTitle: "CORE TEAM",
+      internTeamTitle: "INTERN",
+      coreTeamDescription: "พบกับเหล่า Specialist ผู้ก่อตั้ง inLAB กลุ่มวีทูปเบอร์สายวิทย์ที่เต็มเปี่ยมไปด้วยงานวิจัยและ Content สุดจะหาทำ",
       internTeamDescription:
-        "พบกับนักศึกษาฝึกงานที่มีความสามารถของเรา ผู้ซึ่งนำเสนอแนวคิดใหม่ๆ และมีส่วนร่วมอย่างแข็งขันในโครงการและการวิจัยของเรา",
+        "พบกับเหล่าน้องใหม่ประจำ inLAB ที่มาพร้อมความสามารถและประสบการณ์อันเต็มเปี่ยม ที่คุณไม่ควรพลาด!",
     },
   }
 
   const navigationItems = [
     {
-      title: { en: "CORE TEAM", th: "ทีมหลัก" },
-      members: { en: "SCIENCE", th: "วิศวกรรม" },
+      title: { en: "CORE TEAM", th: "CORE TEAM" },
+      members: { en: "SCIENCE", th: "SCIENCE" },
       code: "CT-01",
       link: "core-team",
     },
     {
-      title: { en: "INTERN", th: "นักศึกษาฝึกงาน" },
-      members: { en: "RESEARCH", th: "วิจัย" },
+      title: { en: "INTERN", th: "INTERN" },
+      members: { en: "RESEARCH", th: "RESEARCH" },
       code: "IN-02",
       link: "intern",
     },
     {
-      title: { en: "ABOUT US", th: "เกี่ยวกับเรา" },
-      members: { en: "INFORMATION", th: "ข้อมูล" },
+      title: { en: "ABOUT US", th: "ABOUT US" },
+      members: { en: "INFORMATION", th: "INFORMATION" },
       code: "AB-03",
       link: "about-us",
     },
@@ -138,10 +135,10 @@ export default function InLAB() {
               />
               <div className="flex flex-col">
                 <h1
-                  className="text-6xl lg:text-8xl text-black tracking-tight font-staatliches"
-                >
-                  {t.department}
-                </h1>
+  className={`text-6xl lg:text-8xl text-black tracking-tight font-staatliches`}
+>
+  {t.department}
+</h1>
                 <p className="text-xl text-black/80 font-medium font-staatliches -mt-2 lg:-mt-4">
                   {t.subtitle}
                 </p>
@@ -225,9 +222,13 @@ export default function InLAB() {
                   {t.coreTeamTitle}
                 </a>
                 <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
-                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 text-left leading-relaxed">
-                    {t.coreTeamDescription}
-                  </p>
+                  <p
+  className={`text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 text-left leading-relaxed whitespace-pre-wrap ${
+    language === "th" ? "font-kanit" : "font-mono"
+  }`}
+>
+  {t.coreTeamDescription}
+</p>
                 </div>
               </div>
               {/* Right side - Image */}
@@ -287,7 +288,10 @@ export default function InLAB() {
                   {t.internTeamTitle}
                 </a>
                 <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
-                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-orange-500 text-right leading-relaxed">
+                  <p
+                    className={`text-sm sm:text-base md:text-lg lg:text-xl text-orange-500 text-right leading-relaxed whitespace-pre-wrap ${
+    language === "th" ? "font-kanit" : "font-mono"
+  }`}>
                     {t.internTeamDescription}
                   </p>
                 </div>
@@ -309,8 +313,8 @@ export default function InLAB() {
       {/* Footer */}
       <div className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold mb-4 font-mono">{t.joinCommunity}</h3>
-          <p className="text-gray-400 mb-6 max-w-2xl mx-auto font-mono">{t.communityDescription}</p>
+          <h3 className={`text-2xl font-bold mb-4 ${language === "th" ? "font-kanit" : "font-mono"}`}>{t.joinCommunity}</h3>
+<p className={`text-gray-400 mb-6 max-w-2xl mx-auto ${language === "th" ? "font-kanit" : "font-mono"}`}>{t.communityDescription}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://discord.gg/yK6bxAFx7F" // Set the Discord invite link here
@@ -322,7 +326,7 @@ export default function InLAB() {
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-indigo-500 border-white text-white hover:bg-white hover:text-black font-mono cursor-pointer"
+                className={`bg-indigo-500 border-white text-white hover:bg-white hover:text-black cursor-pointer ${language === "th" ? "font-kanit" : "font-mono"}`}
               >
                 <Image
                   src={isDiscordHovered ? "/img/discord_black.png" : "/img/discord.png"}

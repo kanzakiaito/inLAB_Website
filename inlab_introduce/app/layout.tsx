@@ -1,19 +1,24 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { JetBrains_Mono, Staatliches } from 'next/font/google'
+import { JetBrains_Mono, Staatliches, Kanit } from 'next/font/google'
 
-// JetBrains Mono for main content
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ['latin'],
   variable: '--font-jetbrains-mono',
   display: 'swap',
 })
 
-// Staatliches for headers
 const staatliches = Staatliches({ 
   weight: '400',
   subsets: ['latin'],
   variable: '--font-staatliches',
+  display: 'swap',
+})
+
+const kanit = Kanit({
+  weight: '400',
+  subsets: ['thai', 'latin'],
+  variable: '--font-kanit',
   display: 'swap',
 })
 
@@ -28,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${jetbrainsMono.variable} ${staatliches.variable}`}>
+    <html lang="en" className={`${jetbrainsMono.variable} ${staatliches.variable} ${kanit.variable}`}>
       <body className="font-mono">{children}</body>
     </html>
   )

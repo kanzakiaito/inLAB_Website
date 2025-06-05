@@ -189,3 +189,20 @@
 .font-mono {
   font-family: var(--font-jetbrains-mono), monospace;
 }
+
+.font-kanit {
+  font-family: var(--font-kanit), sans-serif;
+}
+
+@font-face {
+  font-family: 'SaoChingCha';
+  src: url('/fonts/SaoChingCha-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-saochingcha: 'SaoChingCha';
+}
+

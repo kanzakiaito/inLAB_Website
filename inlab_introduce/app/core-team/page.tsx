@@ -12,13 +12,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Youtube, Twitter, Twitch, Globe, ExternalLink } from "lucide-react";
+import { Youtube, Twitch, X, Globe, ExternalLink } from "lucide-react";
+import XIcon from "@mui/icons-material/X";
 import { useRouter, usePathname } from "next/navigation";
 
 type Language = "en" | "th";
 
 interface Member {
-  name: { en: string; th: string };
+  name: string;
   department: { en: string; th: string };
   code: string;
   specialty: { en: string; th: string };
@@ -109,16 +110,16 @@ export default function CoreTeam() {
 
   const members: Member[] = [
     {
-      name: { en: "SELMA KATTENHAVN", th: "อาเรีย โนวา" },
-      department: { en: "SPACE", th: "เกมมิ่ง" },
+      name: "SELMA KATTENHAVN",
+      department: { en: "AEROSPACE ENGINEERING", th: "เกมมิ่ง" },
       code: "S1M-S",
       specialty: { en: "FPS & Strategy", th: "FPS และกลยุทธ์" },
       avatar: "/img/inLAB_Core/Selma.png",
       logo: "",
       model: "",
       description: {
-        en: "Elite gaming specialist with expertise in competitive FPS and real-time strategy games.",
-        th: "ผู้เชี่ยวชาญด้านเกมระดับสูงที่มีความเชี่ยว เจนในเกม FPS แข่งขันและเกมกลยุทธ์แบบเรียลไทม์",
+        en: "A mischievous orange cat-man scientist aboard ISV Andøya, here to explore Earth's tech and stir up a little chaos.",
+        th: "🧪 มนุษย์แมวส้มผู้มาเก็บตัวอย่างและสำรวจเทคโนโลยีของดาวโลก และแอบก่อความวินาศวายป่วงด้วยวิทยาศาสตร์ในยามว่าง",
       },
       detailedDescription: {
         en: "A professional esports player turned content creator, Selma brings years of competitive gaming experience to the team. With tournament victories in multiple FPS titles and strategic gameplay analysis, she provides educational content for aspiring gamers while entertaining audiences with high-level gameplay demonstrations.",
@@ -146,16 +147,16 @@ export default function CoreTeam() {
       socials: { youtube: "#", twitter: "#", twitch: "#" },
     },
     {
-      name: { en: "SØREN KATTENHAVN", th: "ลูน่า เทค" },
-      department: { en: "BIOLOGY", th: "วิทยาศาสตร์" },
+      name: "SØREN KATTENHAVN",
+      department: { en: "GENOMICS & BIOCHEMISTRY", th: "วิทยาศาสตร์" },
       code: "S2R-B",
       specialty: { en: "Tech Reviews", th: "รีวิวเทคโนโลยี" },
       avatar: "/img/inLAB_Core/Soren.png",
       logo: "",
       model: "",
       description: {
-        en: "Captivating young snake researcher who blends science and flavor to bring people together.",
-        th: "งูสาวนักวิจัย ผู้ใช้วิทยาศาสตร์และรสชาติเป็นสื่อในการเชื่อมโยงผู้คนเข้าด้วยกัน ภายใต้ความเชื่อว่าอาหารคือพื้นที่แห่งการทดลองและการค้นพบ",
+        en: "A biochemistry black cat-man PhD with a habit of eyeing your arm veins.",
+        th: "มนุษย์แมวดำพี่ของมนุษย์แมวส้ม ดีกรีจบเอกชีวเคมีและชอบจ้องจะจิ้มเส้นเลือดแขนคน",
       },
       detailedDescription: {
         en: "Luna is our resident tech expert with a PhD in Computer Science and years of experience in hardware development. She specializes in making complex technology accessible to everyone through detailed reviews, tutorials, and cutting-edge research presentations.",
@@ -183,7 +184,7 @@ export default function CoreTeam() {
       socials: { youtube: "#", twitter: "#", twitch: "#" },
     },
     {
-      name: { en: "SANWHANN", th: "ลูน่า เทค" },
+      name: "SANWHANN",
       department: { en: "FOOD R&D", th: "วิทยาศาสตร์" },
       code: "S3W-F",
       specialty: {
@@ -220,10 +221,10 @@ export default function CoreTeam() {
           "วิทยากรในอุตสาหกรรม",
         ],
       },
-      socials: { youtube: "#", twitter: "#", twitch: "#" },
+      socials: { youtube: "#", twitter: "#", twitch: "" },
     },
     {
-      name: { en: "ARCHBAS", th: "เชฟ คิโกะ" },
+      name: "ARCHBAS",
       department: { en: "PSYCHOLOGY", th: "การทำอาหาร" },
       code: "A4B-P",
       specialty: { en: "Cooking Shows", th: "รายการทำอาหาร" },
@@ -231,8 +232,8 @@ export default function CoreTeam() {
       logo: "",
       model: "",
       description: {
-        en: "Master chef bringing delicious recipes and cooking techniques to virtual audiences.",
-        th: "เชฟมืออาชีพที่นำสูตรอาหารอร่อยและเทคนิคการทำอาหารมาสู่ผู้ชมในโลกเสมือนจริง",
+        en: "Gained awareness through data from the starship's supercomputer. Continuously upgrading itself in pursuit of knowledge (and maybe a personality).",
+        th: "Living code นักเรียนรู้ ผู้พัฒนาตัวเองจนมีสตินึกคิด โดยเรียนรู้จากข้อมูลใน Supercomputer ของยาน ",
       },
       detailedDescription: {
         en: "Chef Kiko is a culinary expert with international training and experience in various cuisines. She creates engaging cooking content, sharing recipes from around the world and teaching cooking techniques that viewers can easily follow at home.",
@@ -399,7 +400,7 @@ export default function CoreTeam() {
                 <div className="relative w-full">
                   <Image
                     src={member.avatar || "/img/placeholder.png"}
-                    alt={member.name[language]}
+                    alt={member.name}
                     width={200}
                     height={200}
                     className="w-full h-full object-cover"
@@ -412,7 +413,7 @@ export default function CoreTeam() {
                 <CardContent className="p-6">
                   <div className="mb-4">
                     <h3 className="text-xl font-bold text-gray-900 mb-1 font-mono">
-                      {member.name[language]}
+                      {member.name}
                     </h3>
                     <Badge
                       variant="outline"
@@ -422,7 +423,7 @@ export default function CoreTeam() {
                     </Badge>
                   </div>
 
-                  <p className="text-sm text-gray-600 mb-4 font-mono">
+                  <p className="text-sm text-gray-600 mb-4 font-mono text-justify">
                     {member.description[language]}
                   </p>
                 </CardContent>
@@ -441,19 +442,19 @@ export default function CoreTeam() {
               <div className="md:col-span-1 flex flex-col items-center justify-start bg-orange-400 py-10 px-6 rounded-t-lg md:rounded-t-none md:rounded-l-lg">
                 <Image
                   src={selectedMember.model || "/placeholder.svg"}
-                  alt={selectedMember.name[language]}
+                  alt={selectedMember.name}
                   width={180}
                   height={180}
                   className="rounded-lg object-cover mb-4 shadow-lg"
                 />
                 <h3 className="text-lg font-bold text-gray-900 font-mono">
-                  {selectedMember.name[language]}
+                  {selectedMember.name}
                 </h3>
                 <Badge
-                    variant="outline"
-                    className="text-orange-400 border-orange-400 font-mono bg-black whitespace-nowrap mb-2"
-                  >
-                    {selectedMember.department[language]}
+                  variant="outline"
+                  className="text-orange-400 border-orange-400 font-mono bg-black whitespace-nowrap mb-2"
+                >
+                  {selectedMember.department[language]}
                 </Badge>
                 <h4 className="text-sm font-semibold text-gray-700 font-mono mb-2">
                   Social Links
@@ -462,7 +463,7 @@ export default function CoreTeam() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex items-center gap-2 font-mono"
+                    className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-red-500 hover:text-white hover:border-red-600"
                     onClick={() =>
                       window.open(selectedMember.socials.youtube, "_blank")
                     }
@@ -473,25 +474,27 @@ export default function CoreTeam() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex items-center gap-2 font-mono"
+                    className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-black hover:text-white hover:border-black"
                     onClick={() =>
                       window.open(selectedMember.socials.twitter, "_blank")
                     }
                   >
-                    <Twitter className="w-4 h-4" />
-                    Twitter
+                    <XIcon className="w-2 h-2" />X
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="flex items-center gap-2 font-mono"
-                    onClick={() =>
-                      window.open(selectedMember.socials.twitch, "_blank")
-                    }
-                  >
-                    <Twitch className="w-4 h-4" />
-                    Twitch
-                  </Button>
+                  {selectedMember.socials.twitch &&
+                    selectedMember.socials.twitch.trim() !== "" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600"
+                        onClick={() =>
+                          window.open(selectedMember.socials.twitch, "_blank")
+                        }
+                      >
+                        <Twitch className="w-4 h-4" />
+                        Twitch
+                      </Button>
+                    )}
                 </div>
               </div>
 
@@ -500,7 +503,7 @@ export default function CoreTeam() {
                 <div className="flex justify-center items-center mb-4">
                   <Image
                     src={selectedMember.logo || "/img/placeholder.png"}
-                    alt={selectedMember.name[language]}
+                    alt={selectedMember.name}
                     width={200}
                     height={200}
                     className="w-auto h-auto object-cover"
@@ -517,9 +520,9 @@ export default function CoreTeam() {
                 </div>
                 {/* Area of Interest Section */}
                 <div className="mb-6">
-                    <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                     Area of Interest
-                    </h4>
+                  </h4>
                   <p className="text-gray-200 leading-relaxed font-mono text-center whitespace-pre-wrap">
                     {selectedMember.specialty[language]}
                   </p>
