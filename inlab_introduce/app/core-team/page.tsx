@@ -520,7 +520,7 @@ export default function CoreTeam() {
                     <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                     Area of Interest
                     </h4>
-                  <p className="text-gray-200 leading-relaxed font-mono text-justify whitespace-pre-wrap">
+                  <p className="text-gray-200 leading-relaxed font-mono text-center whitespace-pre-wrap">
                     {selectedMember.specialty[language]}
                   </p>
                 </div>
@@ -532,7 +532,7 @@ export default function CoreTeam() {
                         <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                           Birthday
                         </h4>
-                        <p className="text-gray-200 leading-relaxed font-mono text-justify">
+                        <p className="text-gray-200 leading-relaxed font-mono text-center">
                           {selectedMember.birthday[language]}
                         </p>
                       </div>
@@ -542,7 +542,7 @@ export default function CoreTeam() {
                     <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                       Fanmark
                     </h4>
-                    <p className="text-gray-200 leading-relaxed font-mono text-justify">
+                    <p className="text-gray-200 leading-relaxed font-mono text-center">
                       {selectedMember.fanmark}
                     </p>
                   </div>
