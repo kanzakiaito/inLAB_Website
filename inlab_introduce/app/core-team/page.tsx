@@ -150,11 +150,11 @@ export default function CoreTeam() {
     },
     {
       name: "SØREN KATTENHAVN",
-      department: { en: "GENOMICS & BIOCHEMISTRY", th: "วิทยาศาสตร์" },
+      department: { en: "GENOMICS & BIOCHEMISTRY", th: "GENOMICS & BIOCHEMISTRY" },
       code: "S2R-B",
       AOI: {
-        en: ["Biochemistry", "Aerospace engineering" , "Data science", "Medical science", "AI", "Science shitposting"],
-        th: ["Biochemistry", "Aerospace engineering" , "Data science", "Medical science", "AI", "Science shitposting"],
+        en: ["Biochemistry", "Genomics" , "Data science", "Medical science", "Medical AI (Artificial Intelligence)", "Scientific Shitposting"],
+        th: ["ชีวเคมี", "พันธุศาสตร์" , "วิทยาการข้อมูล", "วิทยาศาสตร์การแพทย์", "AI (ปัญญาประดิษฐ์) เชิงการแพทย์", "Scientific Shitposting"],
       },
       avatar: "/img/inLAB_Core/Soren.png",
       logo: "/img/Logo/ScientificCryptid.png",
@@ -165,7 +165,7 @@ export default function CoreTeam() {
       },
       detailedDescription: {
         en: "A researcher cat man and older sibling of Selma Kattenhavn, senior scientist and head of biochemistry department of ISV Andøya Expedition. With goal to collect data, biobank sample and study interesting species on the planet Earth. Sometimes pranking his younger brother as hobby.\n\nHaving biochem PhD in real life, specialized in genomics and bioinformatics. Totally not a mad scientist.",
-        th: "ลูน่าเป็นผู้เชี่ยวชาญด้านเทคโนโลยีประจำของเรา ที่มีปริญญาเอกด้านวิทยาการคอมพิวเตอร์และประสบการณ์หลายปีในการพัฒนาฮาร์ดแวร์",
+        th: "นักวิทยาศาสตร์อาวุโสและหัวหน้าแผนกชีวเคมีของยานอวกาศ ISV Andøya Expedition ผู้เป็นพี่ชายของ Selma Kattenhavn\n\nเขามีเป้าหมายหลักในการเก็บข้อมูล, เก็บตัวอย่างชีวภาพ และศึกษาสิ่งมีชีวิตแปลก ๆ บนโลก อีกทั้งเขายังมีงานอดิเรกในการแกล้งน้องตัวเองและจิ้มแขนคน(?)อีกด้วย\n\nในชีวิตจริง เขาได้วุฒิปริญญาเอกด้านชีวเคมี และเชี่ยวชาญในเรื่อง Genomics รวมถึง Bioinformatics แต่อย่างไรก็ดีเขาก็ไม่ใช่นักวิทยาศาสตร์บ้าคลั่งไปซะทีเดียว(?)",
       },
       birthday: {
         en: "N/A",
@@ -174,23 +174,21 @@ export default function CoreTeam() {
       fanmark: "🧬🧪🌠",
       specialize: {
         en: [
-          "PhD in Computer Science",
-          "Published 15+ Research Papers",
-          "Tech Innovation Award",
-          "Industry Speaker",
+          "Biochemistry",
+          "Bioinformatics",
+          "Human Genomes",
         ],
         th: [
-          "ปริญญาเอกวิทยาการคอมพิวเตอร์",
-          "ตีพิมพ์งานวิจัย 15+ ฉบับ",
-          "รางวัลนวัตกรรมเทคโนโลยี",
-          "วิทยากรในอุตสาหกรรม",
+          "ชีวเคมี",
+          "ชีวสารสนเทศศาสตร์ (ชีววิทยาเชิงคำนวณ)",
+          "Genomes ของมนุษย์",
         ],
       },
       socials: {
       youtube: "https://www.youtube.com/@scientificcryptid",
       twitter: "https://x.com/SCICRYP1",
       twitch: "https://www.twitch.tv/scientificcryptid",
-      mail: ""
+      mail: "projectselmaen@gmail.com",
     },
     },
     {
@@ -571,27 +569,31 @@ export default function CoreTeam() {
                       selectedMember.description[language]}
                   </p>
                 </div>
-                {/* Area of Interest Section */}
-                <div className="mb-6">
-                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
-                    Area of Interest
-                  </h4>
-                  <ul className="space-y-2">
-                    {selectedMember.AOI[language].map(
-                      (AOI, index) => (
-                        <li
-                          key={index}
-                          className={`flex items-center gap-2 ${
-                            language === "th" ? "font-kanit" : "font-mono"
-                          } text-gray-200`}
-                        >
-                          <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                          {AOI}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
+                {/* specialize */}
+                {selectedMember.specialize && (
+                  <div className="pb-5">
+                    <h4
+                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
+                    >
+                      Specialize
+                    </h4>
+                    <ul className="space-y-2">
+                      {selectedMember.specialize[language].map(
+                        (achievement, index) => (
+                          <li
+                            key={index}
+                            className={`flex items-center gap-2 text-gray-200 ${
+                              language === "th" ? "font-kanit" : "font-mono"
+                            }`}
+                          >
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                            {achievement}
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                )}
                 <div className="flex gap-6 mb-6">
                   {/* Birthday Section */}
                   {selectedMember.birthday &&
@@ -666,31 +668,27 @@ export default function CoreTeam() {
                     </p>
                   </div>
                 </div>
-                {/* specialize */}
-                {selectedMember.specialize && (
-                  <div>
-                    <h4
-                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
-                    >
-                      Specialize
-                    </h4>
-                    <ul className="space-y-2">
-                      {selectedMember.specialize[language].map(
-                        (achievement, index) => (
-                          <li
-                            key={index}
-                            className={`flex items-center gap-2 text-gray-200 ${
-                              language === "th" ? "font-kanit" : "font-mono"
-                            }`}
-                          >
-                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                            {achievement}
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                )}
+                {/* Area of Interest Section */}
+                <div className="mb-6">
+                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                    Area of Interest
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedMember.AOI[language].map(
+                      (AOI, index) => (
+                        <li
+                          key={index}
+                          className={`flex items-center gap-2 ${
+                            language === "th" ? "font-kanit" : "font-mono"
+                          } text-gray-200`}
+                        >
+                          <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                          {AOI}
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
               </div>
             </div>
           )}
