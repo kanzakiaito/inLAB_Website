@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Youtube, Twitch, X, Globe } from "lucide-react";
+import { Youtube, Twitch, X, Globe, Mail } from "lucide-react";
 import XIcon from "@mui/icons-material/X";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -22,7 +22,7 @@ interface Member {
   model: string;
   description: { en: string; th: string };
   detailedDescription?: { en: string; th: string };
-  socials: { youtube: string; twitter: string; twitch: string };
+  socials: { youtube: string; twitter: string; twitch: string; mail: string };
   birthday: { en: string; th: string };
   fanmark: string;
   specialize?: { en: string[]; th: string[] };
@@ -66,7 +66,7 @@ export default function CoreTeam() {
       section: "ISV Andøya Expedition",
       meetTalent: "พบกับพรสวรรค์ของเรา",
       description:
-        "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
+        "มาทำความรู้จักกับเหล่า Specialist กลุ่มผู้นำจาก inLAB ผู้ซึ่งเป็นหัวใจสำคัญของเรา\nที่มาพร้อมกับความรู้เฉพาะทางและประสบการณ์อันโดดเด่น\nเพื่อยกระดับประสบการณ์เชิงวิทยาศาสตร์ให้กับทุกคน!",
       follow: "ติดตาม",
       joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
       communityDescription:
@@ -107,7 +107,7 @@ export default function CoreTeam() {
   const members: Member[] = [
     {
       name: "SELMA KATTENHAVN",
-      department: { en: "AEROSPACE ENGINEERING", th: "เกมมิ่ง" },
+      department: { en: "AEROSPACE ENGINEERING", th: "AEROSPACE ENGINEERING" },
       code: "S1M-S",
       AOI: {
         en: ["Chemistry", "Aerospace engineering", "Technical design", "Speculative Biology", "Worldbuilding", "Medieval Martial art"],
@@ -144,7 +144,8 @@ export default function CoreTeam() {
       socials: {
       youtube: "https://www.youtube.com/@scientificcryptid",
       twitter: "https://x.com/SCICRYP1",
-      twitch: "https://www.twitch.tv/scientificcryptid"
+      twitch: "https://www.twitch.tv/scientificcryptid",
+      mail: "projectselmaen@gmail.com",
     },
     },
     {
@@ -185,7 +186,12 @@ export default function CoreTeam() {
           "วิทยากรในอุตสาหกรรม",
         ],
       },
-      socials: { youtube: "#", twitter: "#", twitch: "#" },
+      socials: {
+      youtube: "https://www.youtube.com/@scientificcryptid",
+      twitter: "https://x.com/SCICRYP1",
+      twitch: "https://www.twitch.tv/scientificcryptid",
+      mail: ""
+    },
     },
     {
       name: "SANWHANN",
@@ -225,7 +231,12 @@ export default function CoreTeam() {
           "วิทยากรในอุตสาหกรรม",
         ],
       },
-      socials: { youtube: "#", twitter: "#", twitch: "" },
+      socials: {
+      youtube: "https://www.youtube.com/@scientificcryptid",
+      twitter: "https://x.com/SCICRYP1",
+      twitch: "https://www.twitch.tv/scientificcryptid",
+      mail: ""
+    },
     },
     {
       name: "ARCHBAS",
@@ -265,7 +276,12 @@ export default function CoreTeam() {
           "พิธีกรรายการทำอาหารทีวี",
         ],
       },
-      socials: { youtube: "#", twitter: "#", twitch: "#" },
+      socials: {
+      youtube: "https://www.youtube.com/@scientificcryptid",
+      twitter: "https://x.com/SCICRYP1",
+      twitch: "https://www.twitch.tv/scientificcryptid",
+      mail: ""
+    },
     },
   ];
 
@@ -393,7 +409,7 @@ export default function CoreTeam() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
             <p
-              className={`text-lg text-gray-600 max-w-2xl mx-auto ${
+              className={`text-lg text-gray-600 max-w-2xl mx-auto whitespace-pre-wrap ${
                 language === "th" ? "font-kanit" : "font-mono"
               }`}
             >
@@ -460,23 +476,19 @@ export default function CoreTeam() {
                   alt={selectedMember.name}
                   width={180}
                   height={180}
-                  className="rounded-lg object-cover mb-4 shadow-lg"
+                  className="rounded-lg object-cover mb-4 shadow-lg select-none pointer-events-none"
                 />
                 <h3 className="text-lg font-bold text-gray-900 font-mono">
                   {selectedMember.name}
                 </h3>
                 <Badge
                   variant="outline"
-                  className={`text-orange-400 border-orange-400 ${
-                    language === "th" ? "font-kanit" : "font-mono"
-                  } bg-black whitespace-nowrap mb-2`}
+                  className={`text-orange-400 border-orange-400 font-mono bg-black whitespace-nowrap mb-2`}
                 >
                   {selectedMember.department[language]}
                 </Badge>
                 <h4
-                  className={`text-sm font-semibold text-gray-700 mb-2 ${
-                    language === "th" ? "font-kanit" : "font-mono"
-                  }`}
+                  className={`text-sm font-semibold text-gray-700 mb-2 font-mono`}
                 >
                   Social Links
                 </h4>
@@ -484,9 +496,7 @@ export default function CoreTeam() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-red-500 hover:text-white hover:border-red-600 ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
+                    className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-red-500 hover:text-white hover:border-red-600 font-mono`}
                     onClick={() =>
                       window.open(selectedMember.socials.youtube, "_blank")
                     }
@@ -497,9 +507,7 @@ export default function CoreTeam() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-black hover:text-white hover:border-black ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
+                    className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-black hover:text-white hover:border-black font-mono`}
                     onClick={() =>
                       window.open(selectedMember.socials.twitter, "_blank")
                     }
@@ -511,15 +519,27 @@ export default function CoreTeam() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600 ${
-                          language === "th" ? "font-kanit" : "font-mono"
-                        }`}
+                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-purple-600 hover:text-white hover:border-orange-600 font-mono`}
                         onClick={() =>
                           window.open(selectedMember.socials.twitch, "_blank")
                         }
                       >
                         <Twitch className="w-4 h-4" />
                         Twitch
+                      </Button>
+                    )}
+                  {selectedMember.socials.mail &&
+                    selectedMember.socials.mail.trim() !== "" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600 font-mono`}
+                        onClick={() =>
+                          window.open(`mailto:${selectedMember.socials.mail}`, "_blank")
+                        }
+                      >
+                        <Mail className="w-4 h-4" />
+                        E-Mail
                       </Button>
                     )}
                 </div>
@@ -533,14 +553,12 @@ export default function CoreTeam() {
                     alt={selectedMember.name}
                     width={200}
                     height={200}
-                    className="w-auto h-auto object-cover"
+                    className="w-auto h-auto object-cover select-none pointer-events-none"
                   />
                 </div>
                 <div className="mb-6">
                   <h4
-                    className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
+                    className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
                   >
                     Description
                   </h4>
@@ -580,9 +598,7 @@ export default function CoreTeam() {
                     selectedMember.birthday[language] && (
                       <div className="flex-1">
                         <h4
-                          className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
-                            language === "th" ? "font-kanit" : "font-mono"
-                          }`}
+                          className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
                         >
                           Birthday
                         </h4>
@@ -637,9 +653,7 @@ export default function CoreTeam() {
                   {/* Fanmark Section */}
                   <div className="flex-1">
                     <h4
-                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
-                        language === "th" ? "font-kanit" : "font-mono"
-                      }`}
+                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
                     >
                       Fanmark
                     </h4>
@@ -656,9 +670,7 @@ export default function CoreTeam() {
                 {selectedMember.specialize && (
                   <div>
                     <h4
-                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
-                        language === "th" ? "font-kanit" : "font-mono"
-                      }`}
+                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
                     >
                       Specialize
                     </h4>
