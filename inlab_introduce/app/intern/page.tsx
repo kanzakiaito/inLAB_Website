@@ -8,21 +8,18 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Youtube, Twitch, X, Globe, ExternalLink } from "lucide-react";
+import { Youtube, Twitch, X, Globe } from "lucide-react";
 import XIcon from "@mui/icons-material/X";
 import { useRouter, usePathname } from "next/navigation";
 
 type Language = "en" | "th";
 
 interface Member {
-  name: { en: string; th: string };
+  name: string;
   department: { en: string; th: string };
   code: string;
-  specialty: { en: string; th: string };
+  specialty: { en: string[]; th: string[] };
   avatar: string;
   logo: string;
   model: string;
@@ -73,7 +70,8 @@ export default function CoreTeam() {
         "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
       follow: "ติดตาม",
       joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
-      communityDescription: "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
+      communityDescription:
+        "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
       joinDiscord: "เข้าร่วม Discord",
       coreTeam: "ทีมหลัก",
       intern: "นักศึกษาฝึกงาน",
@@ -109,26 +107,41 @@ export default function CoreTeam() {
 
   const members: Member[] = [
     {
-      name: { en: "KANZAKI AITO", th: "อาเรีย โนวา" },
-      department: { en: "COMPUTER SCIENCE", th: "เกมมิ่ง" },
+      name: "KANZAKI AITO",
+      department: { en: "COMPUTER SCIENCE", th: "COMPUTER SCIENCE" },
       code: "A1T-IC",
-      specialty: { en: "FPS & Strategy", th: "FPS และกลยุทธ์" },
+      specialty: {
+        en: [
+          "Software Development (Programming / Full Stack)",
+          "Software Engineering (Software Testing / Validation / Quality Assurance)",
+          "AI (LLMs / Generative AI / Time Series Analysis / Recommendation System)",
+          "Cybersecurity (OWASP / Red Team Pen-test)",
+          "Education",
+        ],
+        th: [
+          "Software Development (Programming / Full Stack)",
+          "Software Engineering (Software Testing / Validation / Quality Assurance)",
+          "AI (LLMs / Generative AI / Time Series Analysis / Recommendation System)",
+          "Cybersecurity (OWASP / Red Team Pen-test)",
+          "Education",
+        ],
+      },
       avatar: "/img/inLAB_Intern/Aito.png",
-      logo: "",
+      logo: "/img/Logo/Aito.png",
       model: "/img/Model/Aito.png",
       description: {
-        en: "Elite gaming specialist with expertise in competitive FPS and real-time strategy games.",
-        th: "ผู้เชี่ยวชาญด้านเกมระดับสูงที่มีความเชี่ยว เจนในเกม FPS แข่งขันและเกมกลยุทธ์แบบเรียลไทม์",
+        en: "A programmer with dark circles under his eyes, who does fortune telling a little bit(?)",
+        th: 'โปรแกรมเมอร์ขอบตาดำ เจ้าของร้าน "คอมสารพัดนึก" ที่ดูดวงเป็นนิดหน่อย(?)',
       },
       detailedDescription: {
-        en: "A professional esports player turned content creator, Selma brings years of competitive gaming experience to the team. With tournament victories in multiple FPS titles and strategic gameplay analysis, she provides educational content for aspiring gamers while entertaining audiences with high-level gameplay demonstrations.",
-        th: "นักกีฬาอีสปอร์ตมืออาชีพที่หันมาเป็นผู้สร้างเนื้อหา เซลม่านำประสบการณ์การเล่นเกมแข่งขันหลายปีมาสู่ทีม ด้วยชัยชนะในทัวร์นาเมนต์เกม FPS หลายรายการและการวิเคราะห์เกมเพลย์เชิงกลยุทธ์",
+        en: "A multi-talented computer shop owner and programmer who can craft any technology imaginable.\n\nHis past remains shrouded in mystery. Only his ability to 'predict' seems inconsistent with being a programmer, but he can predict with remarkable accuracy.\n\n\"Want to know my story more? Try predicting it by yourself~\"",
+        th: 'โปรแกรมเมอร์หนุ่มขอบตาดำมากความสามารถ เจ้าของร้าน "คอมสารพัดนึก" ที่สามารถรังสรรค์โปรแกรม เว็บ และคอมพิวเตอร์ได้ดั่งใจคุณต้องการ\n\nอดีตของเขายังคงถูกปิดบังเป็นปริศนา มีเพียงความสามารถในการ "ทำนาย" ที่ดูไม่เข้ากับความเป็นโปรแกรมเมอร์ แต่เขาก็สามารถทำนายได้อย่างแม่นยำ\n\n"อยากรู้เรื่องราวของไอโตะเหรอ? ลองทำนายดูสิ~"',
       },
       birthday: {
-        en: "9th August",
-        th: "9 สิงหาคม",
+        en: "8th December",
+        th: "8 ธันวาคม",
       },
-      fanmark: "",
+      fanmark: " 💻🩵✨",
       achievements: {
         en: [
           "Regional FPS Champion 2023",
@@ -146,26 +159,35 @@ export default function CoreTeam() {
       socials: { youtube: "#", twitter: "#", twitch: "#" },
     },
     {
-      name: { en: "LYRIC URSAE", th: "ลูน่า เทค" },
-      department: { en: "VETERINARY MEDICINE", th: "วิทยาศาสตร์" },
-      code: "S2R-V",
-      specialty: { en: "Tech Reviews", th: "รีวิวเทคโนโลยี" },
+      name: "LYRIC URSAE",
+      department: { en: "VETERINARY MEDICINE", th: "VETERINARY MEDICINE" },
+      code: "L2R-V",
+      specialty: {
+        en: [
+          "Veterinary medicine (Especially in Orthopedics)",
+          "Epidemiology",
+        ],
+        th: [
+          "Veterinary medicine (Especially in Orthopedics)",
+          "Epidemiology",
+        ],
+      },
       avatar: "/img/inLAB_Intern/Lyric.png",
-      logo: "",
-      model: "",
+      logo: "/img/Logo/Lyric.png",
+      model: "/img/Model/Lyric.png",
       description: {
-        en: "Captivating young snake researcher who blends science and flavor to bring people together.",
-        th: "งูสาวนักวิจัย ผู้ใช้วิทยาศาสตร์และรสชาติเป็นสื่อในการเชื่อมโยงผู้คนเข้าด้วยกัน ภายใต้ความเชื่อว่าอาหารคือพื้นที่แห่งการทดลองและการค้นพบ",
+        en: "Grumpy Bear Commander with passion!",
+        th: "หมีสาวผู้บัญชาการขี้บ่น ที่เต็มเปี่ยมไปด้วยแรงบันดาลใจ!",
       },
       detailedDescription: {
-        en: "Luna is our resident tech expert with a PhD in Computer Science and years of experience in hardware development. She specializes in making complex technology accessible to everyone through detailed reviews, tutorials, and cutting-edge research presentations.",
-        th: "ลูน่าเป็นผู้เชี่ยวชาญด้านเทคโนโลยีประจำของเรา ที่มีปริญญาเอกด้านวิทยาการคอมพิวเตอร์และประสบการณ์หลายปีในการพัฒนาฮาร์ดแวร์",
+        en: "A bear girl who serves as a commanding officer of the medical unit aboard a spaceship. She is proficient in veterinary medicine and epidemiology. One of the mystery people still wondering about her is why she always has a anesthetic dart gun at hand.\n\nHer past history remains unclear, but with her abilities in terms of knowledge and her tendency to complain(?), she is definitely ready to dispense medicine and share her experiences with everyone who passes by!",
+        th: "หมีสาวผู้บัญชาการประจำหน่วยแพทย์บนยาน ผู้รอบรู้ในด้านสัตวแพทย์ และโรคระบาด แต่ไม่เข้าใจเหมือนกันว่าทำไมเธอถึงต้องมีปืนยาสลบอยู่ใกล้มือตลอดเวลา?\n\nประวัติในอดีตยังไม่เป็นอันทราบแน่ชัด แต่ด้วยความสามารถของเธอในเชิงความรู้และขี้บ่น(?) เธอพร้อมที่จะป้ายยาและแชร์ประสบการณ์ให้ผู้ผ่านทางทุกคนอย่างแน่นอน!",
       },
       birthday: {
-        en: "",
-        th: "",
+        en: "26th April",
+        th: "26 เมษายน",
       },
-      fanmark: "",
+      fanmark: "🐻🥽",
       achievements: {
         en: [
           "PhD in Computer Science",
@@ -183,16 +205,22 @@ export default function CoreTeam() {
       socials: { youtube: "#", twitter: "#", twitch: "#" },
     },
     {
-      name: { en: "ARITHMOS", th: "ลูน่า เทค" },
-      department: { en: "ACTUARY", th: "วิทยาศาสตร์" },
+      name: "ARITHMOS",
+      department: { en: "ACTUARY", th: "ACTUARY" },
       code: "A3M-IA",
       specialty: {
-        en: "Plant-based food, Drinking, Digital marketing",
-        th: "รีวิวเทคโนโลยี",
+        en: [
+          "Software Development",
+          "Software Engineering",
+          "AI",
+          "Cybersecurity",
+          "Education",
+        ],
+        th: ["FPS และกลยุทธ์"],
       },
       avatar: "/img/inLAB_Intern/Arithmos.png",
-      logo: "/img/Logo/Sanwhann.PNG",
-      model: "/img/Model/Sanwhann.png",
+      logo: "/img/Logo/Arithmos.png",
+      model: "/img/Model/Arithmos.png",
       description: {
         en: "Captivating young snake researcher who blends science and flavor to bring people together.",
         th: "งูสาวนักวิจัย ผู้ใช้วิทยาศาสตร์และรสชาติเป็นสื่อในการเชื่อมโยงผู้คนเข้าด้วยกัน ภายใต้ความเชื่อว่าอาหารคือพื้นที่แห่งการทดลองและการค้นพบ",
@@ -347,9 +375,13 @@ export default function CoreTeam() {
       <div className="bg-white flex-grow">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
-            <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${language === "th" ? "font-kanit" : "font-mono"}`}>
-  {t.description}
-</p>
+            <p
+              className={`text-lg text-gray-600 max-w-2xl mx-auto ${
+                language === "th" ? "font-kanit" : "font-mono"
+              }`}
+            >
+              {t.description}
+            </p>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
@@ -362,7 +394,7 @@ export default function CoreTeam() {
                 <div className="relative w-full">
                   <Image
                     src={member.avatar || "/img/placeholder.png"}
-                    alt={member.name[language]}
+                    alt={member.name}
                     width={200}
                     height={200}
                     className="w-full h-full object-cover"
@@ -375,7 +407,7 @@ export default function CoreTeam() {
                 <CardContent className="p-6">
                   <div className="mb-4">
                     <h3 className="text-xl font-bold text-gray-900 mb-1 font-mono">
-                      {member.name[language]}
+                      {member.name}
                     </h3>
                     <Badge
                       variant="outline"
@@ -385,7 +417,11 @@ export default function CoreTeam() {
                     </Badge>
                   </div>
 
-                  <p className="text-sm text-gray-600 mb-4 font-mono">
+                  <p
+                    className={`text-sm text-gray-600 mb-4 ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
                     {member.description[language]}
                   </p>
                 </CardContent>
@@ -404,13 +440,13 @@ export default function CoreTeam() {
               <div className="md:col-span-1 flex flex-col items-center justify-start bg-orange-400 py-10 px-6 rounded-t-lg md:rounded-t-none md:rounded-l-lg">
                 <Image
                   src={selectedMember.model || "/placeholder.svg"}
-                  alt={selectedMember.name[language]}
+                  alt={selectedMember.name}
                   width={180}
                   height={180}
                   className="rounded-lg object-cover mb-4 shadow-lg"
                 />
                 <h3 className="text-lg font-bold text-gray-900 font-mono">
-                  {selectedMember.name[language]}
+                  {selectedMember.name}
                 </h3>
                 <Badge
                   variant="outline"
@@ -465,7 +501,7 @@ export default function CoreTeam() {
                 <div className="flex justify-center items-center mb-4">
                   <Image
                     src={selectedMember.logo || "/img/placeholder.png"}
-                    alt={selectedMember.name[language]}
+                    alt={selectedMember.name}
                     width={200}
                     height={200}
                     className="w-auto h-auto object-cover"
@@ -475,7 +511,11 @@ export default function CoreTeam() {
                   <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                     Description
                   </h4>
-                  <p className="text-gray-200 leading-relaxed font-mono text-justify whitespace-pre-wrap">
+                  <p
+                    className={`text-gray-200 leading-relaxed ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    } text-justify whitespace-pre-wrap`}
+                  >
                     {selectedMember.detailedDescription?.[language] ||
                       selectedMember.description[language]}
                   </p>
@@ -485,9 +525,21 @@ export default function CoreTeam() {
                   <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                     Area of Interest
                   </h4>
-                  <p className="text-gray-200 leading-relaxed font-mono text-center whitespace-pre-wrap">
-                    {selectedMember.specialty[language]}
-                  </p>
+                  <ul className="space-y-2">
+                    {selectedMember.specialty[language].map(
+                      (specialty, index) => (
+                        <li
+                          key={index}
+                          className={`flex items-center gap-2 ${
+                            language === "th" ? "font-kanit" : "font-mono"
+                          } text-gray-200`}
+                        >
+                          <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                          {specialty}
+                        </li>
+                      )
+                    )}
+                  </ul>
                 </div>
                 <div className="flex gap-6 mb-6">
                   {/* Birthday Section */}
@@ -497,7 +549,11 @@ export default function CoreTeam() {
                         <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                           Birthday
                         </h4>
-                        <p className="text-gray-200 leading-relaxed font-mono text-center">
+                        <p
+                          className={`text-gray-200 leading-relaxed ${
+                            language === "th" ? "font-kanit" : "font-mono"
+                          } text-center`}
+                        >
                           {selectedMember.birthday[language]}
                         </p>
                       </div>
@@ -507,7 +563,11 @@ export default function CoreTeam() {
                     <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                       Fanmark
                     </h4>
-                    <p className="text-gray-200 leading-relaxed font-mono text-center">
+                    <p
+                      className={`text-gray-200 leading-relaxed ${
+                        language === "th" ? "font-kanit" : "font-mono"
+                      } text-center`}
+                    >
                       {selectedMember.fanmark}
                     </p>
                   </div>
@@ -523,7 +583,9 @@ export default function CoreTeam() {
                         (achievement, index) => (
                           <li
                             key={index}
-                            className="flex items-center gap-2 font-mono text-gray-200"
+                            className={`flex items-center gap-2 ${
+                              language === "th" ? "font-kanit" : "font-mono"
+                            } text-gray-200`}
                           >
                             <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
                             {achievement}
@@ -540,37 +602,57 @@ export default function CoreTeam() {
       </Dialog>
 
       {/* Footer */}
-            <div className="bg-gray-900 text-white py-12">
-              <div className="container mx-auto px-4 text-center">
-                <h3 className={`text-2xl font-bold mb-4 ${language === "th" ? "font-kanit" : "font-mono"}`}>{t.joinCommunity}</h3>
-                <p className={`text-gray-400 mb-6 max-w-2xl mx-auto ${language === "th" ? "font-kanit" : "font-mono"}`}>{t.communityDescription}</p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="https://discord.gg/yK6bxAFx7F" // Set the Discord invite link here
-                    target="_blank" // Opens in a new tab
-                    rel="noopener noreferrer" // Recommended for security with target="_blank"
-                    onMouseEnter={() => setIsDiscordHovered(true)} // Keep hover effect on anchor
-                    onMouseLeave={() => setIsDiscordHovered(false)} // Keep hover effect on anchor
-                  >
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className={`bg-indigo-500 border-white text-white hover:bg-white hover:text-black cursor-pointer ${language === "th" ? "font-kanit" : "font-mono"}`}
-                    >
-                      <Image
-                        src={isDiscordHovered ? "/img/discord_black.png" : "/img/discord.png"}
-                        alt="Discord Icon"
-                        width={24}
-                        height={24}
-                        className="mr-2"
-                      />
-                      {t.joinDiscord}
-                    </Button>
-                  </a>
-                </div>
-              </div>
-              <div className="text-center pt-8 text-sm text-orange-300">© 2025 InLAB, Outreach division.</div>
-            </div>
+      <div className="bg-gray-900 text-white py-12">
+        <div className="container mx-auto px-4 text-center">
+          <h3
+            className={`text-2xl font-bold mb-4 ${
+              language === "th" ? "font-kanit" : "font-mono"
+            }`}
+          >
+            {t.joinCommunity}
+          </h3>
+          <p
+            className={`text-gray-400 mb-6 max-w-2xl mx-auto ${
+              language === "th" ? "font-kanit" : "font-mono"
+            }`}
+          >
+            {t.communityDescription}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://discord.gg/yK6bxAFx7F" // Set the Discord invite link here
+              target="_blank" // Opens in a new tab
+              rel="noopener noreferrer" // Recommended for security with target="_blank"
+              onMouseEnter={() => setIsDiscordHovered(true)} // Keep hover effect on anchor
+              onMouseLeave={() => setIsDiscordHovered(false)} // Keep hover effect on anchor
+            >
+              <Button
+                size="lg"
+                variant="outline"
+                className={`bg-indigo-500 border-white text-white hover:bg-white hover:text-black cursor-pointer ${
+                  language === "th" ? "font-kanit" : "font-mono"
+                }`}
+              >
+                <Image
+                  src={
+                    isDiscordHovered
+                      ? "/img/discord_black.png"
+                      : "/img/discord.png"
+                  }
+                  alt="Discord Icon"
+                  width={24}
+                  height={24}
+                  className="mr-2"
+                />
+                {t.joinDiscord}
+              </Button>
+            </a>
+          </div>
+        </div>
+        <div className="text-center pt-8 text-sm text-orange-300">
+          © 2025 InLAB, Outreach division.
+        </div>
+      </div>
     </div>
   );
 }

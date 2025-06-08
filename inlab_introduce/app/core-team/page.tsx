@@ -122,7 +122,7 @@ export default function CoreTeam() {
         th: "มนุษย์แมวส้มผู้มาเก็บตัวอย่างและสำรวจเทคโนโลยีของดาวโลก และแอบก่อความวินาศวายป่วงด้วยวิทยาศาสตร์ในยามว่าง",
       },
       detailedDescription: {
-        en: "A professional esports player turned content creator, Selma brings years of competitive gaming experience to the team. With tournament victories in multiple FPS titles and strategic gameplay analysis, she provides educational content for aspiring gamers while entertaining audiences with high-level gameplay demonstrations.",
+        en: "A cat man who like fire and explosion, living abroad interstellar space vessel ISV Andøya Expedition. With goal to collect data and study about technology of habitant of the planet Earth. Younger sibling of Søren Kattenhavn\n\nHaving experience in aerospace engineering R&D and working as research assistant in real life. Want to make science fun and interesting again",
         th: "นักกีฬาอีสปอร์ตมืออาชีพที่หันมาเป็นผู้สร้างเนื้อหา เซลม่านำประสบการณ์การเล่นเกมแข่งขันหลายปีมาสู่ทีม ด้วยชัยชนะในทัวร์นาเมนต์เกม FPS หลายรายการและการวิเคราะห์เกมเพลย์เชิงกลยุทธ์",
       },
       birthday: {
@@ -200,7 +200,7 @@ export default function CoreTeam() {
       },
       detailedDescription: {
         en: "A young woman with an emerald snake tail, living in a wooden house in the middle of a vast forest. Hidden behind a bookshelf is her secret laboratory, where she experiments with new recipes.\n\nShe believes that food is a space for experimentation and discovery. Throughout her time in this forest home, she often brews warm tea and serves freshly invented snacks to share with visitors who stop by to rest and exchange stories.\n\nCurrently, she is joining the ISV Andøya Expedition crew to find more ingredients and new recipe",
-        th: "ลูน่าเป็นผู้เชี่ยวชาญด้านเทคโนโลยีประจำของเรา ที่มีปริญญาเอกด้านวิทยาการคอมพิวเตอร์และประสบการณ์หลายปีในการพัฒนาฮาร์ดแวร์",
+        th: "แสนหวาน หญิงสาวเจ้าของหางงูสีมรกตที่อาศัยอยู่ในบ้านไม้หลังเล็กอันอบอุ่นกลางใจป่าใหญ่ ภายในบ้านแสนธรรมดาแห่งนี้ เธอได้ซ่อนห้องทดลองลับไว้หลังชั้นหนังสือ ซึ่งเป็นพื้นที่ศักดิ์สิทธิ์สำหรับการคิดค้นสูตรอาหารใหม่ ๆ เพราะเธอเชื่อมั่นว่าอาหารคือสนามแห่งการทดลองและการค้นพบสิ่งใหม่ ๆ\n\nตลอดเวลาที่อยู่ที่บ้านกลางป่าแห่งนี้ แสนหวานมักชงชาอุ่น ๆ พร้อมเสิร์ฟอาหารว่างที่เพิ่งค้นพบสูตรใหม่ ๆ ขึ้นมา เพื่อต้อนรับผู้มาเยือนที่แวะมาพักพิงและแลกเปลี่ยนเรื่องราวต่าง ๆ อยู่เป็นประจำ\n\nปัจจุบันเธอได้เข้าร่วมกับยาน ISV Andøya Expedition เพื่อออกเดินทางรวบรวมวัตถุดิบและค้นหาสูตรอาหารใหม่ ๆ ที่ยังไม่เคยได้สัมผัสมาก่อน",
       },
       birthday: {
         en: "9th August",
@@ -236,8 +236,8 @@ export default function CoreTeam() {
         th: "Living code นักเรียนรู้ ผู้พัฒนาตัวเองจนมีสตินึกคิด โดยเรียนรู้จากข้อมูลใน Supercomputer ของยาน ",
       },
       detailedDescription: {
-        en: "Chef Kiko is a culinary expert with international training and experience in various cuisines. She creates engaging cooking content, sharing recipes from around the world and teaching cooking techniques that viewers can easily follow at home.",
-        th: "เชฟคิโกะเป็นผู้เชี่ยวชาญด้านการทำอาหารที่ได้รับการฝึกฝนระดับนานาชาติและมีประสบการณ์ในอาหารหลากหลายประเภท",
+        en: "A Living code that was borned from the coding world, sneaked to ISV Andøya Expedition's spacecraft.\n\nTraining it self by using all data on spacecraft that mostly in engineering, research paper, some of variety entertainment. It makes Archbas, the living code vtuber that has many educational contents, and some entertainment",
+        th: "Living code ที่มีชีวิตขึ้นมาจากโลกที่เต็มไปด้วย Code แอบขึ้นยาน ISV Andøya Expedition มา training ตัวเองเพิ่มจากข้อมูลที่มีอยู่บนยาน ที่ส่วนใหญ่มีแต่ วิศวกรรม งานวิจัยต่างๆ มีความบันเทิงอยู่นิดนึง\n\nและด้วยเหตุนี้เอง ก็เลยถือกำเนิดเป็น Archbas, VTuber living code ที่มีแต่สาระ บันเทิงได้นิดหน่อย\n\n\"เป็นคนแล้วเหนื่อย เป็นลิงใน Workstation ดีกว่า\"",
       },
       birthday: {
         en: "",
