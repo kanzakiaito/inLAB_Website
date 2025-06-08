@@ -5,14 +5,8 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Youtube, Twitch, X, Globe, ExternalLink } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Youtube, Twitch, X, Globe } from "lucide-react";
 import XIcon from "@mui/icons-material/X";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -22,7 +16,7 @@ interface Member {
   name: string;
   department: { en: string; th: string };
   code: string;
-  specialty: { en: string; th: string };
+  AOI: { en: string[]; th: string[] };
   avatar: string;
   logo: string;
   model: string;
@@ -31,7 +25,7 @@ interface Member {
   socials: { youtube: string; twitter: string; twitch: string };
   birthday: { en: string; th: string };
   fanmark: string;
-  achievements?: { en: string[]; th: string[] };
+  specialize?: { en: string[]; th: string[] };
 }
 
 export default function CoreTeam() {
@@ -39,6 +33,8 @@ export default function CoreTeam() {
   const [isDiscordHovered, setIsDiscordHovered] = useState(false);
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSpoilerDialogOpen, setIsSpoilerDialogOpen] = useState(false);
+
   const router = useRouter();
   const pathname = usePathname();
 
@@ -60,9 +56,9 @@ export default function CoreTeam() {
       viewProfile: "View Profile",
       birthday: "Birthday",
       fanmark: "Fanmark",
-      achievements: "Achievements",
+      specialize: "specialize",
       socialLinks: "Social Links",
-      specialty: "Specialty",
+      AOI: "AOI",
     },
     th: {
       department: "InLAB",
@@ -81,9 +77,9 @@ export default function CoreTeam() {
       aboutUs: "เกี่ยวกับเรา",
       viewProfile: "ดูโปรไฟล์",
       birthday: "วันเกิด",
-      achievements: "ความสำเร็จ",
+      specialize: "ความสำเร็จ",
       socialLinks: "ลิงก์โซเชียล",
-      specialty: "ความเชี่ยวชาญ",
+      AOI: "ความเชี่ยวชาญ",
     },
   };
 
@@ -113,7 +109,10 @@ export default function CoreTeam() {
       name: "SELMA KATTENHAVN",
       department: { en: "AEROSPACE ENGINEERING", th: "เกมมิ่ง" },
       code: "S1M-S",
-      specialty: { en: "FPS & Strategy", th: "FPS และกลยุทธ์" },
+      AOI: {
+        en: ["Biochemistry", "Aerospace engineering", "Technical drawing", "Filmmaking", "Medieval Martial art"],
+        th: ["Biochemistry", "Aerospace engineering", "Technical drawing", "Filmmaking", "Medieval Martial art"],
+      },
       avatar: "/img/inLAB_Core/Selma.png",
       logo: "/img/Logo/ScientificCryptid.png",
       model: "/img/Model/Selma.png",
@@ -122,15 +121,15 @@ export default function CoreTeam() {
         th: "มนุษย์แมวส้มผู้มาเก็บตัวอย่างและสำรวจเทคโนโลยีของดาวโลก และแอบก่อความวินาศวายป่วงด้วยวิทยาศาสตร์ในยามว่าง",
       },
       detailedDescription: {
-        en: "A cat man who like fire and explosion, living abroad interstellar space vessel ISV Andøya Expedition. With goal to collect data and study about technology of habitant of the planet Earth. Younger sibling of Søren Kattenhavn\n\nHaving experience in aerospace engineering R&D and working as research assistant in real life. Want to make science fun and interesting again",
+        en: "A cat man who like fire & explosion and younger sibling of Søren Kattenhavn, expedition leader and head of engineering department, living abroad interstellar space vessel ISV Andøya Expedition. With goal to collect data and study about technology of habitant of the planet Earth.\n\nHaving experience in aerospace engineering R&D and working as research assistant in real life. Want to make science fun and interesting again",
         th: "นักกีฬาอีสปอร์ตมืออาชีพที่หันมาเป็นผู้สร้างเนื้อหา เซลม่านำประสบการณ์การเล่นเกมแข่งขันหลายปีมาสู่ทีม ด้วยชัยชนะในทัวร์นาเมนต์เกม FPS หลายรายการและการวิเคราะห์เกมเพลย์เชิงกลยุทธ์",
       },
       birthday: {
-        en: "9th August",
-        th: "9 สิงหาคม",
+        en: "17th September",
+        th: "17 กันยายน",
       },
-      fanmark: "",
-      achievements: {
+      fanmark: "🚧🧪",
+      specialize: {
         en: [
           "Regional FPS Champion 2023",
           "Top 10 Global Ranking",
@@ -150,7 +149,10 @@ export default function CoreTeam() {
       name: "SØREN KATTENHAVN",
       department: { en: "GENOMICS & BIOCHEMISTRY", th: "วิทยาศาสตร์" },
       code: "S2R-B",
-      specialty: { en: "Tech Reviews", th: "รีวิวเทคโนโลยี" },
+      AOI: {
+        en: ["Biochemistry", "Aerospace engineering" , "Data science", "Medical science", "AI", "Science shitposting"],
+        th: ["Biochemistry", "Aerospace engineering" , "Data science", "Medical science", "AI", "Science shitposting"],
+      },
       avatar: "/img/inLAB_Core/Soren.png",
       logo: "/img/Logo/ScientificCryptid.png",
       model: "/img/Model/Soren.png",
@@ -159,15 +161,15 @@ export default function CoreTeam() {
         th: "มนุษย์แมวดำพี่ของมนุษย์แมวส้ม ดีกรีจบเอกชีวเคมีและชอบจ้องจะจิ้มเส้นเลือดแขนคน",
       },
       detailedDescription: {
-        en: "Luna is our resident tech expert with a PhD in Computer Science and years of experience in hardware development. She specializes in making complex technology accessible to everyone through detailed reviews, tutorials, and cutting-edge research presentations.",
+        en: "A researcher cat man and older sibling of Selma Kattenhavn, senior scientist and head of biochemistry department of ISV Andøya Expedition. With goal to collect data, biobank sample and study interesting species on the planet Earth. Sometimes pranking his younger brother as hobby.\n\nHaving biochem PhD in real life, specialized in genomics and bioinformatics. Totally not a mad scientist.",
         th: "ลูน่าเป็นผู้เชี่ยวชาญด้านเทคโนโลยีประจำของเรา ที่มีปริญญาเอกด้านวิทยาการคอมพิวเตอร์และประสบการณ์หลายปีในการพัฒนาฮาร์ดแวร์",
       },
       birthday: {
-        en: "",
-        th: "",
+        en: "N/A",
+        th: "N/A",
       },
-      fanmark: "",
-      achievements: {
+      fanmark: "🧬🧪",
+      specialize: {
         en: [
           "PhD in Computer Science",
           "Published 15+ Research Papers",
@@ -187,9 +189,9 @@ export default function CoreTeam() {
       name: "SANWHANN",
       department: { en: "FOOD R&D", th: "วิทยาศาสตร์" },
       code: "S3W-F",
-      specialty: {
-        en: "Plant-based food, Drinking, Digital marketing",
-        th: "รีวิวเทคโนโลยี",
+      AOI: {
+        en: ["Veterinary medicine (Especially in Orthopedics)", "Epidemiology"],
+        th: ["Veterinary medicine (Especially in Orthopedics)", "Epidemiology"],
       },
       avatar: "/img/inLAB_Core/Sanwhann.png",
       logo: "/img/Logo/Sanwhann.PNG",
@@ -207,7 +209,7 @@ export default function CoreTeam() {
         th: "9 สิงหาคม",
       },
       fanmark: "🐍🤎✨",
-      achievements: {
+      specialize: {
         en: [
           "PhD in Computer Science",
           "Published 15+ Research Papers",
@@ -225,9 +227,12 @@ export default function CoreTeam() {
     },
     {
       name: "ARCHBAS",
-      department: { en: "PSYCHOLOGY", th: "การทำอาหาร" },
+      department: { en: "PSYCHOLOGY", th: "PSYCHOLOGY" },
       code: "A4B-P",
-      specialty: { en: "Cooking Shows", th: "รายการทำอาหาร" },
+      AOI: {
+        en: ["Veterinary medicine (Especially in Orthopedics)", "Epidemiology"],
+        th: ["Veterinary medicine (Especially in Orthopedics)", "Epidemiology"],
+      },
       avatar: "/img/inLAB_Core/Archbas.png",
       logo: "/img/Logo/Archbas.png",
       model: "/img/Model/Archbas.png",
@@ -237,14 +242,14 @@ export default function CoreTeam() {
       },
       detailedDescription: {
         en: "A Living code that was borned from the coding world, sneaked to ISV Andøya Expedition's spacecraft.\n\nTraining it self by using all data on spacecraft that mostly in engineering, research paper, some of variety entertainment. It makes Archbas, the living code vtuber that has many educational contents, and some entertainment",
-        th: "Living code ที่มีชีวิตขึ้นมาจากโลกที่เต็มไปด้วย Code แอบขึ้นยาน ISV Andøya Expedition มา training ตัวเองเพิ่มจากข้อมูลที่มีอยู่บนยาน ที่ส่วนใหญ่มีแต่ วิศวกรรม งานวิจัยต่างๆ มีความบันเทิงอยู่นิดนึง\n\nและด้วยเหตุนี้เอง ก็เลยถือกำเนิดเป็น Archbas, VTuber living code ที่มีแต่สาระ บันเทิงได้นิดหน่อย\n\n\"เป็นคนแล้วเหนื่อย เป็นลิงใน Workstation ดีกว่า\"",
+        th: 'Living code ที่มีชีวิตขึ้นมาจากโลกที่เต็มไปด้วย Code แอบขึ้นยาน ISV Andøya Expedition มา training ตัวเองเพิ่มจากข้อมูลที่มีอยู่บนยาน ที่ส่วนใหญ่มีแต่ วิศวกรรม งานวิจัยต่างๆ มีความบันเทิงอยู่นิดนึง\n\nและด้วยเหตุนี้เอง ก็เลยถือกำเนิดเป็น Archbas, VTuber living code ที่มีแต่สาระ บันเทิงได้นิดหน่อย\n\n"เป็นคนแล้วเหนื่อย เป็นลิงใน Workstation ดีกว่า"',
       },
       birthday: {
         en: "",
         th: "",
       },
       fanmark: "",
-      achievements: {
+      specialize: {
         en: [
           "Culinary Arts Degree",
           "Worked in 5-Star Restaurants",
@@ -385,9 +390,13 @@ export default function CoreTeam() {
       <div className="bg-white flex-grow">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
-<p className={`text-lg text-gray-600 max-w-2xl mx-auto ${language === "th" ? "font-kanit" : "font-mono"}`}>
-  {t.description}
-</p>
+            <p
+              className={`text-lg text-gray-600 max-w-2xl mx-auto ${
+                language === "th" ? "font-kanit" : "font-mono"
+              }`}
+            >
+              {t.description}
+            </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -417,9 +426,7 @@ export default function CoreTeam() {
                     </h3>
                     <Badge
                       variant="outline"
-                      className={`text-orange-600 border-orange-600 ${
-                        language === "th" ? "font-kanit" : "font-mono"
-                      }`}
+                      className={`text-orange-600 border-orange-600 font-mono`}
                     >
                       {member.department[language]}
                     </Badge>
@@ -546,20 +553,24 @@ export default function CoreTeam() {
                 </div>
                 {/* Area of Interest Section */}
                 <div className="mb-6">
-                  <h4
-                    className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
-                  >
+                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
                     Area of Interest
                   </h4>
-                  <p
-                    className={`text-gray-200 leading-relaxed text-center whitespace-pre-wrap ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
-                  >
-                    {selectedMember.specialty[language]}
-                  </p>
+                  <ul className="space-y-2">
+                    {selectedMember.AOI[language].map(
+                      (AOI, index) => (
+                        <li
+                          key={index}
+                          className={`flex items-center gap-2 ${
+                            language === "th" ? "font-kanit" : "font-mono"
+                          } text-gray-200`}
+                        >
+                          <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                          {AOI}
+                        </li>
+                      )
+                    )}
+                  </ul>
                 </div>
                 <div className="flex gap-6 mb-6">
                   {/* Birthday Section */}
@@ -573,13 +584,52 @@ export default function CoreTeam() {
                         >
                           Birthday
                         </h4>
-                        <p
-                          className={`text-gray-200 leading-relaxed text-center ${
-                            language === "th" ? "font-kanit" : "font-mono"
-                          }`}
-                        >
-                          {selectedMember.birthday[language]}
-                        </p>
+                        {selectedMember.birthday[language] === "N/A" ? (
+                          <>
+                            <Button
+                              className={`w-full bg-orange-500 text-white hover:bg-orange-600 ${
+                                language === "th" ? "font-kanit" : "font-mono"
+                              }`}
+                              onClick={() => setIsSpoilerDialogOpen(true)}
+                            >
+                              Spoiler Alert
+                            </Button>
+                            <Dialog
+                              open={isSpoilerDialogOpen}
+                              onOpenChange={setIsSpoilerDialogOpen}
+                            >
+                              <DialogContent className="max-w-xs text-center">
+                                <div
+                                  className={`text-lg mb-4 ${
+                                    language === "th"
+                                      ? "font-kanit"
+                                      : "font-mono"
+                                  }`}
+                                >
+                                  Paid with your cell to unlock 🔒
+                                </div>
+                                <Button
+                                  className={`mt-2 bg-orange-500 text-white hover:bg-orange-600 ${
+                                    language === "th"
+                                      ? "font-kanit"
+                                      : "font-mono"
+                                  }`}
+                                  onClick={() => setIsSpoilerDialogOpen(false)}
+                                >
+                                  Close
+                                </Button>
+                              </DialogContent>
+                            </Dialog>
+                          </>
+                        ) : (
+                          <p
+                            className={`text-gray-200 leading-relaxed text-center ${
+                              language === "th" ? "font-kanit" : "font-mono"
+                            }`}
+                          >
+                            {selectedMember.birthday[language]}
+                          </p>
+                        )}
                       </div>
                     )}
                   {/* Fanmark Section */}
@@ -600,18 +650,18 @@ export default function CoreTeam() {
                     </p>
                   </div>
                 </div>
-                {/* Achievements */}
-                {selectedMember.achievements && (
+                {/* specialize */}
+                {selectedMember.specialize && (
                   <div>
                     <h4
                       className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 ${
                         language === "th" ? "font-kanit" : "font-mono"
                       }`}
                     >
-                      Achievements
+                      Specialize
                     </h4>
                     <ul className="space-y-2">
-                      {selectedMember.achievements[language].map(
+                      {selectedMember.specialize[language].map(
                         (achievement, index) => (
                           <li
                             key={index}
