@@ -419,7 +419,7 @@ export default function CoreTeam() {
                 className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 py-0"
                 onClick={() => handleMemberClick(member)}
               >
-                <div className="relative w-full">
+                <div className="relative w-full select-none pointer-events-none">
                   <Image
                     src={member.avatar || "/img/placeholder.png"}
                     alt={member.name}
