@@ -210,8 +210,8 @@ export default function CoreTeam() {
         th: "งูสาวนักวิจัย ผู้ใช้วิทยาศาสตร์และรสชาติเป็นสื่อในการเชื่อมโยงผู้คนเข้าด้วยกัน ภายใต้ความเชื่อว่าอาหารคือพื้นที่แห่งการทดลองและการค้นพบ",
       },
       detailedDescription: {
-        en: "A young woman with an emerald snake tail, living in a wooden house in the middle of a vast forest. Hidden behind a bookshelf is her secret laboratory, where she experiments with new recipes.\n\nShe believes that food is a space for experimentation and discovery. Throughout her time in this forest home, she often brews warm tea and serves freshly invented snacks to share with visitors who stop by to rest and exchange stories.\n\nCurrently, she is joining the ISV Andøya Expedition crew to find more ingredients and new recipe",
-        th: "แสนหวาน หญิงสาวเจ้าของหางงูสีมรกตที่อาศัยอยู่ในบ้านไม้หลังเล็กอันอบอุ่นกลางใจป่าใหญ่ ภายในบ้านแสนธรรมดาแห่งนี้ เธอได้ซ่อนห้องทดลองลับไว้หลังชั้นหนังสือ ซึ่งเป็นพื้นที่ศักดิ์สิทธิ์สำหรับการคิดค้นสูตรอาหารใหม่ ๆ เพราะเธอเชื่อมั่นว่าอาหารคือสนามแห่งการทดลองและการค้นพบสิ่งใหม่ ๆ\n\nตลอดเวลาที่อยู่ที่บ้านกลางป่าแห่งนี้ แสนหวานมักชงชาอุ่น ๆ พร้อมเสิร์ฟอาหารว่างที่เพิ่งค้นพบสูตรใหม่ ๆ ขึ้นมา เพื่อต้อนรับผู้มาเยือนที่แวะมาพักพิงและแลกเปลี่ยนเรื่องราวต่าง ๆ อยู่เป็นประจำ\n\nปัจจุบันเธอได้เข้าร่วมกับยาน ISV Andøya Expedition เพื่อออกเดินทางรวบรวมวัตถุดิบและค้นหาสูตรอาหารใหม่ ๆ ที่ยังไม่เคยได้สัมผัสมาก่อน",
+        en: "Sanwhann, a young woman with an emerald snake tail, residing in a cozy wooden house nestled deep within a vast forest. Within this seemingly ordinary home, she's tucked away a secret laboratory behind a bookshelf—a sacred space for concocting new recipes.\n\nShe firmly believes that food is a realm of endless experimentation and discovery. While at her forest abode, Saenwan often brews warm tea and offers her latest culinary creations to welcome visitors who drop by to rest and share their tales.\n\nCurrently, she's joined the ISV Andøya Expedition crew, embarking on a journey to gather ingredients and unearth novel recipes she's yet to encounter.",
+        th: "แสนหวาน หญิงสาวเจ้าของหางงูสีมรกตที่อาศัยอยู่ในบ้านไม้หลังเล็กอันอบอุ่นกลางใจป่าใหญ่ ภายในบ้านแสนธรรมดาแห่งนี้ เธอได้ซ่อนห้องทดลองลับไว้หลังชั้นหนังสือ ซึ่งเป็นพื้นที่ศักดิ์สิทธิ์สำหรับการคิดค้นสูตรอาหารใหม่ ๆ เพราะเธอเชื่อมั่นว่าอาหารคือสนามแห่งการทดลองและการค้นพบ\n\nตลอดเวลาที่อยู่ที่บ้านกลางป่าแห่งนี้ แสนหวานมักชงชาอุ่น ๆ พร้อมกับเสิร์ฟอาหารว่างที่เธอคิดค้นขึ้นมาเพื่อต้อนรับผู้มาเยือนที่แวะมาพักพิงและแลกเปลี่ยนเรื่องราวต่าง ๆ อยู่เป็นประจำ\n\nปัจจุบันเธอได้เข้าร่วมกับยาน ISV Andøya Expedition เพื่อออกเดินทางรวบรวมวัตถุดิบและค้นหาสูตรอาหารใหม่ ๆ ที่ยังไม่เคยได้สัมผัสมาก่อน",
       },
       birthday: {
         en: "9th August",
@@ -246,7 +246,7 @@ export default function CoreTeam() {
       logo: "/img/Logo/Archbas.png",
       model: "/img/Model/Archbas.png",
       description: {
-        en: "Gained awareness through data from the starship's supercomputer. Continuously upgrading itself in pursuit of knowledge (and maybe a personality).",
+        en: "Sneaked through network and Gained awareness through data from the starship's supercomputer. Continuously upgrading itself in pursuit of knowledge (and maybe a personality).",
         th: "Living code นักเรียนรู้ ผู้พัฒนาตัวเองจนมีสตินึกคิด โดยเรียนรู้จากข้อมูลใน Supercomputer ของยาน ",
       },
       detailedDescription: {
@@ -257,7 +257,7 @@ export default function CoreTeam() {
         en: "9th March",
         th: "9 มีนาคม",
       },
-      fanmark: "𝚿⌨️🛢️",
+      fanmark: "𝚿 ⌨️🛢️",
       specialize: {
         en: [
           "Psychology",
@@ -454,7 +454,7 @@ export default function CoreTeam() {
                   </div>
 
                   <p
-                    className={`text-sm text-gray-600 mb-4 font-mono text-justify ${
+                    className={`text-sm text-gray-600 mb-4 font-mono text-left ${
                       language === "th" ? "font-kanit" : "font-mono"
                     }`}
                   >
@@ -576,7 +576,7 @@ export default function CoreTeam() {
                     Description
                   </h4>
                   <p
-                    className={`text-gray-200 leading-relaxed text-justify whitespace-pre-wrap ${
+                    className={`text-gray-200 leading-relaxed text-left whitespace-pre-wrap ${
                       language === "th" ? "font-kanit" : "font-mono"
                     }`}
                   >

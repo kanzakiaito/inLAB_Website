@@ -5,11 +5,8 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
-import { Youtube, Twitch, X, Globe } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Youtube, Twitch, X, Globe, Mail } from "lucide-react";
 import XIcon from "@mui/icons-material/X";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -19,23 +16,26 @@ interface Member {
   name: string;
   department: { en: string; th: string };
   code: string;
-  specialty: { en: string[]; th: string[] };
+  AOI: { en: string[]; th: string[] };
   avatar: string;
   logo: string;
   model: string;
   description: { en: string; th: string };
   detailedDescription?: { en: string; th: string };
-  socials: { youtube: string; twitter: string; twitch: string };
+  socials: { youtube: string; twitter: string; twitch: string; mail: string };
   birthday: { en: string; th: string };
   fanmark: string;
-  achievements?: { en: string[]; th: string[] };
+  specialize?: { en: string[]; th: string[] };
+  quote: { en: string; th: string };
 }
 
-export default function CoreTeam() {
+export default function InternTeam() {
   const [language, setLanguage] = useState<Language>("en");
   const [isDiscordHovered, setIsDiscordHovered] = useState(false);
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSpoilerDialogOpen, setIsSpoilerDialogOpen] = useState(false);
+
   const router = useRouter();
   const pathname = usePathname();
 
@@ -57,9 +57,9 @@ export default function CoreTeam() {
       viewProfile: "View Profile",
       birthday: "Birthday",
       fanmark: "Fanmark",
-      achievements: "Achievements",
+      specialize: "specialize",
       socialLinks: "Social Links",
-      specialty: "Specialty",
+      AOI: "AOI",
     },
     th: {
       department: "InLAB",
@@ -67,7 +67,7 @@ export default function CoreTeam() {
       section: "ISV Andøya Expedition",
       meetTalent: "พบกับพรสวรรค์ของเรา",
       description:
-        "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
+        "พบกับ Intern ประจำ inLAB\nที่พร้อมมอบความรู้ใหม่ ๆ และประสบการณ์สุดล้ำค่ากับคุณ!",
       follow: "ติดตาม",
       joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
       communityDescription:
@@ -78,9 +78,9 @@ export default function CoreTeam() {
       aboutUs: "เกี่ยวกับเรา",
       viewProfile: "ดูโปรไฟล์",
       birthday: "วันเกิด",
-      achievements: "ความสำเร็จ",
+      specialize: "ความสำเร็จ",
       socialLinks: "ลิงก์โซเชียล",
-      specialty: "ความเชี่ยวชาญ",
+      AOI: "ความเชี่ยวชาญ",
     },
   };
 
@@ -110,23 +110,29 @@ export default function CoreTeam() {
       name: "KANZAKI AITO",
       department: { en: "COMPUTER SCIENCE", th: "COMPUTER SCIENCE" },
       code: "A1T-IC",
-      specialty: {
+      AOI: {
         en: [
           "Software Development (Programming / Full Stack)",
           "Software Engineering (Software Testing / Validation / Quality Assurance)",
           "AI (LLMs / Generative AI / Time Series Analysis / Recommendation System)",
           "Cybersecurity (OWASP / Red Team Pen-test)",
           "Education",
+          "Chemistry",
+          "Puzzle and Question",
+          "Game Show / Quiz Show"
         ],
         th: [
           "Software Development (Programming / Full Stack)",
           "Software Engineering (Software Testing / Validation / Quality Assurance)",
           "AI (LLMs / Generative AI / Time Series Analysis / Recommendation System)",
           "Cybersecurity (OWASP / Red Team Pen-test)",
-          "Education",
+          "การศึกษา",
+          "เคมี",
+          "เกมปริศนา + ปัญหาเชาว์",
+          "เกมโชว์/ควิซโชว์"
         ],
       },
-      avatar: "/img/inLAB_Intern/Aito.png",
+      avatar: "/img/inLAB_Intern/Aito.PNG",
       logo: "/img/Logo/Aito.png",
       model: "/img/Model/Aito.png",
       description: {
@@ -142,41 +148,42 @@ export default function CoreTeam() {
         th: "8 ธันวาคม",
       },
       fanmark: " 💻🩵✨",
-      achievements: {
+      specialize: {
         en: [
-          "Regional FPS Champion 2023",
-          "Top 10 Global Ranking",
-          "100K+ Followers",
-          "Gaming Award Winner",
+          "Programming (C, Java, Python, Web Programming, Rust, GoLang)",
+          "Software Testing",
+          "AI (Intermediate)",
+          "Chemistry",
         ],
         th: [
-          "แชมป์ FPS ระดับภูมิภาค 2023",
-          "อันดับ 10 อันดับโลก",
-          "ผู้ติดตาม 100K+",
-          "ผู้ชนะรางวัลเกมมิ่ง",
+          "Programming (C, Java, Python, Web Programming, Rust, GoLang)",
+          "Software Testing",
+          "AI (ระดับปานกลาง)",
+          "เคมี",
         ],
       },
-      socials: { youtube: "#", twitter: "#", twitch: "#" },
+      socials: { youtube: "https://www.youtube.com/@KZK_Aito", twitter: "https://x.com/kanzaki_aito", twitch: "https://www.twitch.tv/kanzaki_aito", mail: "kanzaki.aitovt@gmail.com" },
+      quote: { en: "Predict the future, code the present.", th: "ผมก็เป็นแค่โปรแกรมเมอร์... ที่ดูดวงเป็นนิดหน่อยน่ะ" },
     },
     {
       name: "LYRIC URSAE",
       department: { en: "VETERINARY MEDICINE", th: "VETERINARY MEDICINE" },
       code: "L2R-V",
-      specialty: {
+      AOI: {
         en: [
-          "Veterinary medicine (Especially in Orthopedics)",
-          "Epidemiology",
+          "Game Development",
+          "Medical Simulation",
         ],
         th: [
-          "Veterinary medicine (Especially in Orthopedics)",
-          "Epidemiology",
+          "การพัฒนาเกม",
+          "การจำลองเชิงการแพทย์",
         ],
       },
       avatar: "/img/inLAB_Intern/Lyric.png",
       logo: "/img/Logo/Lyric.png",
       model: "/img/Model/Lyric.png",
       description: {
-        en: "Grumpy Bear Commander with passion!",
+        en: "Grumpy bear Commander with passion!",
         th: "หมีสาวผู้บัญชาการขี้บ่น ที่เต็มเปี่ยมไปด้วยแรงบันดาลใจ!",
       },
       detailedDescription: {
@@ -188,67 +195,73 @@ export default function CoreTeam() {
         th: "26 เมษายน",
       },
       fanmark: "🐻🥽",
-      achievements: {
+      specialize: {
         en: [
-          "PhD in Computer Science",
-          "Published 15+ Research Papers",
-          "Tech Innovation Award",
-          "Industry Speaker",
+          "Veterinary medicine (Especially in Orthopedics)",
+          "Epidemiology",
         ],
         th: [
-          "ปริญญาเอกวิทยาการคอมพิวเตอร์",
-          "ตีพิมพ์งานวิจัย 15+ ฉบับ",
-          "รางวัลนวัตกรรมเทคโนโลยี",
-          "วิทยากรในอุตสาหกรรม",
+          "สัตวแพทย์ (Orthopedics)",
+          "ระบาดวิทยา",
         ],
       },
-      socials: { youtube: "#", twitter: "#", twitch: "#" },
+      socials: { youtube: "youtube.com/@LyricUrsae", twitter: "https://x.com/LyricUrsae", twitch: "", mail: "" },
+      quote: { en: "Bear with me! 🐻🥽", th: "สวัสดีทุกคน Lyric Ursae (ไลริค เออร์ซี่) 🐻🥽 เองงง" },
     },
     {
       name: "ARITHMOS",
       department: { en: "ACTUARY", th: "ACTUARY" },
       code: "A3M-IA",
-      specialty: {
+      AOI: {
         en: [
-          "Software Development",
-          "Software Engineering",
-          "AI",
-          "Cybersecurity",
-          "Education",
+          "Mathematics",
+          "Actuary",
+          "Finance",
+          "Statistics",
+          "Science",
+          "Programming",
         ],
-        th: ["FPS และกลยุทธ์"],
+        th: [
+          "คณิตศาสตร์",
+          "คณิตศาสตร์ประกันภัย",
+          "ไฟแนนซ์",
+          "สถิติ",
+          "วิทยาศาสตร์",
+          "Programming",
+        ],
       },
       avatar: "/img/inLAB_Intern/Arithmos.png",
       logo: "/img/Logo/Arithmos.png",
       model: "/img/Model/Arithmos.png",
       description: {
-        en: "Captivating young snake researcher who blends science and flavor to bring people together.",
-        th: "งูสาวนักวิจัย ผู้ใช้วิทยาศาสตร์และรสชาติเป็นสื่อในการเชื่อมโยงผู้คนเข้าด้วยกัน ภายใต้ความเชื่อว่าอาหารคือพื้นที่แห่งการทดลองและการค้นพบ",
+        en: "A mathematician, a lifetime devoted to numbers and mathematical principles, often losing sleep to games.",
+        th: "นักคณิตศาสตร์ผู้อยู่กับตัวเลขมาทั้งชีวิต ผู้เข้าใจถึงหลักการคณิตและอดนอนเพราะเล่นเกม",
       },
       detailedDescription: {
-        en: "A young woman with an emerald snake tail, living in a wooden house in the middle of a vast forest. Hidden behind a bookshelf is her secret laboratory, where she experiments with new recipes.\n\nShe believes that food is a space for experimentation and discovery. Throughout her time in this forest home, she often brews warm tea and serves freshly invented snacks to share with visitors who stop by to rest and exchange stories.\n\nCurrently, she is joining the ISV Andøya Expedition crew to find more ingredients and new recipe",
-        th: "ลูน่าเป็นผู้เชี่ยวชาญด้านเทคโนโลยีประจำของเรา ที่มีปริญญาเอกด้านวิทยาการคอมพิวเตอร์และประสบการณ์หลายปีในการพัฒนาฮาร์ดแวร์",
+        en: "A mathematician who has dedicated his life to numbers, often foregoing sleep in his quest to understand everything in mathematics. He also enjoys gaming late into the night (well, more often than not...).\n\nCurrently, he's on board the ISV Andøya Expedition, where he applies mathematical principles to analyze various risks within the vessel.",
+        th: "นักคณิตศาสตร์ผู้ใช้ชีวิตกับตัวเลขมาทั้งชีวิต มักจะอดหลับอดนอนเพราะพยายามจะเรียนรู้เพื่อเข้าใจทุกสิ่งอย่างในวิชาคณิตศาสตร์และมีเล่นเกมตอนกลางคืนบ้าง (ไม่บ้างหรอก ส่วนใหญ่เลยแหละ...)\n\nปัจจุบัน เขาได้ขึ้นมาอยู่บนยาน ISV Andøya Expedition เพื่อวิเคราะห์ความเสี่ยงต่าง ๆ ภายในยานโดยใช้หลักการทางคณิตศาสตร์",
       },
       birthday: {
-        en: "9th August",
-        th: "9 สิงหาคม",
+        en: "2nd July",
+        th: "2 กรกฎาคม",
       },
-      fanmark: "🐍🤎✨",
-      achievements: {
+      fanmark: "🧮",
+      specialize: {
         en: [
-          "PhD in Computer Science",
-          "Published 15+ Research Papers",
-          "Tech Innovation Award",
-          "Industry Speaker",
+          "Mathematics",
+          "Actuary",
+          "Finance",
+          "Statistics",
         ],
         th: [
-          "ปริญญาเอกวิทยาการคอมพิวเตอร์",
-          "ตีพิมพ์งานวิจัย 15+ ฉบับ",
-          "รางวัลนวัตกรรมเทคโนโลยี",
-          "วิทยากรในอุตสาหกรรม",
+          "คณิตศาสตร์",
+          "คณิตศาสตร์ประกันภัย",
+          "ไฟแนนซ์",
+          "สถิติ",
         ],
       },
-      socials: { youtube: "#", twitter: "#", twitch: "" },
+      socials: { youtube: "https://www.youtube.com/@ArithmosCh", twitter: "https://x.com/arithmosch", twitch: "https://twitch.tv/arithmosch", mail: "" },
+      quote: { en: "Numbers never lie.", th: "ตัวเลขไม่เคยโกหกใคร" },
     },
   ];
 
@@ -376,7 +389,7 @@ export default function CoreTeam() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
             <p
-              className={`text-lg text-gray-600 max-w-2xl mx-auto ${
+              className={`text-lg text-gray-600 max-w-2xl mx-auto whitespace-pre-wrap ${
                 language === "th" ? "font-kanit" : "font-mono"
               }`}
             >
@@ -384,7 +397,7 @@ export default function CoreTeam() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {members.map((member, index) => (
               <Card
                 key={index}
@@ -411,14 +424,22 @@ export default function CoreTeam() {
                     </h3>
                     <Badge
                       variant="outline"
-                      className="text-orange-600 border-orange-600 font-mono"
+                      className={`
+                        text-orange-600 border-orange-600 font-mono
+                        whitespace-pre-line break-words
+                        max-w-full block
+                        text-xs sm:text-sm
+                        px-2 py-1
+                        overflow-hidden text-ellipsis
+                      `}
+                      style={{ wordBreak: "break-word", whiteSpace: "pre-line" }}
                     >
                       {member.department[language]}
                     </Badge>
                   </div>
 
                   <p
-                    className={`text-sm text-gray-600 mb-4 ${
+                    className={`text-sm text-gray-600 mb-4 font-mono text-left ${
                       language === "th" ? "font-kanit" : "font-mono"
                     }`}
                   >
@@ -443,25 +464,39 @@ export default function CoreTeam() {
                   alt={selectedMember.name}
                   width={180}
                   height={180}
-                  className="rounded-lg object-cover mb-4 shadow-lg"
+                  className="rounded-lg object-cover mb-4 shadow-lg select-none pointer-events-none"
+                  draggable={false}
+                  onContextMenu={e => e.preventDefault()}
                 />
                 <h3 className="text-lg font-bold text-gray-900 font-mono">
                   {selectedMember.name}
                 </h3>
                 <Badge
                   variant="outline"
-                  className="text-orange-400 border-orange-400 font-mono bg-black whitespace-nowrap mb-2"
+                  className={`text-orange-400 border-orange-400 font-mono bg-black whitespace-nowrap mb-2`}
                 >
                   {selectedMember.department[language]}
                 </Badge>
-                <h4 className="text-sm font-semibold text-gray-700 font-mono mb-2">
+                {/* Quote Section */}
+                {selectedMember.quote && selectedMember.quote[language] && (
+                  <div
+                    className={`italic text-center text-gray-800 bg-orange-100 rounded px-4 py-2 mb-3 ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
+                    “{selectedMember.quote[language]}”
+                  </div>
+                )}
+                <h4
+                  className={`text-sm font-semibold text-gray-700 mb-2 font-mono`}
+                >
                   Social Links
                 </h4>
                 <div className="flex flex-col gap-2">
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-red-500 hover:text-white hover:border-red-600"
+                    className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-red-500 hover:text-white hover:border-red-600 font-mono`}
                     onClick={() =>
                       window.open(selectedMember.socials.youtube, "_blank")
                     }
@@ -472,7 +507,7 @@ export default function CoreTeam() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-black hover:text-white hover:border-black"
+                    className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-black hover:text-white hover:border-black font-mono`}
                     onClick={() =>
                       window.open(selectedMember.socials.twitter, "_blank")
                     }
@@ -484,13 +519,27 @@ export default function CoreTeam() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="flex items-center gap-2 font-mono cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600"
+                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-purple-600 hover:text-white hover:border-orange-600 font-mono`}
                         onClick={() =>
                           window.open(selectedMember.socials.twitch, "_blank")
                         }
                       >
                         <Twitch className="w-4 h-4" />
                         Twitch
+                      </Button>
+                    )}
+                  {selectedMember.socials.mail &&
+                    selectedMember.socials.mail.trim() !== "" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600 font-mono`}
+                        onClick={() =>
+                          window.open(`mailto:${selectedMember.socials.mail}`, "_blank")
+                        }
+                      >
+                        <Mail className="w-4 h-4" />
+                        E-Mail
                       </Button>
                     )}
                 </div>
@@ -504,88 +553,42 @@ export default function CoreTeam() {
                     alt={selectedMember.name}
                     width={200}
                     height={200}
-                    className="w-auto h-auto object-cover"
+                    className="w-auto h-auto object-cover select-none pointer-events-none"
+                    draggable={false}
+                    onContextMenu={e => e.preventDefault()}
                   />
                 </div>
                 <div className="mb-6">
-                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                  <h4
+                    className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
+                  >
                     Description
                   </h4>
                   <p
-                    className={`text-gray-200 leading-relaxed ${
+                    className={`text-gray-200 leading-relaxed text-left whitespace-pre-wrap ${
                       language === "th" ? "font-kanit" : "font-mono"
-                    } text-justify whitespace-pre-wrap`}
+                    }`}
                   >
                     {selectedMember.detailedDescription?.[language] ||
                       selectedMember.description[language]}
                   </p>
                 </div>
-                {/* Area of Interest Section */}
-                <div className="mb-6">
-                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
-                    Area of Interest
-                  </h4>
-                  <ul className="space-y-2">
-                    {selectedMember.specialty[language].map(
-                      (specialty, index) => (
-                        <li
-                          key={index}
-                          className={`flex items-center gap-2 ${
-                            language === "th" ? "font-kanit" : "font-mono"
-                          } text-gray-200`}
-                        >
-                          <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                          {specialty}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
-                <div className="flex gap-6 mb-6">
-                  {/* Birthday Section */}
-                  {selectedMember.birthday &&
-                    selectedMember.birthday[language] && (
-                      <div className="flex-1">
-                        <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
-                          Birthday
-                        </h4>
-                        <p
-                          className={`text-gray-200 leading-relaxed ${
-                            language === "th" ? "font-kanit" : "font-mono"
-                          } text-center`}
-                        >
-                          {selectedMember.birthday[language]}
-                        </p>
-                      </div>
-                    )}
-                  {/* Fanmark Section */}
-                  <div className="flex-1">
-                    <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
-                      Fanmark
-                    </h4>
-                    <p
-                      className={`text-gray-200 leading-relaxed ${
-                        language === "th" ? "font-kanit" : "font-mono"
-                      } text-center`}
+                {/* Specialize */}
+                {selectedMember.specialize && (
+                  <div className="pb-5">
+                    <h4
+                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
                     >
-                      {selectedMember.fanmark}
-                    </p>
-                  </div>
-                </div>
-                {/* Achievements */}
-                {selectedMember.achievements && (
-                  <div>
-                    <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
-                      Achievements
+                      Specialize
                     </h4>
                     <ul className="space-y-2">
-                      {selectedMember.achievements[language].map(
+                      {selectedMember.specialize[language].map(
                         (achievement, index) => (
                           <li
                             key={index}
-                            className={`flex items-center gap-2 ${
+                            className={`flex items-center gap-2 text-gray-200 ${
                               language === "th" ? "font-kanit" : "font-mono"
-                            } text-gray-200`}
+                            }`}
                           >
                             <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
                             {achievement}
@@ -595,6 +598,101 @@ export default function CoreTeam() {
                     </ul>
                   </div>
                 )}
+                <div className="flex gap-6 mb-6">
+                  {/* Birthday Section */}
+                  {selectedMember.birthday &&
+                    selectedMember.birthday[language] && (
+                      <div className="flex-1">
+                        <h4
+                          className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
+                        >
+                          Birthday
+                        </h4>
+                        {selectedMember.birthday[language] === "N/A" ? (
+                          <>
+                            <Button
+                              className={`w-full bg-orange-500 text-white hover:bg-orange-600 ${
+                                language === "th" ? "font-kanit" : "font-mono"
+                              }`}
+                              onClick={() => setIsSpoilerDialogOpen(true)}
+                            >
+                              Spoiler Alert
+                            </Button>
+                            <Dialog
+                              open={isSpoilerDialogOpen}
+                              onOpenChange={setIsSpoilerDialogOpen}
+                            >
+                              <DialogContent className="max-w-xs text-center">
+                                <div
+                                  className={`text-lg mb-4 ${
+                                    language === "th"
+                                      ? "font-kanit"
+                                      : "font-mono"
+                                  }`}
+                                >
+                                  Paid with your cell to unlock 🔒
+                                </div>
+                                <Button
+                                  className={`mt-2 bg-orange-500 text-white hover:bg-orange-600 ${
+                                    language === "th"
+                                      ? "font-kanit"
+                                      : "font-mono"
+                                  }`}
+                                  onClick={() => setIsSpoilerDialogOpen(false)}
+                                >
+                                  Close
+                                </Button>
+                              </DialogContent>
+                            </Dialog>
+                          </>
+                        ) : (
+                          <p
+                            className={`text-gray-200 leading-relaxed text-center ${
+                              language === "th" ? "font-kanit" : "font-mono"
+                            }`}
+                          >
+                            {selectedMember.birthday[language]}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  {/* Fanmark Section */}
+                  <div className="flex-1">
+                    <h4
+                      className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
+                    >
+                      Fanmark
+                    </h4>
+                    <p
+                      className={`text-gray-200 leading-relaxed text-center ${
+                        language === "th" ? "font-kanit" : "font-mono"
+                      }`}
+                    >
+                      {selectedMember.fanmark}
+                    </p>
+                  </div>
+                </div>
+                {/* Area of Interest Section */}
+                <div className="mb-6">
+                  <h4 className="bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono">
+                    Area of Interest
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedMember.AOI[language].map(
+                      (AOI, index) => (
+                        <li
+                          key={index}
+                          className={`flex items-center gap-2 ${
+                            language === "th" ? "font-kanit" : "font-mono"
+                          } text-gray-200`}
+                        >
+                          <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                          {AOI}
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
               </div>
             </div>
           )}
@@ -620,11 +718,11 @@ export default function CoreTeam() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://discord.gg/yK6bxAFx7F" // Set the Discord invite link here
-              target="_blank" // Opens in a new tab
-              rel="noopener noreferrer" // Recommended for security with target="_blank"
-              onMouseEnter={() => setIsDiscordHovered(true)} // Keep hover effect on anchor
-              onMouseLeave={() => setIsDiscordHovered(false)} // Keep hover effect on anchor
+              href="https://discord.gg/yK6bxAFx7F"
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setIsDiscordHovered(true)}
+              onMouseLeave={() => setIsDiscordHovered(false)}
             >
               <Button
                 size="lg"
