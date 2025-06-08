@@ -112,7 +112,7 @@ export default function CoreTeam() {
       code: "S1M-S",
       AOI: {
         en: ["Chemistry", "Aerospace engineering", "Technical design", "Speculative Biology", "Worldbuilding", "Medieval Martial art"],
-        th: ["เคมี", "วิศวกรรมการบินและอวกาศ (Aerospace)", "การเขียนแบบ (Technical design)", "Speculative Biology", "Worldbuilding", "ศิลปะการป้องกันตัวยุคกลาง (Medieval Martial art)"],
+        th: ["เคมี", "วิศวกรรมการบินและอวกาศ (Aerospace engineering)", "การเขียนแบบ (Technical design)", "Speculative Biology", "Worldbuilding", "ศิลปะการต่อสู้ยุคกลาง (Medieval Martial art)"],
       },
       avatar: "/img/inLAB_Core/Selma.png",
       logo: "/img/Logo/ScientificCryptid.png",
@@ -139,7 +139,7 @@ export default function CoreTeam() {
         th: [
           "จรวดวิทยา (Rocketry)",
           "เคมี",
-          "ห้องปฏิบัติการเปียก (Wet Lab) เชิงชีววิทยา",
+          "ห้องปฏิบัติการเปียกเชิงชีววิทยา (Bio Wet lab)",
         ],
       },
       socials: {
