@@ -25,6 +25,25 @@ const kanit = Kanit({
 export const metadata: Metadata = {
   title: 'inLAB - Outreach Division',
   description: 'inLAB - Science VTuber together strong',
+  openGraph: {
+    title: 'inLAB - Outreach Division',
+    description: 'inLAB - Science VTuber together strong',
+    images: [
+      {
+        url: '/img/INLAB_ABOUT_US.png', // Place your image in public/img/og-image.png
+        width: 1200,
+        height: 630,
+        alt: 'inLAB - Outreach Division',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'inLAB - Outreach Division',
+    description: 'inLAB - Science VTuber together strong',
+    images: ['/img/INLAB_ABOUT_US.png'],
+  },
 }
 
 export default function RootLayout({
