@@ -118,7 +118,7 @@ export default function InternTeam() {
           "Cybersecurity (OWASP / Red Team Pen-test)",
           "Education",
           "Chemistry",
-          "Puzzle and Question",
+          "Puzzle / Mystery Game",
           "Game Show / Quiz Show"
         ],
         th: [
@@ -158,7 +158,7 @@ export default function InternTeam() {
         th: [
           "Programming (C, Java, Python, Web Programming, Rust, GoLang)",
           "Software Testing",
-          "AI (ระดับปานกลาง)",
+          "AI (ความรู้ในระดับปานกลาง)",
           "เคมี",
         ],
       },
@@ -175,8 +175,8 @@ export default function InternTeam() {
           "Medical Simulation",
         ],
         th: [
-          "การพัฒนาเกม",
-          "การจำลองเชิงการแพทย์",
+          "การพัฒนาเกม (Game Development)",
+          "การจำลองเชิงการแพทย์ (Medical Simulation)",
         ],
       },
       avatar: "/img/inLAB_Intern/Lyric.png",
@@ -202,7 +202,7 @@ export default function InternTeam() {
         ],
         th: [
           "สัตวแพทย์ (Orthopedics)",
-          "ระบาดวิทยา",
+          "ระบาดวิทยา (Epidemiology)",
         ],
       },
       socials: { youtube: "youtube.com/@LyricUrsae", twitter: "https://x.com/LyricUrsae", twitch: "", mail: "" },

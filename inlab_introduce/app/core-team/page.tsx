@@ -112,7 +112,7 @@ export default function CoreTeam() {
       code: "S1M-S",
       AOI: {
         en: ["Chemistry", "Aerospace engineering", "Technical design", "Speculative Biology", "Worldbuilding", "Medieval Martial art"],
-        th: ["เคมี", "วิศวกรรมการบินและอวกาศ", "การเขียนแบบ", "Speculative Biology", "Worldbuilding", "ศิลปะการป้องกันตัวยุคกลาง"],
+        th: ["เคมี", "วิศวกรรมการบินและอวกาศ (Aerospace)", "การเขียนแบบ (Technical design)", "Speculative Biology", "Worldbuilding", "ศิลปะการป้องกันตัวยุคกลาง (Medieval Martial art)"],
       },
       avatar: "/img/inLAB_Core/Selma.png",
       logo: "/img/Logo/ScientificCryptid.png",
@@ -137,7 +137,7 @@ export default function CoreTeam() {
           "Bio Wet lab",
         ],
         th: [
-          "จรวดวิทยา",
+          "จรวดวิทยา (Rocketry)",
           "เคมี",
           "ห้องปฏิบัติการเปียก (Wet Lab) เชิงชีววิทยา",
         ],
@@ -155,8 +155,8 @@ export default function CoreTeam() {
       department: { en: "GENOMICS & BIOCHEMISTRY", th: "GENOMICS & BIOCHEMISTRY" },
       code: "S2R-B",
       AOI: {
-        en: ["Biochemistry", "Genomics" , "Data science", "Medical science", "Medical AI (Artificial Intelligence)", "Scientific Shitposting"],
-        th: ["ชีวเคมี", "พันธุศาสตร์" , "วิทยาการข้อมูล", "วิทยาศาสตร์การแพทย์", "AI (ปัญญาประดิษฐ์) เชิงการแพทย์", "Scientific Shitposting"],
+        en: ["Biochemistry", "Genomics" , "Data Science", "Medical science", "Medical AI (Artificial Intelligence)", "Scientific Shitposting"],
+        th: ["ชีวเคมี (Biochem)", "พันธุศาสตร์ (Genomics)" , "วิทยาการข้อมูล (Data Science)", "วิทยาศาสตร์การแพทย์ (Medical Science)", "AI เชิงการแพทย์ (Medical AI)", "Scientific Shitposting"],
       },
       avatar: "/img/inLAB_Core/Soren.png",
       logo: "/img/Logo/ScientificCryptid.png",
@@ -181,9 +181,9 @@ export default function CoreTeam() {
           "Human Genomes",
         ],
         th: [
-          "ชีวเคมี",
-          "ชีวสารสนเทศศาสตร์ (ชีววิทยาเชิงคำนวณ)",
-          "Genomes ของมนุษย์",
+          "ชีวเคมี (Biochem)",
+          "ชีวสารสนเทศศาสตร์ (Bioinformatics)",
+          "Human Genomes",
         ],
       },
       socials: {
@@ -200,7 +200,7 @@ export default function CoreTeam() {
       code: "S3W-F",
       AOI: {
         en: ["Plant-Based Food", "Drinking", "Digital Marketing"],
-        th: ["อาหาร Plant-Based", "เครื่องดื่ม", "การตลาดเชิงดิจิทัล"],
+        th: ["อาหาร Plant-Based", "เครื่องดื่ม", "การตลาดเชิงดิจิทัล (Digital Marketing)"],
       },
       avatar: "/img/inLAB_Core/Sanwhann.png",
       logo: "/img/Logo/Sanwhann.PNG",
@@ -223,7 +223,7 @@ export default function CoreTeam() {
           "Food product development",
         ],
         th: [
-          "การพัฒนาผลิตภัณฑ์อาหาร",
+          "การพัฒนาผลิตภัณฑ์อาหาร (Food product development)",
         ],
       },
       socials: {
