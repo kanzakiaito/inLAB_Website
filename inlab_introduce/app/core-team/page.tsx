@@ -438,11 +438,19 @@ export default function CoreTeam() {
                       {member.name}
                     </h3>
                     <Badge
-                      variant="outline"
-                      className={`text-orange-600 border-orange-600 font-mono`}
-                    >
-                      {member.department[language]}
-                    </Badge>
+  variant="outline"
+  className={`
+    text-orange-600 border-orange-600 font-mono
+    whitespace-pre-line break-words
+    max-w-full block
+    text-xs sm:text-sm
+    px-2 py-1
+    overflow-hidden text-ellipsis
+  `}
+  style={{ wordBreak: "break-word", whiteSpace: "pre-line" }}
+>
+  {member.department[language]}
+</Badge>
                   </div>
 
                   <p
