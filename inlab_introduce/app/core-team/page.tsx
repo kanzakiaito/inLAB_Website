@@ -26,6 +26,7 @@ interface Member {
   birthday: { en: string; th: string };
   fanmark: string;
   specialize?: { en: string[]; th: string[] };
+  quote: {en: string, th: string};
 }
 
 export default function CoreTeam() {
@@ -147,6 +148,7 @@ export default function CoreTeam() {
       twitch: "https://www.twitch.tv/scientificcryptid",
       mail: "projectselmaen@gmail.com",
     },
+    quote: {en: "Explore science through shear incompetence", th: "ความอยากรู้อยากเห็น หยุดแมวไม่ได้หรอก (เหลือ 5 ชีวิตจาก 9 ชีวิต)"},
     },
     {
       name: "SØREN KATTENHAVN",
@@ -160,8 +162,8 @@ export default function CoreTeam() {
       logo: "/img/Logo/ScientificCryptid.png",
       model: "/img/Model/Soren.png",
       description: {
-        en: "A biochemistry black cat-man PhD with a habit of eyeing your arm veins.",
-        th: "มนุษย์แมวดำพี่ของมนุษย์แมวส้ม ดีกรีจบเอกชีวเคมีและชอบจ้องจะจิ้มเส้นเลือดแขนคน",
+        en: "Biochemist with PhD, totally not a mad scientist. Would take a look at your gene.",
+        th: "มนุษย์แมวดำพี่ของมนุษย์แมวส้ม ดีกรีจบเอกชีวเคมี, ถึงเขาจ้องจะขอยีนคุณ แต่ก็ไม่ใช่นักวิทยาศาสตร์สติเฟื่องหรอกนะ",
       },
       detailedDescription: {
         en: "A researcher cat man and older sibling of Selma Kattenhavn, senior scientist and head of biochemistry department of ISV Andøya Expedition. With goal to collect data, biobank sample and study interesting species on the planet Earth. Sometimes pranking his younger brother as hobby.\n\nHaving biochem PhD in real life, specialized in genomics and bioinformatics. Totally not a mad scientist.",
@@ -190,14 +192,15 @@ export default function CoreTeam() {
       twitch: "https://www.twitch.tv/scientificcryptid",
       mail: "projectselmaen@gmail.com",
     },
+    quote: {en: "Genetics is only 50% of who you are, the rest is environment", th: "พันธุกรรมน่ะ กำหนดตัวตนของคุณแค่ 50% ส่วนที่เหลือ คือสิ่งแวดล้อม"},
     },
     {
       name: "SANWHANN",
-      department: { en: "FOOD R&D", th: "วิทยาศาสตร์" },
+      department: { en: "FOOD R&D", th: "FOOD R&D" },
       code: "S3W-F",
       AOI: {
-        en: ["Veterinary medicine (Especially in Orthopedics)", "Epidemiology"],
-        th: ["Veterinary medicine (Especially in Orthopedics)", "Epidemiology"],
+        en: ["Plant-Based Food", "Drinking", "Digital Marketing"],
+        th: ["อาหาร Plant-Based", "เครื่องดื่ม", "การตลาดเชิงดิจิทัล"],
       },
       avatar: "/img/inLAB_Core/Sanwhann.png",
       logo: "/img/Logo/Sanwhann.PNG",
@@ -217,32 +220,27 @@ export default function CoreTeam() {
       fanmark: "🐍🤎✨",
       specialize: {
         en: [
-          "PhD in Computer Science",
-          "Published 15+ Research Papers",
-          "Tech Innovation Award",
-          "Industry Speaker",
+          "Food product development",
         ],
         th: [
-          "ปริญญาเอกวิทยาการคอมพิวเตอร์",
-          "ตีพิมพ์งานวิจัย 15+ ฉบับ",
-          "รางวัลนวัตกรรมเทคโนโลยี",
-          "วิทยากรในอุตสาหกรรม",
+          "การพัฒนาผลิตภัณฑ์อาหาร",
         ],
       },
       socials: {
-      youtube: "https://www.youtube.com/@scientificcryptid",
-      twitter: "https://x.com/SCICRYP1",
-      twitch: "https://www.twitch.tv/scientificcryptid",
-      mail: ""
+      youtube: "https://www.youtube.com/@KhunSanWhan",
+      twitter: "https://x.com/KhunSanWhan",
+      twitch: "",
+      mail: "sanwhan.work@gmail.com"
     },
+    quote: {en: "Midnight and still awake? Come with me.", th: "เที่ยงคืนแล้วยังไม่นอนหรอ? มาอยู่กับเราสิ"},
     },
     {
       name: "ARCHBAS",
       department: { en: "PSYCHOLOGY", th: "PSYCHOLOGY" },
       code: "A4B-P",
       AOI: {
-        en: ["Veterinary medicine (Especially in Orthopedics)", "Epidemiology"],
-        th: ["Veterinary medicine (Especially in Orthopedics)", "Epidemiology"],
+        en: ["Psychology", "AI (Artificial Intelligence)", "Coding", "Board Game", "Custom Keyboard"],
+        th: ["จิตวิทยา", "AI (ปัญญาประดิษฐ์)", "Coding", "บอร์ดเกม", "Custom Keyboard"],
       },
       avatar: "/img/inLAB_Core/Archbas.png",
       logo: "/img/Logo/Archbas.png",
@@ -253,33 +251,32 @@ export default function CoreTeam() {
       },
       detailedDescription: {
         en: "A Living code that was borned from the coding world, sneaked to ISV Andøya Expedition's spacecraft.\n\nTraining it self by using all data on spacecraft that mostly in engineering, research paper, some of variety entertainment. It makes Archbas, the living code vtuber that has many educational contents, and some entertainment",
-        th: 'Living code ที่มีชีวิตขึ้นมาจากโลกที่เต็มไปด้วย Code แอบขึ้นยาน ISV Andøya Expedition มา training ตัวเองเพิ่มจากข้อมูลที่มีอยู่บนยาน ที่ส่วนใหญ่มีแต่ วิศวกรรม งานวิจัยต่างๆ มีความบันเทิงอยู่นิดนึง\n\nและด้วยเหตุนี้เอง ก็เลยถือกำเนิดเป็น Archbas, VTuber living code ที่มีแต่สาระ บันเทิงได้นิดหน่อย\n\n"เป็นคนแล้วเหนื่อย เป็นลิงใน Workstation ดีกว่า"',
+        th: 'Living code ที่มีชีวิตขึ้นมาจากโลกที่เต็มไปด้วย Code แอบขึ้นยาน ISV Andøya Expedition มา training ตัวเองเพิ่มจากข้อมูลที่มีอยู่บนยาน ที่ส่วนใหญ่มีแต่ วิศวกรรม งานวิจัยต่างๆ มีความบันเทิงอยู่นิดนึง\n\nและด้วยเหตุนี้เอง ก็เลยถือกำเนิดเป็น Archbas, VTuber living code ที่มีแต่สาระ บันเทิงได้นิดหน่อย',
       },
       birthday: {
-        en: "",
-        th: "",
+        en: "9th March",
+        th: "9 มีนาคม",
       },
-      fanmark: "",
+      fanmark: "𝚿⌨️🛢️",
       specialize: {
         en: [
-          "Culinary Arts Degree",
-          "Worked in 5-Star Restaurants",
-          "Published Cookbook",
-          "TV Cooking Show Host",
+          "Psychology",
+          "Technology",
+          "Data Science",
         ],
         th: [
-          "ปริญญาศิลปการทำอาหาร",
-          "ทำงานในร้านอาหาร 5 ดาว",
-          "ตีพิมพ์หนังสือทำอาหาร",
-          "พิธีกรรายการทำอาหารทีวี",
+          "จิตวิทยา",
+          "เทคโนโลยี",
+          "วิทยาการข้อมูล (Data Science)",
         ],
       },
       socials: {
-      youtube: "https://www.youtube.com/@scientificcryptid",
-      twitter: "https://x.com/SCICRYP1",
-      twitch: "https://www.twitch.tv/scientificcryptid",
-      mail: ""
+      youtube: "https://www.youtube.com/@Archbas_SLT",
+      twitter: "https://x.com/Archbas_",
+      twitch: "",
+      mail: "bas.whatthe@gmail.com"
     },
+    quote: {en: "Just a code, that being a little bit VTuber", th: "Code มีชีวิต... ที่กลายมาเป็น VTuber ได้น่ะ"},
     },
   ];
 
@@ -485,6 +482,16 @@ export default function CoreTeam() {
                 >
                   {selectedMember.department[language]}
                 </Badge>
+                {/* Quote Section */}
+{selectedMember.quote && selectedMember.quote[language] && (
+  <div
+    className={`italic text-center text-gray-800 bg-orange-100 rounded px-4 py-2 mb-3 ${
+      language === "th" ? "font-kanit" : "font-mono"
+    }`}
+  >
+    “{selectedMember.quote[language]}”
+  </div>
+)}
                 <h4
                   className={`text-sm font-semibold text-gray-700 mb-2 font-mono`}
                 >

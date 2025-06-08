@@ -24,7 +24,7 @@ const kanit = Kanit({
 
 export const metadata: Metadata = {
   title: 'inLAB - Outreach Division',
-  description: 'inLAB - Outreach Division',
+  description: 'inLAB - Science VTuber together strong',
 }
 
 export default function RootLayout({
