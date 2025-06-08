@@ -110,8 +110,8 @@ export default function CoreTeam() {
       department: { en: "AEROSPACE ENGINEERING", th: "เกมมิ่ง" },
       code: "S1M-S",
       AOI: {
-        en: ["Biochemistry", "Aerospace engineering", "Technical drawing", "Filmmaking", "Medieval Martial art"],
-        th: ["Biochemistry", "Aerospace engineering", "Technical drawing", "Filmmaking", "Medieval Martial art"],
+        en: ["Chemistry", "Aerospace engineering", "Technical design", "Speculative Biology", "Worldbuilding", "Medieval Martial art"],
+        th: ["เคมี", "วิศวกรรมการบินและอวกาศ", "การเขียนแบบ", "Speculative Biology", "Worldbuilding", "ศิลปะการป้องกันตัวยุคกลาง"],
       },
       avatar: "/img/inLAB_Core/Selma.png",
       logo: "/img/Logo/ScientificCryptid.png",
@@ -122,28 +122,30 @@ export default function CoreTeam() {
       },
       detailedDescription: {
         en: "A cat man who like fire & explosion and younger sibling of Søren Kattenhavn, expedition leader and head of engineering department, living abroad interstellar space vessel ISV Andøya Expedition. With goal to collect data and study about technology of habitant of the planet Earth.\n\nHaving experience in aerospace engineering R&D and working as research assistant in real life. Want to make science fun and interesting again",
-        th: "นักกีฬาอีสปอร์ตมืออาชีพที่หันมาเป็นผู้สร้างเนื้อหา เซลม่านำประสบการณ์การเล่นเกมแข่งขันหลายปีมาสู่ทีม ด้วยชัยชนะในทัวร์นาเมนต์เกม FPS หลายรายการและการวิเคราะห์เกมเพลย์เชิงกลยุทธ์",
+        th: "มนุษย์แมวผู้ชื่นชอบในเปลวเพลิงและเสียงระเบิดอันกึกก้อง หัวหน้าคณะสำรวจและหัวหน้าฝ่ายวิศวกรรมของยานอวกาศ ISV Andøya Expedition\n\nเขาเป็นน้องชายของ Søren Kattenhavn และปัจจุบันเขาได้อาศัยอยู่บนยานลำนี้ เพื่อออกเดินทางสำรวจและรวบรวมข้อมูลเทคโนโลยีของชาวโลก\n\nด้วยประสบการณ์ด้าน \"วิศวกรรมการบินและอวกาศ\" และการทำงานเป็น \"ผู้ช่วยวิจัย\" มาอย่างโชกโชน เขามุ่งมั่นที่จะทำให้วิทยาศาสตร์กลับมาเป็นเรื่องสนุกและน่าสนใจอีกครั้ง!",
       },
       birthday: {
         en: "17th September",
         th: "17 กันยายน",
       },
-      fanmark: "🚧🧪",
+      fanmark: "🚧🧪🌠",
       specialize: {
         en: [
-          "Regional FPS Champion 2023",
-          "Top 10 Global Ranking",
-          "100K+ Followers",
-          "Gaming Award Winner",
+          "Rocketry",
+          "Chemistry",
+          "Bio Wet lab",
         ],
         th: [
-          "แชมป์ FPS ระดับภูมิภาค 2023",
-          "อันดับ 10 อันดับโลก",
-          "ผู้ติดตาม 100K+",
-          "ผู้ชนะรางวัลเกมมิ่ง",
+          "จรวดวิทยา",
+          "เคมี",
+          "ห้องปฏิบัติการเปียก (Wet Lab) เชิงชีววิทยา",
         ],
       },
-      socials: { youtube: "#", twitter: "#", twitch: "#" },
+      socials: {
+      youtube: "https://www.youtube.com/@scientificcryptid",
+      twitter: "https://x.com/SCICRYP1",
+      twitch: "https://www.twitch.tv/scientificcryptid"
+    },
     },
     {
       name: "SØREN KATTENHAVN",
@@ -168,7 +170,7 @@ export default function CoreTeam() {
         en: "N/A",
         th: "N/A",
       },
-      fanmark: "🧬🧪",
+      fanmark: "🧬🧪🌠",
       specialize: {
         en: [
           "PhD in Computer Science",
