@@ -168,7 +168,7 @@ export default function InternTeam() {
     {
       name: "LYRIC URSAE",
       department: { en: "VETERINARY MEDICINE", th: "VETERINARY MEDICINE" },
-      code: "L2R-V",
+      code: "L2R-IV",
       AOI: {
         en: [
           "Game Development",
