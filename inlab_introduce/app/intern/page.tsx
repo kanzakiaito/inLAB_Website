@@ -132,8 +132,8 @@ export default function InternTeam() {
           "เกมโชว์/ควิซโชว์"
         ],
       },
-      avatar: "/img/inLAB_Intern/Aito.PNG",
-      logo: "/img/Logo/Aito.png",
+      avatar: "/img/inLAB_Intern/Aito.png",
+      logo: "/img/Logo/Aito.PNG",
       model: "/img/Model/Aito.png",
       description: {
         en: "A programmer with dark circles under his eyes, who does fortune telling a little bit(?)",
