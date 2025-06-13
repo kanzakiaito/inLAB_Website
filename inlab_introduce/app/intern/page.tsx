@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Youtube, Twitch, X, Globe, Mail } from "lucide-react";
+import { Youtube, Twitch, X, Globe, Mail, Github } from "lucide-react";
 import XIcon from "@mui/icons-material/X";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -22,7 +22,7 @@ interface Member {
   model: string;
   description: { en: string; th: string };
   detailedDescription?: { en: string; th: string };
-  socials: { youtube: string; twitter: string; twitch: string; mail: string };
+  socials: { youtube: string; twitter: string; twitch: string; mail: string; github: string; };
   birthday: { en: string; th: string };
   fanmark: string;
   specialize?: { en: string[]; th: string[] };
@@ -162,7 +162,7 @@ export default function InternTeam() {
           "เคมี",
         ],
       },
-      socials: { youtube: "https://www.youtube.com/@KZK_Aito", twitter: "https://x.com/kanzaki_aito", twitch: "https://www.twitch.tv/kanzaki_aito", mail: "kanzaki.aitovt@gmail.com" },
+      socials: { youtube: "https://www.youtube.com/@KZK_Aito", twitter: "https://x.com/kanzaki_aito", twitch: "https://www.twitch.tv/kanzaki_aito", mail: "kanzaki.aitovt@gmail.com", github: "https://github.com/kanzakiaito" },
       quote: { en: "Predict the future, code the present.", th: "ผมก็เป็นแค่โปรแกรมเมอร์... ที่ดูดวงเป็นนิดหน่อยน่ะ" },
     },
     {
@@ -205,7 +205,7 @@ export default function InternTeam() {
           "ระบาดวิทยา (Epidemiology)",
         ],
       },
-      socials: { youtube: "youtube.com/@LyricUrsae", twitter: "https://x.com/LyricUrsae", twitch: "", mail: "" },
+      socials: { youtube: "youtube.com/@LyricUrsae", twitter: "https://x.com/LyricUrsae", twitch: "", mail: "", github: "" },
       quote: { en: "Bear with me! 🐻🥽", th: "สวัสดีทุกคน Lyric Ursae (ไลริค เออร์ซี่) 🐻🥽 เองงง" },
     },
     {
@@ -260,7 +260,7 @@ export default function InternTeam() {
           "สถิติ",
         ],
       },
-      socials: { youtube: "https://www.youtube.com/@ArithmosCh", twitter: "https://x.com/arithmosch", twitch: "https://twitch.tv/arithmosch", mail: "" },
+      socials: { youtube: "https://www.youtube.com/@ArithmosCh", twitter: "https://x.com/arithmosch", twitch: "https://twitch.tv/arithmosch", mail: "", github: "" },
       quote: { en: "Numbers never lie.", th: "ตัวเลขไม่เคยโกหกใคร" },
     },
   ];
@@ -540,6 +540,20 @@ export default function InternTeam() {
                       >
                         <Mail className="w-4 h-4" />
                         E-Mail
+                      </Button>
+                    )}
+                  {selectedMember.socials.github &&
+                    selectedMember.socials.github.trim() !== "" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600 font-mono`}
+                        onClick={() =>
+                          window.open(`mailto:${selectedMember.socials.github}`, "_blank")
+                        }
+                      >
+                        <Github className="w-4 h-4" />
+                        GitHub
                       </Button>
                     )}
                 </div>

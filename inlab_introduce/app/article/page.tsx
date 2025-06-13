@@ -1,63 +1,56 @@
 "use client";
 
-import type React from "react";
-
 import { useState } from "react";
 import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Globe } from "lucide-react";
-import { useRouter, usePathname } from "next/navigation"; // Import useRouter for navigation
+import { Youtube, Twitter, Twitch, Globe } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation"; // Import useRouter and usePathname
 
 type Language = "en" | "th";
 
-export default function InLAB() {
+export default function AboutUs() {
   const [language, setLanguage] = useState<Language>("en");
-  // State to manage hover for the Discord button
   const [isDiscordHovered, setIsDiscordHovered] = useState(false);
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
   const pathname = usePathname(); // Get the current pathname
 
   const translations = {
     en: {
-      department: "INLAB",
+      department: "InLAB",
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
-      meetTalent: "- Meet Our Specialists -",
+      meetTalent: "Meet Our Talent",
+      description:
+        "Discover the exceptional inLAB specialists who drive our outreach initiatives, each contributing distinctive insights and specialized experience to elevate your experience.",
       follow: "Follow",
       joinCommunity: "Join Our Community",
       communityDescription: "Get in touch with our inLAB specialist",
       joinDiscord: "Join Discord",
-      // Navigation items
       coreTeam: "CORE TEAM",
       intern: "INTERN",
       aboutUs: "ABOUT US",
-      coreTeamTitle: "CORE TEAM",
-      internTeamTitle: "INTERN",
-      coreTeamDescription:
-        "Meet the pioneer specialists who form the backbone of inLAB, driving innovation and leading our key initiatives.",
-      internTeamDescription:
-        "Discover our talented interns, bringing fresh perspectives and new experience to everyone.",
+      aboutDescription: `inLAB is not vtuber agency or entertainment group, and have no external financial backing. inLAB is just a group of science vtuber friend who doing niche science content coming together to support each other and roleplay as a vtuber group under strong CI for easy discovery by the follower.\n\n
+                              Our core idea is making friend, support each other, show the interesting and living side of science, and make boring science class a crime.`,
     },
     th: {
-      department: "INLAB",
+      department: "InLAB",
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
       meetTalent: "พบกับพรสวรรค์ของเรา",
+      description:
+        "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
       follow: "ติดตาม",
       joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
       communityDescription:
         "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
       joinDiscord: "เข้าร่วม Discord",
-      // Navigation items
-      coreTeam: "CORE TEAM",
-      intern: "INTERN",
-      aboutUs: "ABOUT US",
-      coreTeamTitle: "CORE TEAM",
-      internTeamTitle: "INTERN",
-      coreTeamDescription:
-        "พบกับเหล่า Specialist ผู้ก่อตั้ง inLAB กลุ่มวีทูปเบอร์สายวิทย์ที่เต็มเปี่ยมไปด้วยงานวิจัยและ Content สุดจะหาทำ",
-      internTeamDescription:
-        "พบกับเหล่าน้องใหม่ประจำ inLAB ที่มาพร้อมความสามารถและประสบการณ์อันเต็มเปี่ยม ที่คุณไม่ควรพลาด!",
+      coreTeam: "ทีมหลัก",
+      intern: "นักศึกษาฝึกงาน",
+      aboutUs: "เกี่ยวกับเรา",
+      aboutDescription: `inLAB ไม่ใช่สังกัด VTuber (และไม่มีการแสวงหาผลกำไรแต่อย่างใด) พวกเราเป็นเพียงกลุ่มเพื่อน VTuber สายวิทยาศาสตร์ที่มารวมตัวกันเพื่อสร้าง Content ทางด้านวิทยาศาสตร์โดยเฉพาะและ Support ซึ่งกันและกัน\n\n
+                        และนอกเหนือจากนี้ พวกเราก็มีเป้าหมายในการแสดงด้านของวิทยาศาสตร์ที่คนทั่วไปไม่อาจได้พบเห็นบ่อย เพราะเรื่องวิทยาศาสตร์ ก็เป็นเรื่องสนุก(และเป็นภัย)ได้ยังไงล่ะ?!`,
     },
   };
 
@@ -74,12 +67,6 @@ export default function InLAB() {
       code: "IN-02",
       link: "intern",
     },
-    // {
-    //   title: { en: "ARTICLE", th: "ARTICLE" },
-    //   members: { en: "NEWS & DATA", th: "NEWS & DATA" },
-    //   code: "AT-03",
-    //   link: "article",
-    // },
     {
       title: { en: "ABOUT US", th: "ABOUT US" },
       members: { en: "INFORMATION", th: "INFORMATION" },
@@ -90,9 +77,8 @@ export default function InLAB() {
 
   const t = translations[language];
 
-  // Updated handleNavClick to use Next.js router
   const handleNavClick = (section: string) => {
-    router.push(`/${section}`);
+    router.push(`/${section}`); // Use router.push for navigation
   };
 
   // Function to prevent right-click context menu
@@ -100,7 +86,6 @@ export default function InLAB() {
     e.preventDefault();
   };
 
-  // Function to prevent image dragging
   const handleDragStart = (e: React.DragEvent) => {
     e.preventDefault();
   };
@@ -141,9 +126,7 @@ export default function InLAB() {
                 className="object-contain"
               />
               <div className="flex flex-col">
-                <h1
-                  className={`text-6xl lg:text-8xl text-black tracking-tight font-staatliches`}
-                >
+                <h1 className="text-6xl lg:text-8xl text-black tracking-tight font-staatliches">
                   {t.department}
                 </h1>
                 <p className="text-xl text-black/80 font-medium font-staatliches -mt-2 lg:-mt-4">
@@ -155,12 +138,12 @@ export default function InLAB() {
             {/* Center: Navigation - Left Aligned Text */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 text-black mb-2 lg:mb-0">
               {navigationItems.map((item, index) => {
-                const isActive = pathname === `/${item.link}`;
+                const isActive = pathname === `/${item.link}`; // Check if current path matches item link
                 return (
                   <div
                     key={index}
                     className={`text-left cursor-pointer transition-colors duration-300 p-2 rounded-lg 
-                      ${isActive ? "bg-white shadow-md" : "hover:opacity-80"}`}
+                      ${isActive ? "bg-white shadow-md" : "hover:opacity-80"}`} // Apply active styles
                     onClick={() => handleNavClick(item.link)}
                   >
                     <div className="text-lg md:text-2xl lg:text-3xl mb-1 font-staatliches">
@@ -208,12 +191,8 @@ export default function InLAB() {
         <div className="absolute inset-0 bg-black/50"></div>
 
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl text-shadow-md font-bold text-white font-mono leading-tight">
-            Not a corpo, not a group
-            <br />
-            Just a bunch of science VTuber
-            <br />
-            "together strong"
+          <h1 className="text-4xl md:text-5xl lg:text-6xl text-shadow-md text-white font-staatliches leading-tight">
+            ABOUT US
           </h1>
         </div>
       </div>
@@ -221,148 +200,47 @@ export default function InLAB() {
       {/* Black bar */}
       <div className="h-4 bg-black"></div>
 
-      {/* Team Information Section */}
+      {/* Members Section */}
       <div className="bg-white flex-grow">
-        <div className="w-full">
-          {/* Core Team Section */}
-          <div className="mb-0 bg-orange-400">
-            <div className="flex flex-col lg:flex-row min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] xl:min-h-[70vh]">
-              {/* Left side - Text content */}
-              <div className="lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 md:py-16 lg:py-20">
-                <a
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-staatliches text-gray-800 mb-4 sm:mb-6 md:mb-8 text-left underline"
-                  href="/core-team"
-                >
-                  {t.coreTeamTitle}
-                </a>
-                <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
-                  <p
-                    className={`text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 text-left leading-relaxed whitespace-pre-wrap ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
-                  >
-                    {t.coreTeamDescription}
-                  </p>
-                </div>
-              </div>
-              {/* Right side - Image */}
-
-              <div className="lg:w-3/4 relative overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto">
-                <div className="flex justify-center items-center h-full">
-  <div
-    style={{
-      display: "inline-block",
-      border: "8px solid",
-      borderImage:
-        "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
-      borderRadius: "0.5rem",
-      boxSizing: "border-box",
-      background: "black", // optional: for contrast behind transparent images
-      maxWidth: "100%",
-      maxHeight: "100%",
-    }}
-  >
-    <Image
-      src="/img/Team/inLAB_Core.png"
-      alt="Core Team"
-      width={800} // set your image width
-      height={500} // set your image height
-      className="object-contain object-center"
-      onContextMenu={handleContextMenu}
-      onDragStart={handleDragStart}
-      style={{
-        display: "block",
-        borderRadius: "0.5rem",
-        maxWidth: "100%",
-        height: "auto",
-      }}
-    />
-  </div>
-</div>
-              </div>
-            </div>
+        <div className="flex flex-col lg:flex-row min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] xl:min-h-[70vh]">
+          {/* Left side - Image */}
+          <div className="lg:w-5/8 relative order-2 lg:order-1 overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto">
+            <Image
+              src="/img/INLAB_ABOUT_US.png"
+              alt="Intern Team"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+              onContextMenu={handleContextMenu} // Prevents right-click
+              onDragStart={handleDragStart} // Prevents dragging
+            />
           </div>
-
+          {/* Right side - Text content */}
           <div
-            className="h-3 w-full bg-black" // Added w-full to ensure it spans the whole width
+            className="flex flex-col justify-center order-1 lg:order-2 border-l-16 border-black"
             style={{
               borderImage:
-                "repeating-linear-gradient(90deg, black 0, black 10px, orange 10px, orange 20px) 8",
-              borderWidth: "3px 0 3px 0", // Apply border to top and botto
-              borderStyle: "solid",
+                "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
             }}
-          ></div>
-
-          {/* Intern Team Section */}
-          <div className="mb-0 bg-gray-800">
-            <div className="flex flex-col lg:flex-row min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] xl:min-h-[70vh]">
-              {/* Left side - Image */}
-              <div className="lg:w-3/4 relative order-2 lg:order-1 overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto flex items-center justify-center">
-                <div className="flex justify-center items-center h-full">
-  <div
-    style={{
-      display: "inline-block",
-      border: "8px solid",
-      borderImage:
-        "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
-      borderRadius: "0.5rem",
-      boxSizing: "border-box",
-      background: "black",
-      maxWidth: "100%",
-      maxHeight: "100%",
-    }}
-  >
-    <Image
-      src="/img/Team/inLAB_Intern.png"
-      alt="Intern Team"
-      width={800} // set your image width
-      height={500} // set your image height
-      className="object-contain object-center"
-      onContextMenu={handleContextMenu}
-      onDragStart={handleDragStart}
-      style={{
-        display: "block",
-        borderRadius: "0.5rem",
-        maxWidth: "100%",
-        height: "auto",
-      }}
-    />
-  </div>
-</div>
-          
-              </div>
-              {/* Right side - Text content */}
-              <div className="lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 md:py-16 lg:py-20 order-1 lg:order-2">
-                <a
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-staatliches text-orange-400 mb-4 sm:mb-6 md:mb-8 text-right underline"
-                  href="/intern"
-                >
-                  {t.internTeamTitle}
-                </a>
-                <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
-                  <p
-                    className={`text-sm sm:text-base md:text-lg lg:text-xl text-orange-500 text-right leading-relaxed whitespace-pre-wrap ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
-                  >
-                    {t.internTeamDescription}
-                  </p>
-                </div>
-              </div>
+          />
+          <div className="bg-gray-800 lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 md:py-16 lg:py-20 order-1 lg:order-2">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-staatliches text-orange-400 mb-4 sm:mb-6 md:mb-8 text-right underline">
+              inLAB
+            </h2>
+            <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
+              <p
+                className={`text-xs sm:text-sm md:text-base lg:text-lg text-orange-500 text-right leading-relaxed whitespace-pre-wrap ${
+                  language === "th" ? "font-kanit" : "font-mono"
+                }`}
+              >
+                {t.aboutDescription}
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        className="h-3 w-full bg-black" // Added w-full to ensure it spans the whole width
-        style={{
-          borderImage:
-            "repeating-linear-gradient(90deg, black 0, black 10px, orange 10px, orange 20px) 8",
-          borderWidth: "3px 0 3px 0", // Apply border to top and botto
-          borderStyle: "solid",
-        }}
-      ></div>
+      <div className="h-4 bg-black"></div>
 
       {/* Footer */}
       <div className="bg-gray-900 text-white py-12">
