@@ -547,9 +547,9 @@ export default function InternTeam() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-orange-500 hover:text-white hover:border-orange-600 font-mono`}
+                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-purple-500 hover:text-white hover:border-orange-600 font-mono`}
                         onClick={() =>
-                          window.open(`mailto:${selectedMember.socials.github}`, "_blank")
+                          window.open(selectedMember.socials.github, "_blank")
                         }
                       >
                         <Github className="w-4 h-4" />
