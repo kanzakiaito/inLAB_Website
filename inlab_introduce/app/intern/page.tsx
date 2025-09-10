@@ -205,7 +205,7 @@ export default function InternTeam() {
           "ระบาดวิทยา (Epidemiology)",
         ],
       },
-      socials: { youtube: "youtube.com/@LyricUrsae", twitter: "https://x.com/LyricUrsae", twitch: "", mail: "", github: "" },
+      socials: { youtube: "https://www.youtube.com/@LyricUrsae", twitter: "https://x.com/LyricUrsae", twitch: "", mail: "", github: "" },
       quote: { en: "Bear with me! 🐻🥽", th: "สวัสดีทุกคน Lyric Ursae (ไลริค เออร์ซี่) 🐻🥽 เองงง" },
     },
     {

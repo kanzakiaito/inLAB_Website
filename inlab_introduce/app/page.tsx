@@ -107,6 +107,17 @@ export default function InLAB() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-400 via-orange-500 to-amber-600">
+      {/* Secret Button (hidden with CSS) */}
+      <div className="fixed bottom-6 right-6 z-50" style={{ display: "none" }}>
+        <Button
+          size="sm"
+          variant="outline"
+          className="bg-black/70 text-orange-300 border-orange-400 hover:bg-orange-500 hover:text-white font-mono shadow-lg"
+          onClick={() => router.push("/tunnel/step1")}
+        >
+          Secret
+        </Button>
+      </div>
       {/* Language Toggle */}
       <div className="absolute top-4 right-4 z-10">
         <Button

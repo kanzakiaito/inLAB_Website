@@ -1,56 +1,78 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Youtube, Twitter, Twitch, Globe } from "lucide-react";
-import { useRouter, usePathname } from "next/navigation"; // Import useRouter and usePathname
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Youtube, Twitter, Twitch, Globe, Eye, ThumbsUp, Share, Calendar, User, Plus, Edit, Trash2 } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
 
 type Language = "en" | "th";
 
-export default function AboutUs() {
+interface Article {
+  id: string;
+  title: string;
+  description: string;
+  author: string;
+  date: string;
+  views: number;
+  likes: number;
+  category: string;
+  image: string;
+}
+
+export default function ArticlePage() {
   const [language, setLanguage] = useState<Language>("en");
   const [isDiscordHovered, setIsDiscordHovered] = useState(false);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [articleToDelete, setArticleToDelete] = useState<string | null>(null);
+  
   const router = useRouter();
-  const pathname = usePathname(); // Get the current pathname
+  const pathname = usePathname();
 
   const translations = {
     en: {
       department: "InLAB",
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
-      meetTalent: "Meet Our Talent",
-      description:
-        "Discover the exceptional inLAB specialists who drive our outreach initiatives, each contributing distinctive insights and specialized experience to elevate your experience.",
-      follow: "Follow",
+      articles: "Articles",
+      readMore: "Read More",
+      views: "views",
+      likes: "likes",
+      publishedOn: "Published on",
+      by: "by",
       joinCommunity: "Join Our Community",
       communityDescription: "Get in touch with our inLAB specialist",
       joinDiscord: "Join Discord",
-      coreTeam: "CORE TEAM",
-      intern: "INTERN",
-      aboutUs: "ABOUT US",
-      aboutDescription: `inLAB is not vtuber agency or entertainment group, and have no external financial backing. inLAB is just a group of science vtuber friend who doing niche science content coming together to support each other and roleplay as a vtuber group under strong CI for easy discovery by the follower.\n\n
-                              Our core idea is making friend, support each other, show the interesting and living side of science, and make boring science class a crime.`,
+      addArticle: "Add New Article",
+      editArticle: "Edit",
+      deleteArticle: "Delete",
+      confirmDelete: "Are you sure you want to delete this article?",
+      deleteConfirmAction: "Delete",
+      cancel: "Cancel",
     },
     th: {
       department: "InLAB",
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
-      meetTalent: "พบกับพรสวรรค์ของเรา",
-      description:
-        "ค้นพบผู้เชี่ยวชาญที่หลากหลายในแผนกเสมือนจริงของเรา แต่ละคนนำทักษะและความบันเทิงที่ไม่เหมือนใครมาสู่ชุมชนของเรา",
-      follow: "ติดตาม",
+      articles: "บทความ",
+      readMore: "อ่านต่อ",
+      views: "การชม",
+      likes: "ไลค์",
+      publishedOn: "เผยแพร่เมื่อ",
+      by: "โดย",
       joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
-      communityDescription:
-        "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
+      communityDescription: "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
       joinDiscord: "เข้าร่วม Discord",
-      coreTeam: "ทีมหลัก",
-      intern: "นักศึกษาฝึกงาน",
-      aboutUs: "เกี่ยวกับเรา",
-      aboutDescription: `inLAB ไม่ใช่สังกัด VTuber (และไม่มีการแสวงหาผลกำไรแต่อย่างใด) พวกเราเป็นเพียงกลุ่มเพื่อน VTuber สายวิทยาศาสตร์ที่มารวมตัวกันเพื่อสร้าง Content ทางด้านวิทยาศาสตร์โดยเฉพาะและ Support ซึ่งกันและกัน\n\n
-                        และนอกเหนือจากนี้ พวกเราก็มีเป้าหมายในการแสดงด้านของวิทยาศาสตร์ที่คนทั่วไปไม่อาจได้พบเห็นบ่อย เพราะเรื่องวิทยาศาสตร์ ก็เป็นเรื่องสนุก(และเป็นภัย)ได้ยังไงล่ะ?!`,
+      addArticle: "เพิ่มบทความใหม่",
+      editArticle: "แก้ไข",
+      deleteArticle: "ลบ",
+      confirmDelete: "คุณแน่ใจหรือไม่ที่จะลบบทความนี้?",
+      deleteConfirmAction: "ลบ",
+      cancel: "ยกเลิก",
     },
   };
 
@@ -78,17 +100,90 @@ export default function AboutUs() {
   const t = translations[language];
 
   const handleNavClick = (section: string) => {
-    router.push(`/${section}`); // Use router.push for navigation
+    router.push(`/${section}`);
   };
 
-  // Function to prevent right-click context menu
-  const handleContextMenu = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleArticleClick = (article: Article) => {
+    const formattedDate = article.date.replace(/-/g, '-');
+    const articleSlug = article.id;
+    router.push(`/article/${formattedDate}/${articleSlug}`);
   };
 
-  const handleDragStart = (e: React.DragEvent) => {
-    e.preventDefault();
+  const handleAddArticle = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    
+    // Navigate to new article creation page
+    router.push(`/article/${formattedDate}/new`);
   };
+
+  const handleEditArticle = (e: React.MouseEvent, article: Article) => {
+    e.stopPropagation(); // Prevent card click
+    const formattedDate = article.date.replace(/-/g, '-');
+    router.push(`/article/${formattedDate}/${article.id}/edit`);
+  };
+
+  const handleDeleteArticle = (e: React.MouseEvent, articleId: string) => {
+    e.stopPropagation(); // Prevent card click
+    setArticleToDelete(articleId);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDeleteArticle = async () => {
+    if (articleToDelete) {
+      try {
+        const res = await fetch(`/api/article?id=${articleToDelete}`, {
+          method: "DELETE",
+        });
+        if (!res.ok) throw new Error("Failed to delete article");
+        setArticles(articles.filter(article => article.id !== articleToDelete));
+      } catch (error) {
+        // Optionally show error to user
+      } finally {
+        setDeleteDialogOpen(false);
+        setArticleToDelete(null);
+      }
+    }
+  }
+
+  const cancelDeleteArticle = () => {
+    setDeleteDialogOpen(false);
+    setArticleToDelete(null);
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    if (language === 'th') {
+      return date.toLocaleDateString('th-TH', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        const res = await fetch("/api/article", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to fetch articles");
+        const data = await res.json();
+        setArticles(data.articles);
+      } catch (error) {
+        // Optionally handle error
+        setArticles([]);
+      }
+    }
+    fetchArticles();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-400 via-orange-500 to-amber-600">
@@ -109,20 +204,20 @@ export default function AboutUs() {
       <div className="relative">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col lg:flex-row items-center justify-between">
-            {/* Make the logo and text group clickable */}
+            {/* Logo and title */}
             <a
               href="/"
               onClick={(e) => {
-                e.preventDefault(); // Prevent default link behavior
+                e.preventDefault();
                 router.push("/");
               }}
               className="flex items-center gap-2 sm:mb-5 cursor-pointer"
             >
               <Image
-                src="/img/INLABLOGO.png" // Assuming you have a separate logo-only file
+                src="/img/INLABLOGO.png"
                 alt="InLAB Logo"
-                width={68} // Adjust size as needed
-                height={68} // Adjust size as needed
+                width={68}
+                height={68}
                 className="object-contain"
               />
               <div className="flex flex-col">
@@ -135,15 +230,15 @@ export default function AboutUs() {
               </div>
             </a>
 
-            {/* Center: Navigation - Left Aligned Text */}
+            {/* Navigation */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 text-black mb-2 lg:mb-0">
               {navigationItems.map((item, index) => {
-                const isActive = pathname === `/${item.link}`; // Check if current path matches item link
+                const isActive = pathname === `/${item.link}`;
                 return (
                   <div
                     key={index}
                     className={`text-left cursor-pointer transition-colors duration-300 p-2 rounded-lg 
-                      ${isActive ? "bg-white shadow-md" : "hover:opacity-80"}`} // Apply active styles
+                      ${isActive ? "bg-white shadow-md" : "hover:opacity-80"}`}
                     onClick={() => handleNavClick(item.link)}
                   >
                     <div className="text-lg md:text-2xl lg:text-3xl mb-1 font-staatliches">
@@ -160,7 +255,7 @@ export default function AboutUs() {
               })}
             </div>
 
-            {/* Right: Section Info and Logo */}
+            {/* Right section info */}
             <div className="hidden lg:block">
               <div className="text-right text-black flex items-center gap-4">
                 <div>
@@ -176,7 +271,7 @@ export default function AboutUs() {
         <div className="h-4 bg-black"></div>
       </div>
 
-      {/* Hero Quote Section - With background image */}
+      {/* Hero Section */}
       <div
         className="relative py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-black"
         style={{
@@ -185,14 +280,13 @@ export default function AboutUs() {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-        onContextMenu={handleContextMenu}
       >
-        {/* Dark overlay to ensure text readability */}
         <div className="absolute inset-0 bg-black/50"></div>
-
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl text-shadow-md text-white font-staatliches leading-tight">
-            ABOUT US
+          <h1 className={`text-4xl md:text-5xl lg:text-6xl text-shadow-md text-white font-staatliches leading-tight ${
+                language === "th" ? "font-kanit" : "font-staatliches"
+              }`}>
+            {t.articles.toUpperCase()}
           </h1>
         </div>
       </div>
@@ -200,42 +294,118 @@ export default function AboutUs() {
       {/* Black bar */}
       <div className="h-4 bg-black"></div>
 
-      {/* Members Section */}
-      <div className="bg-white flex-grow">
-        <div className="flex flex-col lg:flex-row min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] xl:min-h-[70vh]">
-          {/* Left side - Image */}
-          <div className="lg:w-5/8 relative order-2 lg:order-1 overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto">
-            <Image
-              src="/img/INLAB_ABOUT_US.png"
-              alt="Intern Team"
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
-              onContextMenu={handleContextMenu} // Prevents right-click
-              onDragStart={handleDragStart} // Prevents dragging
-            />
+      {/* Articles Section */}
+      <div className="bg-white flex-grow py-12">
+        <div className="container mx-auto px-4">
+          {/* Add Article Button */}
+          <div className="flex justify-end mb-8">
+            <Button
+              onClick={handleAddArticle}
+              className={`bg-orange-500 hover:bg-orange-600 text-black font-bold px-6 py-3 ${
+                language === "th" ? "font-kanit" : "font-mono"
+              }`}
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              {t.addArticle}
+            </Button>
           </div>
-          {/* Right side - Text content */}
-          <div
-            className="flex flex-col justify-center order-1 lg:order-2 border-l-16 border-black"
-            style={{
-              borderImage:
-                "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
-            }}
-          />
-          <div className="bg-gray-800 lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 md:py-16 lg:py-20 order-1 lg:order-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-staatliches text-orange-400 mb-4 sm:mb-6 md:mb-8 text-right underline">
-              inLAB
-            </h2>
-            <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
-              <p
-                className={`text-xs sm:text-sm md:text-base lg:text-lg text-orange-500 text-right leading-relaxed whitespace-pre-wrap ${
-                  language === "th" ? "font-kanit" : "font-mono"
-                }`}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {articles.map((article) => (
+              <Card
+                key={article.id}
+                className="bg-black text-white overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 relative group"
+                onClick={() => handleArticleClick(article)}
               >
-                {t.aboutDescription}
-              </p>
-            </div>
+                {/* Action buttons overlay */}
+                <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={(e) => handleEditArticle(e, article)}
+                    className="bg-blue-500 hover:bg-blue-600 text-white p-2"
+                    title={t.editArticle}
+                  >
+                    <Edit className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={(e) => handleDeleteArticle(e, article.id)}
+                    className="bg-red-500 hover:bg-red-600 text-white p-2"
+                    title={t.deleteArticle}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
+
+                <div className="relative">
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <Badge className="bg-orange-500 text-black font-mono text-xs px-3 py-1">
+                      {article.category}
+                    </Badge>
+                  </div>
+                  {/* Article Image */}
+                  <div className="relative h-48 bg-gradient-to-br from-gray-800 to-gray-900">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-6xl font-staatliches text-orange-400">
+                        {article.title.split(' ')[0]}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  {/* Article Title */}
+                  <h3 className={`text-xl font-bold mb-3 text-orange-400 ${
+                    language === "th" ? "font-kanit" : "font-mono"
+                  }`}>
+                    {article.title}
+                  </h3>
+                  {/* Article Description */}
+                  <div 
+                    className={`text-orange-300 text-sm mb-4 line-clamp-3 ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                    dangerouslySetInnerHTML={{ __html: article.description }}
+                  />
+                  {/* Article Meta */}
+                  <div className="flex items-center justify-between text-xs text-gray-400 mb-4">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-1">
+                        <User className="w-3 h-3" />
+                        <span className="font-mono">{article.author}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        <span className="font-mono">{formatDate(article.date)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Stats and Action */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-xs text-gray-400">
+                      <div className="flex items-center gap-1">
+                        <Eye className="w-3 h-3" />
+                        <span className="font-mono">{article.views} {t.views}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <ThumbsUp className="w-3 h-3" />
+                        <span className="font-mono">{article.likes}</span>
+                      </div>
+                    </div>
+                    <Button
+                      size="sm"
+                      className={`bg-orange-500 hover:bg-orange-600 text-black font-bold ${
+                        language === "th" ? "font-kanit" : "font-mono"
+                      }`}
+                    >
+                      {t.readMore}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </div>
@@ -261,11 +431,11 @@ export default function AboutUs() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://discord.gg/yK6bxAFx7F" // Set the Discord invite link here
-              target="_blank" // Opens in a new tab
-              rel="noopener noreferrer" // Recommended for security with target="_blank"
-              onMouseEnter={() => setIsDiscordHovered(true)} // Keep hover effect on anchor
-              onMouseLeave={() => setIsDiscordHovered(false)} // Keep hover effect on anchor
+              href="https://discord.gg/yK6bxAFx7F"
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setIsDiscordHovered(true)}
+              onMouseLeave={() => setIsDiscordHovered(false)}
             >
               <Button
                 size="lg"
@@ -294,6 +464,36 @@ export default function AboutUs() {
           © 2025 InLAB, Outreach division.
         </div>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className={language === "th" ? "font-kanit" : "font-mono"}>
+              {t.deleteArticle}
+            </DialogTitle>
+            <DialogDescription className={language === "th" ? "font-kanit" : "font-mono"}>
+              {t.confirmDelete}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={cancelDeleteArticle}
+              className={language === "th" ? "font-kanit" : "font-mono"}
+            >
+              {t.cancel}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={confirmDeleteArticle}
+              className={`bg-red-500 hover:bg-red-600 ${language === "th" ? "font-kanit" : "font-mono"}`}
+            >
+              {t.deleteConfirmAction}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
