@@ -166,49 +166,6 @@ export default function InternTeam() {
       quote: { en: "Predict the future, code the present.", th: "ผมก็เป็นแค่โปรแกรมเมอร์... ที่ดูดวงเป็นนิดหน่อยน่ะ" },
     },
     {
-      name: "LYRIC URSAE",
-      department: { en: "VETERINARY MEDICINE", th: "VETERINARY MEDICINE" },
-      code: "L2R-IV",
-      AOI: {
-        en: [
-          "Game Development",
-          "Medical Simulation",
-        ],
-        th: [
-          "การพัฒนาเกม (Game Development)",
-          "การจำลองเชิงการแพทย์ (Medical Simulation)",
-        ],
-      },
-      avatar: "/img/inLAB_Intern/Lyric.png",
-      logo: "/img/Logo/Lyric.png",
-      model: "/img/Model/Lyric.png",
-      description: {
-        en: "Grumpy bear Commander with passion!",
-        th: "หมีสาวผู้บัญชาการขี้บ่น ที่เต็มเปี่ยมไปด้วยแรงบันดาลใจ!",
-      },
-      detailedDescription: {
-        en: "A bear girl who serves as a commanding officer of the medical unit aboard a spaceship. She is proficient in veterinary medicine and epidemiology. One of the mystery people still wondering about her is why she always has a anesthetic dart gun at hand.\n\nHer past history remains unclear, but with her abilities in terms of knowledge and her tendency to complain(?), she is definitely ready to dispense medicine and share her experiences with everyone who passes by!",
-        th: "หมีสาวผู้บัญชาการประจำหน่วยแพทย์บนยาน ผู้รอบรู้ในด้านสัตวแพทย์ และโรคระบาด แต่ไม่เข้าใจเหมือนกันว่าทำไมเธอถึงต้องมีปืนยาสลบอยู่ใกล้มือตลอดเวลา?\n\nประวัติในอดีตยังไม่เป็นอันทราบแน่ชัด แต่ด้วยความสามารถของเธอในเชิงความรู้และขี้บ่น(?) เธอพร้อมที่จะป้ายยาและแชร์ประสบการณ์ให้ผู้ผ่านทางทุกคนอย่างแน่นอน!",
-      },
-      birthday: {
-        en: "26th April",
-        th: "26 เมษายน",
-      },
-      fanmark: "🐻🥽",
-      specialize: {
-        en: [
-          "Veterinary medicine (Especially in Orthopedics)",
-          "Epidemiology",
-        ],
-        th: [
-          "สัตวแพทย์ (Orthopedics)",
-          "ระบาดวิทยา (Epidemiology)",
-        ],
-      },
-      socials: { youtube: "https://www.youtube.com/@LyricUrsae", twitter: "https://x.com/LyricUrsae", twitch: "", mail: "", github: "" },
-      quote: { en: "Bear with me! 🐻🥽", th: "สวัสดีทุกคน Lyric Ursae (ไลริค เออร์ซี่) 🐻🥽 เองงง" },
-    },
-    {
       name: "ARITHMOS",
       department: { en: "ACTUARY", th: "ACTUARY" },
       code: "A3M-IA",
