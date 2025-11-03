@@ -25,11 +25,12 @@ interface Article {
   image: string
 }
 
-export default function EditArticlePage({ params }: { params: { date: string; slug: string } }) {
+export default function EditArticlePage({ params }: { params: Promise<{ date: string; slug: string }> }) {
   const [language, setLanguage] = useState<Language>("en")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  const [resolvedParams, setResolvedParams] = useState<{ date: string; slug: string } | null>(null)
 
   const [formData, setFormData] = useState({
     title: "",
@@ -85,13 +86,20 @@ export default function EditArticlePage({ params }: { params: { date: string; sl
     { en: "Engineering", th: "วิศวกรรม" },
   ]
 
+  // Resolve params
   useEffect(() => {
+    params.then(setResolvedParams)
+  }, [params])
+
+  useEffect(() => {
+    if (!resolvedParams) return
+
     const fetchArticle = async () => {
       try {
         const response = await fetch("/api/article")
         if (response.ok) {
           const data = await response.json()
-          const article = data.articles.find((a: Article) => a.id === params.slug)
+          const article = data.articles.find((a: Article) => a.id === resolvedParams.slug)
 
           if (article) {
             setFormData({
@@ -111,10 +119,10 @@ export default function EditArticlePage({ params }: { params: { date: string; sl
     }
 
     fetchArticle()
-  }, [params.slug])
+  }, [resolvedParams])
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
+    setFormData((prev: typeof formData) => ({
       ...prev,
       [field]: value,
     }))
@@ -122,16 +130,17 @@ export default function EditArticlePage({ params }: { params: { date: string; sl
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!resolvedParams) return
     setIsSubmitting(true)
 
     try {
       const articleData = {
-        id: params.slug,
+        id: resolvedParams.slug,
         title: formData.title,
         description: formData.description,
         category: formData.category,
         author: formData.author,
-        date: params.date.replace(/\//g, "-"),
+        date: resolvedParams.date.replace(/\//g, "-"),
         image: formData.imageUrl,
       }
 
@@ -160,7 +169,7 @@ export default function EditArticlePage({ params }: { params: { date: string; sl
     router.push("/article")
   }
 
-  if (isLoading) {
+  if (isLoading || !resolvedParams) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-400 via-orange-500 to-amber-600">
         <div className="text-white text-xl font-mono">{t.loading}</div>

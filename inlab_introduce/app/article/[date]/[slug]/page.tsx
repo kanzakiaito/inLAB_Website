@@ -21,7 +21,7 @@ interface Article {
   image: string
 }
 
-export default function ArticleReadPage({ params }: { params: { date: string; slug: string } }) {
+export default function ArticleReadPage({ params }: { params: Promise<{ date: string; slug: string }> }) {
   const [language, setLanguage] = useState<Language>("en")
   const [article, setArticle] = useState<Article | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -29,6 +29,7 @@ export default function ArticleReadPage({ params }: { params: { date: string; sl
   const [currentLikes, setCurrentLikes] = useState(0)
   const [currentViews, setCurrentViews] = useState(0)
   const router = useRouter()
+  const [resolvedParams, setResolvedParams] = useState<{ date: string; slug: string } | null>(null)
 
   const translations = {
     en: {
@@ -67,13 +68,20 @@ export default function ArticleReadPage({ params }: { params: { date: string; sl
 
   const t = translations[language]
 
+  // Resolve params
   useEffect(() => {
+    params.then(setResolvedParams)
+  }, [params])
+
+  useEffect(() => {
+    if (!resolvedParams) return
+
     const fetchArticle = async () => {
       try {
         const response = await fetch("/api/article")
         if (response.ok) {
           const data = await response.json()
-          const foundArticle = data.articles.find((a: Article) => a.id === params.slug)
+          const foundArticle = data.articles.find((a: Article) => a.id === resolvedParams.slug)
 
           if (foundArticle) {
             setArticle(foundArticle)
@@ -92,7 +100,7 @@ export default function ArticleReadPage({ params }: { params: { date: string; sl
     }
 
     fetchArticle()
-  }, [params.slug])
+  }, [resolvedParams])
 
   const incrementViews = async (articleId: string) => {
     try {
@@ -103,7 +111,7 @@ export default function ArticleReadPage({ params }: { params: { date: string; sl
         },
         body: JSON.stringify({ articleId }),
       })
-      setCurrentViews((prev) => prev + 1)
+      setCurrentViews((prev: number) => prev + 1)
     } catch (error) {
       console.error("Error incrementing views:", error)
     }
@@ -123,7 +131,7 @@ export default function ArticleReadPage({ params }: { params: { date: string; sl
 
       if (response.ok) {
         setIsLiked(!isLiked)
-        setCurrentLikes((prev) => (isLiked ? prev - 1 : prev + 1))
+        setCurrentLikes((prev: number) => (isLiked ? prev - 1 : prev + 1))
       }
     } catch (error) {
       console.error("Error updating likes:", error)
@@ -177,7 +185,7 @@ export default function ArticleReadPage({ params }: { params: { date: string; sl
     router.push("/article")
   }
 
-  if (isLoading) {
+  if (isLoading || !resolvedParams) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-gray-600 text-xl font-mono">{t.loading}</div>
