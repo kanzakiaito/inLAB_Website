@@ -100,7 +100,7 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
     }
 
     fetchArticle()
-  }, [resolvedParams])
+  }, [params.slug])
 
   const incrementViews = async (articleId: string) => {
     try {
@@ -111,7 +111,7 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
         },
         body: JSON.stringify({ articleId }),
       })
-      setCurrentViews((prev: number) => prev + 1)
+      setCurrentViews((prev) => prev + 1)
     } catch (error) {
       console.error("Error incrementing views:", error)
     }
@@ -131,7 +131,7 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
 
       if (response.ok) {
         setIsLiked(!isLiked)
-        setCurrentLikes((prev: number) => (isLiked ? prev - 1 : prev + 1))
+        setCurrentLikes((prev) => (isLiked ? prev - 1 : prev + 1))
       }
     } catch (error) {
       console.error("Error updating likes:", error)
@@ -185,7 +185,7 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
     router.push("/article")
   }
 
-  if (isLoading || !resolvedParams) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-gray-600 text-xl font-mono">{t.loading}</div>

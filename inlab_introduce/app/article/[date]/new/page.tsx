@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -13,11 +13,10 @@ import { ArrowLeft, Globe } from "lucide-react"
 
 type Language = "en" | "th"
 
-export default function NewArticlePage({ params }: { params: Promise<{ date: string }> }) {
+export default function NewArticlePage({ params }: { params: { date: string } }) {
   const [language, setLanguage] = useState<Language>("en")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
-  const [resolvedParams, setResolvedParams] = useState<{ date: string } | null>(null)
 
   const [formData, setFormData] = useState({
     title: "",
@@ -62,11 +61,6 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
 
   const t = translations[language]
 
-  // Resolve params
-  useEffect(() => {
-    params.then(setResolvedParams)
-  }, [params])
-
   const categories = [
     { en: "Technology", th: "เทคโนโลยี" },
     { en: "Science", th: "วิทยาศาสตร์" },
@@ -77,7 +71,7 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
   ]
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev: typeof formData) => ({
+    setFormData((prev) => ({
       ...prev,
       [field]: value,
     }))
@@ -85,7 +79,6 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!resolvedParams) return
     setIsSubmitting(true)
 
     try {
@@ -94,7 +87,7 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
         description: formData.description,
         category: formData.category,
         author: formData.author,
-        date: resolvedParams.date.replace(/\//g, "-"),
+        date: params.date.replace(/\//g, "-"),
         image: formData.imageUrl,
       }
 
@@ -121,14 +114,6 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
 
   const handleBack = () => {
     router.push("/article")
-  }
-
-  if (!resolvedParams) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-400 via-orange-500 to-amber-600">
-        <div className="text-white text-xl font-mono">Loading...</div>
-      </div>
-    )
   }
 
   return (
