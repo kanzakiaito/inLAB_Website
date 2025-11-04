@@ -100,7 +100,7 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
     }
 
     fetchArticle()
-  }, [params.slug])
+  }, [resolvedParams])
 
   const incrementViews = async (articleId: string) => {
     try {
