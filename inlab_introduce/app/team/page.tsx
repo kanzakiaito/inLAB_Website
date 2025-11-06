@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import LogoutButton from "@/components/LogoutButton";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Youtube, Twitch, X, Globe, Mail } from "lucide-react";
+import { Youtube, Twitch, X, Globe, Mail, Github } from "lucide-react";
 import XIcon from "@mui/icons-material/X";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -23,7 +23,7 @@ interface Member {
   model: string;
   description: { en: string; th: string };
   detailedDescription?: { en: string; th: string };
-  socials: { youtube: string; twitter: string; twitch: string; mail: string };
+  socials: { youtube: string; twitter: string; twitch: string; mail: string; github?: string };
   birthday: { en: string; th: string };
   fanmark: string;
   specialize?: { en: string[]; th: string[] };
@@ -46,8 +46,12 @@ export default function CoreTeam() {
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
       meetTalent: "Meet Our Talent",
-      description:
+      coreTeamTitle: "CORE TEAM",
+      internTeamTitle: "INTERN",
+      coreTeamDescription:
         "Discover the exceptional inLAB specialists who drive our outreach initiatives, each contributing distinctive insights and specialized experience to elevate your experience.",
+      internDescription:
+        "Discover our talented interns, bringing fresh perspectives and new experience to everyone.",
       follow: "Follow",
       joinCommunity: "Join Our Community",
       communityDescription: "Get in touch with our inLAB specialist",
@@ -67,8 +71,12 @@ export default function CoreTeam() {
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
       meetTalent: "พบกับพรสวรรค์ของเรา",
-      description:
+      coreTeamTitle: "CORE TEAM",
+      internTeamTitle: "INTERN",
+      coreTeamDescription:
         "มาทำความรู้จักกับเหล่า Specialist กลุ่มผู้นำจาก inLAB ผู้ซึ่งเป็นหัวใจสำคัญของเรา\nที่มาพร้อมกับความรู้เฉพาะทางและประสบการณ์อันโดดเด่น\nเพื่อยกระดับประสบการณ์เชิงวิทยาศาสตร์ให้กับทุกคน!",
+      internDescription:
+        "พบกับ Intern ประจำ inLAB\nที่พร้อมมอบความรู้ใหม่ ๆ และประสบการณ์สุดล้ำค่ากับคุณ!",
       follow: "ติดตาม",
       joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
       communityDescription:
@@ -90,13 +98,13 @@ export default function CoreTeam() {
       title: { en: "CORE TEAM", th: "CORE TEAM" },
       members: { en: "SCIENCE", th: "SCIENCE" },
       code: "CT-01",
-      link: "core-team",
+      link: "team",
     },
     {
-      title: { en: "INTERN", th: "INTERN" },
+      title: { en: "ARTICLE", th: "ARTICLE" },
       members: { en: "RESEARCH", th: "RESEARCH" },
-      code: "IN-02",
-      link: "intern",
+      code: "AR-02",
+      link: "article",
     },
     {
       title: { en: "ABOUT US", th: "ABOUT US" },
@@ -281,6 +289,123 @@ export default function CoreTeam() {
     },
   ];
 
+  const internMembers: Member[] = [
+    {
+      name: "KANZAKI AITO",
+      department: { en: "COMPUTER SCIENCE", th: "COMPUTER SCIENCE" },
+      code: "A1T-IC",
+      AOI: {
+        en: [
+          "Software Development (Programming / Full Stack)",
+          "Software Engineering (Software Testing / Validation / Quality Assurance)",
+          "AI (LLMs / Generative AI / Time Series Analysis / Recommendation System)",
+          "Cybersecurity (OWASP / Red Team Pen-test)",
+          "Education",
+          "Chemistry",
+          "Puzzle / Mystery Game",
+          "Game Show / Quiz Show"
+        ],
+        th: [
+          "Software Development (Programming / Full Stack)",
+          "Software Engineering (Software Testing / Validation / Quality Assurance)",
+          "AI (LLMs / Generative AI / Time Series Analysis / Recommendation System)",
+          "Cybersecurity (OWASP / Red Team Pen-test)",
+          "การศึกษา",
+          "เคมี",
+          "เกมปริศนา + ปัญหาเชาว์",
+          "เกมโชว์/ควิซโชว์"
+        ],
+      },
+      avatar: "/img/inLAB_Intern/Aito.png",
+      logo: "/img/Logo/Aito.PNG",
+      model: "/img/Model/Aito.png",
+      description: {
+        en: "A programmer with dark circles under his eyes, who does fortune telling a little bit(?)",
+        th: 'โปรแกรมเมอร์ขอบตาดำ เจ้าของร้าน "คอมสารพัดนึก" ที่ดูดวงเป็นนิดหน่อย(?)',
+      },
+      detailedDescription: {
+        en: "A multi-talented computer shop owner and programmer who can craft any technology imaginable.\n\nHis past remains shrouded in mystery. Only his ability to 'predict' seems inconsistent with being a programmer, but he can predict with remarkable accuracy.\n\n\"Want to know my story more? Try predicting it by yourself~\"",
+        th: 'โปรแกรมเมอร์หนุ่มขอบตาดำมากความสามารถ เจ้าของร้าน "คอมสารพัดนึก" ที่สามารถรังสรรค์โปรแกรม เว็บ และคอมพิวเตอร์ได้ดั่งใจคุณต้องการ\n\nอดีตของเขายังคงถูกปิดบังเป็นปริศนา มีเพียงความสามารถในการ "ทำนาย" ที่ดูไม่เข้ากับความเป็นโปรแกรมเมอร์ แต่เขาก็สามารถทำนายได้อย่างแม่นยำ\n\n"อยากรู้เรื่องราวของไอโตะเหรอ? ลองทำนายดูสิ~"',
+      },
+      birthday: {
+        en: "8th December",
+        th: "8 ธันวาคม",
+      },
+      fanmark: " 💻🩵✨",
+      specialize: {
+        en: [
+          "Programming (C, Java, Python, Web Programming, Rust, GoLang)",
+          "Software Testing",
+          "AI (Intermediate)",
+          "Chemistry",
+        ],
+        th: [
+          "Programming (C, Java, Python, Web Programming, Rust, GoLang)",
+          "Software Testing",
+          "AI (ความรู้ในระดับปานกลาง)",
+          "เคมี",
+        ],
+      },
+      socials: { youtube: "https://www.youtube.com/@KZK_Aito", twitter: "https://x.com/kanzaki_aito", twitch: "https://www.twitch.tv/kanzaki_aito", mail: "kanzaki.aitovt@gmail.com", github: "https://github.com/kanzakiaito" },
+      quote: { en: "Predict the future, code the present.", th: "ผมก็เป็นแค่โปรแกรมเมอร์... ที่ดูดวงเป็นนิดหน่อยน่ะ" },
+    },
+    {
+      name: "ARITHMOS",
+      department: { en: "ACTUARY", th: "ACTUARY" },
+      code: "A3M-IA",
+      AOI: {
+        en: [
+          "Mathematics",
+          "Actuary",
+          "Finance",
+          "Statistics",
+          "Science",
+          "Programming",
+        ],
+        th: [
+          "คณิตศาสตร์",
+          "คณิตศาสตร์ประกันภัย",
+          "ไฟแนนซ์",
+          "สถิติ",
+          "วิทยาศาสตร์",
+          "Programming",
+        ],
+      },
+      avatar: "/img/inLAB_Intern/Arithmos.png",
+      logo: "/img/Logo/Arithmos.png",
+      model: "/img/Model/Arithmos.png",
+      description: {
+        en: "A mathematician, a lifetime devoted to numbers and mathematical principles, often losing sleep to games.",
+        th: "นักคณิตศาสตร์ผู้อยู่กับตัวเลขมาทั้งชีวิต ผู้เข้าใจถึงหลักการคณิตและอดนอนเพราะเล่นเกม",
+      },
+      detailedDescription: {
+        en: "A mathematician who has dedicated his life to numbers, often foregoing sleep in his quest to understand everything in mathematics. He also enjoys gaming late into the night (well, more often than not...).\n\nCurrently, he's on board the ISV Andøya Expedition, where he applies mathematical principles to analyze various risks within the vessel.",
+        th: "นักคณิตศาสตร์ผู้ใช้ชีวิตกับตัวเลขมาทั้งชีวิต มักจะอดหลับอดนอนเพราะพยายามจะเรียนรู้เพื่อเข้าใจทุกสิ่งอย่างในวิชาคณิตศาสตร์และมีเล่นเกมตอนกลางคืนบ้าง (ไม่บ้างหรอก ส่วนใหญ่เลยแหละ...)\n\nปัจจุบัน เขาได้ขึ้นมาอยู่บนยาน ISV Andøya Expedition เพื่อวิเคราะห์ความเสี่ยงต่าง ๆ ภายในยานโดยใช้หลักการทางคณิตศาสตร์",
+      },
+      birthday: {
+        en: "2nd July",
+        th: "2 กรกฎาคม",
+      },
+      fanmark: "🧮",
+      specialize: {
+        en: [
+          "Mathematics",
+          "Actuary",
+          "Finance",
+          "Statistics",
+        ],
+        th: [
+          "คณิตศาสตร์",
+          "คณิตศาสตร์ประกันภัย",
+          "ไฟแนนซ์",
+          "สถิติ",
+        ],
+      },
+      socials: { youtube: "https://www.youtube.com/@ArithmosCh", twitter: "https://x.com/arithmosch", twitch: "https://twitch.tv/arithmosch", mail: "", github: "" },
+      quote: { en: "Numbers never lie.", th: "ตัวเลขไม่เคยโกหกใคร" },
+    },
+  ];
+
   const t = translations[language];
 
   // Load language from localStorage on mount
@@ -415,16 +540,23 @@ export default function CoreTeam() {
 
       <div className="h-4 bg-black"></div>
 
-      {/* Members Section */}
-      <div className="bg-white flex-grow">
-        <div className="container mx-auto px-4 py-8">
+      {/* Core Team Members Section */}
+      <div className="bg-white pt-12 pb-8">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-12">
+            <h2
+              className={`text-4xl font-bold mb-4 text-orange-500 ${
+                language === "th" ? "font-kanit" : "font-staatliches"
+              }`}
+            >
+              {t.coreTeamTitle}
+            </h2>
             <p
               className={`text-lg text-gray-600 max-w-2xl mx-auto whitespace-pre-wrap ${
                 language === "th" ? "font-kanit" : "font-mono"
               }`}
             >
-              {t.description}
+              {t.coreTeamDescription}
             </p>
           </div>
 
@@ -476,6 +608,89 @@ export default function CoreTeam() {
                   >
                     {member.description[language]}
                   </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Intern Team Members Section */}
+      <div className="bg-gray-50 py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2
+              className={`text-4xl font-bold mb-4 text-orange-500 ${
+                language === "th" ? "font-kanit" : "font-staatliches"
+              }`}
+            >
+              {t.internTeamTitle}
+            </h2>
+            <p
+              className={`text-lg text-gray-600 max-w-2xl mx-auto whitespace-pre-wrap ${
+                language === "th" ? "font-kanit" : "font-mono"
+              }`}
+            >
+              {t.internDescription}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {internMembers.map((member, index) => (
+              <Card
+                key={index}
+                className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 py-0"
+                onClick={() => handleMemberClick(member)}
+              >
+                <div className="relative w-full select-none pointer-events-none">
+                  <Image
+                    src={member.avatar || "/img/placeholder.png"}
+                    alt={member.name}
+                    width={200}
+                    height={200}
+                    className="w-full h-full object-cover"
+                  />
+                  <Badge className="absolute top-3 right-3 bg-orange-500 hover:bg-orange-600 font-mono">
+                    {member.code}
+                  </Badge>
+                </div>
+
+                <CardContent className="p-6">
+                  <div className="mb-4">
+                    <h3 className="text-xl font-bold text-gray-900 mb-1 font-mono">
+                      {member.name}
+                    </h3>
+                    <Badge
+  className={`
+    text-orange-600 border-orange-600 font-mono
+    whitespace-pre-line break-words
+    max-w-full block
+    text-xs sm:text-sm
+    px-2 py-1
+    overflow-hidden text-ellipsis
+  `}
+  style={{ wordBreak: "break-word", whiteSpace: "pre-line" }}
+>
+  {member.department[language]}
+</Badge>
+                  </div>
+
+                  <p
+                    className={`text-sm text-gray-600 mb-4 font-mono text-left ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
+                    {member.description[language]}
+                  </p>
+
+                  <Button
+                    variant="outline"
+                    className={`w-full text-orange-500 border-orange-500 hover:bg-orange-500 hover:text-white ${
+                      language === "th" ? "font-kanit" : "font-mono"
+                    }`}
+                  >
+                    {t.viewProfile}
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -569,6 +784,20 @@ export default function CoreTeam() {
                       >
                         <Mail className="w-4 h-4" />
                         E-Mail
+                      </Button>
+                    )}
+                  {selectedMember.socials.github &&
+                    selectedMember.socials.github.trim() !== "" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:bg-gray-800 hover:text-white hover:border-gray-800 font-mono`}
+                        onClick={() =>
+                          window.open(selectedMember.socials.github, "_blank")
+                        }
+                      >
+                        <Github className="w-4 h-4" />
+                        GitHub
                       </Button>
                     )}
                 </div>

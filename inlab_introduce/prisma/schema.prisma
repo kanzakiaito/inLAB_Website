@@ -8,19 +8,29 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  username String @unique
-  password String
+  id          String    @id @default(uuid())
+  username    String    @unique
+  password    String
+  authorName  String?
+  description String?
+  avatarImage String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
 }
 
 model Article {
   id          String   @id @default(uuid())
-  title     String
+  title       String
   description String
   author      String
   date        DateTime
   views       Int      @default(0)
   likes       Int      @default(0)
+  shares      Int      @default(0)
   category    String
   image       String
+  slug        String?
+  content     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 }

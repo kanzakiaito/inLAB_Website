@@ -78,23 +78,17 @@ export default function InLAB() {
 
   const navigationItems = [
     {
-      title: { en: "CORE TEAM", th: "CORE TEAM" },
+      title: { en: "OUR TEAM", th: "OUR TEAM" },
       members: { en: "SCIENCE", th: "SCIENCE" },
       code: "CT-01",
-      link: "core-team",
+      link: "team",
     },
     {
-      title: { en: "INTERN", th: "INTERN" },
+      title: { en: "ARTICLE", th: "ARTICLE" },
       members: { en: "RESEARCH", th: "RESEARCH" },
-      code: "IN-02",
-      link: "intern",
+      code: "AR-02",
+      link: "article",
     },
-    // {
-    //   title: { en: "ARTICLE", th: "ARTICLE" },
-    //   members: { en: "NEWS & DATA", th: "NEWS & DATA" },
-    //   code: "AT-03",
-    //   link: "article",
-    // },
     {
       title: { en: "ABOUT US", th: "ABOUT US" },
       members: { en: "INFORMATION", th: "INFORMATION" },

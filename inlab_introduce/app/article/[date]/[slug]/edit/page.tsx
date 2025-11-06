@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import TipTapEditor from "@/components/TipTapEditor"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowLeft, Globe } from "lucide-react"
+import { ArrowLeft, Globe, User as UserIcon } from "lucide-react"
 
 type Language = "en" | "th"
 
@@ -25,10 +25,19 @@ interface Article {
   image: string
 }
 
+interface UserProfile {
+  id: string
+  username: string
+  authorName: string | null
+  description: string | null
+  avatarImage: string | null
+}
+
 export default function EditArticlePage({ params }: { params: Promise<{ date: string; slug: string }> }) {
   const [language, setLanguage] = useState<Language>("en")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   const router = useRouter()
   const [resolvedParams, setResolvedParams] = useState<{ date: string; slug: string } | null>(null)
 
@@ -90,6 +99,22 @@ export default function EditArticlePage({ params }: { params: Promise<{ date: st
   useEffect(() => {
     params.then(setResolvedParams)
   }, [params])
+
+  // Fetch user profile
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("/api/profile")
+        if (res.ok) {
+          const data = await res.json()
+          setUserProfile(data.user)
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error)
+      }
+    }
+    fetchProfile()
+  }, [])
 
   useEffect(() => {
     if (!resolvedParams) return
@@ -306,14 +331,56 @@ export default function EditArticlePage({ params }: { params: Promise<{ date: st
               >
                 {t.author}
               </label>
+              
+              {/* Author Profile Display */}
+              {userProfile && (
+                <div className="mb-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center gap-4">
+                    {userProfile.avatarImage ? (
+                      <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-orange-500 flex-shrink-0">
+                        <Image
+                          src={userProfile.avatarImage}
+                          alt={userProfile.authorName || userProfile.username}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-16 h-16 rounded-full bg-gray-300 border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
+                        <UserIcon className="w-8 h-8 text-gray-600" />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <div className="font-semibold text-gray-900">
+                        {userProfile.authorName || userProfile.username}
+                      </div>
+                      {userProfile.description && (
+                        <div className="text-sm text-gray-600 mt-1">
+                          {userProfile.description}
+                        </div>
+                      )}
+                      <div className="text-xs text-gray-500 mt-1">
+                        @{userProfile.username}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
               <Input
                 type="text"
                 value={formData.author}
                 onChange={(e) => handleInputChange("author", e.target.value)}
-                placeholder="thanawat.k"
+                placeholder="Author name"
                 required
                 className="w-full"
+                readOnly={!!userProfile?.authorName}
               />
+              {userProfile?.authorName && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Author name is set from your profile. Update it in Profile Settings to change.
+                </p>
+              )}
             </div>
 
             {/* Image URL */}

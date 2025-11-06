@@ -22,6 +22,13 @@ interface Article {
   image: string
 }
 
+interface AuthorProfile {
+  username: string
+  authorName: string | null
+  description: string | null
+  avatarImage: string | null
+}
+
 export default function ArticleReadPage({ params }: { params: Promise<{ date: string; slug: string }> }) {
   const [language, setLanguage] = useState<Language>("en")
   const [article, setArticle] = useState<Article | null>(null)
@@ -29,6 +36,7 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
   const [isLiked, setIsLiked] = useState(false)
   const [currentLikes, setCurrentLikes] = useState(0)
   const [currentViews, setCurrentViews] = useState(0)
+  const [authorProfile, setAuthorProfile] = useState<AuthorProfile | null>(null)
   const router = useRouter()
   const [resolvedParams, setResolvedParams] = useState<{ date: string; slug: string } | null>(null)
 
@@ -109,6 +117,9 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
 
             // Increment view count
             await incrementViews(foundArticle.id)
+            
+            // Fetch author profile
+            await fetchAuthorProfile(foundArticle.author)
           }
         }
       } catch (error) {
@@ -120,6 +131,29 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
 
     fetchArticle()
   }, [resolvedParams])
+
+  const fetchAuthorProfile = async (authorName: string) => {
+    try {
+      // Fetch all users and find the one matching the author name
+      const response = await fetch("/api/users")
+      if (response.ok) {
+        const data = await response.json()
+        const author = data.users.find(
+          (user: any) => user.authorName === authorName || user.username === authorName
+        )
+        if (author) {
+          setAuthorProfile({
+            username: author.username,
+            authorName: author.authorName,
+            description: author.description,
+            avatarImage: author.avatarImage,
+          })
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching author profile:", error)
+    }
+  }
 
   const incrementViews = async (articleId: string) => {
     try {
@@ -304,9 +338,20 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
                 {/* Article Meta */}
                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6 pb-6 border-b border-gray-100">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-white" />
-                    </div>
+                    {authorProfile?.avatarImage ? (
+                      <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-orange-500">
+                        <Image
+                          src={authorProfile.avatarImage}
+                          alt={authorProfile.authorName || authorProfile.username}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                        <User className="w-4 h-4 text-white" />
+                      </div>
+                    )}
                     <span className="font-medium">{article.author}</span>
                   </div>
                   <div className="flex items-center gap-1">
@@ -575,16 +620,30 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
                 {t.aboutAuthor}
               </h3>
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <User className="w-8 h-8 text-white" />
-                </div>
+                {authorProfile?.avatarImage ? (
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-orange-500 flex-shrink-0">
+                    <Image
+                      src={authorProfile.avatarImage}
+                      alt={authorProfile.authorName || authorProfile.username}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <User className="w-8 h-8 text-white" />
+                  </div>
+                )}
                 <div>
                   <h4 className="font-bold text-lg text-gray-900 mb-2">{article.author}</h4>
                   <p className="text-gray-600 leading-relaxed">
-                    {language === "th"
+                    {authorProfile?.description || (language === "th"
                       ? "นักเขียนและนักพัฒนาที่มีประสบการณ์ในสาขาเทคโนโลยี มุ่งมั่นในการแบ่งปันความรู้และประสบการณ์ผ่านบทความคุณภาพ"
-                      : "An experienced writer and developer in the technology field, dedicated to sharing knowledge and experience through quality articles."}
+                      : "An experienced writer and developer in the technology field, dedicated to sharing knowledge and experience through quality articles.")}
                   </p>
+                  {authorProfile && (
+                    <p className="text-sm text-gray-500 mt-2">@{authorProfile.username}</p>
+                  )}
                 </div>
               </div>
             </div>
