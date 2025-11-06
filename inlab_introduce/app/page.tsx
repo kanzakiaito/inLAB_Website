@@ -2,9 +2,10 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import LogoutButton from "@/components/LogoutButton";
 import { Globe } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation"; // Import useRouter for navigation
 
@@ -16,6 +17,20 @@ export default function InLAB() {
   const [isDiscordHovered, setIsDiscordHovered] = useState(false);
   const router = useRouter(); // Initialize useRouter
   const pathname = usePathname(); // Get the current pathname
+
+  // Load language from localStorage on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language") as Language | null;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+
+  // Save language to localStorage whenever it changes
+  const handleLanguageChange = (newLanguage: Language) => {
+    setLanguage(newLanguage);
+    localStorage.setItem("language", newLanguage);
+  };
 
   const translations = {
     en: {
@@ -118,12 +133,13 @@ export default function InLAB() {
           Secret
         </Button>
       </div>
-      {/* Language Toggle */}
-      <div className="absolute top-4 right-4 z-10">
+      {/* Language Toggle and Logout Button */}
+      <div className="absolute top-4 right-4 z-10 flex gap-2">
+        <LogoutButton className="bg-white/20 border-white/30 text-black hover:bg-white/30" />
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setLanguage(language === "en" ? "th" : "en")}
+          onClick={() => handleLanguageChange(language === "en" ? "th" : "en")}
           className="bg-white/20 border-white/30 text-black hover:bg-white/30"
         >
           <Globe className="w-4 h-4 mr-2" />

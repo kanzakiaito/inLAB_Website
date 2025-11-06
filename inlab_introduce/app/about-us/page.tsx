@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import LogoutButton from "@/components/LogoutButton";
 import { Youtube, Twitter, Twitch, Globe } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation"; // Import useRouter and usePathname
 
@@ -77,6 +78,20 @@ export default function AboutUs() {
 
   const t = translations[language];
 
+  // Load language from localStorage on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language") as Language | null;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+
+  // Save language to localStorage whenever it changes
+  const handleLanguageChange = (newLanguage: Language) => {
+    setLanguage(newLanguage);
+    localStorage.setItem("language", newLanguage);
+  };
+
   const handleNavClick = (section: string) => {
     router.push(`/${section}`); // Use router.push for navigation
   };
@@ -92,12 +107,13 @@ export default function AboutUs() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-400 via-orange-500 to-amber-600">
-      {/* Language Toggle */}
-      <div className="absolute top-4 right-4 z-10">
+      {/* Language Toggle and Logout Button */}
+      <div className="absolute top-4 right-4 z-10 flex gap-2">
+        <LogoutButton className="bg-white/20 border-white/30 text-black hover:bg-white/30" />
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setLanguage(language === "en" ? "th" : "en")}
+          onClick={() => handleLanguageChange(language === "en" ? "th" : "en")}
           className="bg-white/20 border-white/30 text-black hover:bg-white/30"
         >
           <Globe className="w-4 h-4 mr-2" />

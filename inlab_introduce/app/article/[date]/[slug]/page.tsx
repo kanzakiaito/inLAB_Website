@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import LogoutButton from "@/components/LogoutButton"
 import { ArrowLeft, Globe, Eye, ThumbsUp, Share2, Calendar, User, Facebook, Twitter, Link } from "lucide-react"
 
 type Language = "en" | "th"
@@ -67,6 +68,20 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
   }
 
   const t = translations[language]
+
+  // Load language from localStorage on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language") as Language | null
+    if (savedLanguage) {
+      setLanguage(savedLanguage)
+    }
+  }, [])
+
+  // Save language to localStorage whenever it changes
+  const handleLanguageChange = (newLanguage: Language) => {
+    setLanguage(newLanguage)
+    localStorage.setItem("language", newLanguage)
+  }
 
   // Resolve params
   useEffect(() => {
@@ -247,15 +262,18 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
               <span className="text-xl font-bold text-gray-800">INLAB</span>
             </div>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setLanguage(language === "en" ? "th" : "en")}
-              className="text-gray-600 hover:text-orange-500"
-            >
-              <Globe className="w-4 h-4 mr-2" />
-              {language === "en" ? "TH" : "EN"}
-            </Button>
+            <div className="flex items-center gap-2">
+              <LogoutButton variant="ghost" className="text-gray-600 hover:text-orange-500" />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => handleLanguageChange(language === "en" ? "th" : "en")}
+                className="text-gray-600 hover:text-orange-500"
+              >
+                <Globe className="w-4 h-4 mr-2" />
+                {language === "en" ? "TH" : "EN"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -305,24 +323,19 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
 
                 {/* Featured Image */}
                 <div className="mb-8">
-                  <div className="relative h-64 lg:h-80 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-4xl lg:text-6xl font-bold text-orange-400">
-                        {article.title.split(" ")[0]}
-                      </div>
+                  <div className="relative h-64 lg:h-96 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden">
+                    <Image
+                      src={article.image || '/img/placeholder.png'}
+                      alt={article.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 75vw, 50vw"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
                     </div>
                   </div>
-                </div>
-
-                {/* Article Image */}
-                <div className="relative h-64 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
-                  <Image
-                    src={article.image || '/img/placeholder.png'}
-                    alt={article.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
                 </div>
 
                 {/* Article Content */}
