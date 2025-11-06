@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
 import LogoutButton from "@/components/LogoutButton"
 import { ArrowLeft, Globe, Eye, ThumbsUp, Share2, Calendar, User, Facebook, Twitter, Link } from "lucide-react"
 
@@ -259,8 +260,133 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-gray-600 text-xl font-mono">{t.loading}</div>
+      <div className="min-h-screen bg-gray-50">
+        {/* Top Navigation Bar Skeleton */}
+        <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center justify-between">
+              <Skeleton className="h-9 w-40" />
+              <div className="flex items-center gap-2">
+                <Skeleton className="h-8 w-8 rounded" />
+                <Skeleton className="h-6 w-16" />
+              </div>
+              <div className="flex items-center gap-2">
+                <Skeleton className="h-9 w-20" />
+                <Skeleton className="h-9 w-16" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Article Content Skeleton */}
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Main Content Skeleton */}
+            <div className="lg:col-span-3">
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="p-6 lg:p-8">
+                  {/* Category Badge Skeleton */}
+                  <Skeleton className="h-6 w-24 mb-4" />
+                  
+                  {/* Title Skeleton */}
+                  <Skeleton className="h-10 w-full mb-3" />
+                  <Skeleton className="h-10 w-3/4 mb-6" />
+                  
+                  {/* Meta Skeleton */}
+                  <div className="flex flex-wrap items-center gap-4 mb-6 pb-6 border-b border-gray-100">
+                    <div className="flex items-center gap-2">
+                      <Skeleton className="h-8 w-8 rounded-full" />
+                      <Skeleton className="h-4 w-24" />
+                    </div>
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-4 w-20" />
+                  </div>
+                  
+                  {/* Featured Image Skeleton */}
+                  <Skeleton className="h-64 lg:h-96 w-full rounded-lg mb-8" />
+                  
+                  {/* Content Skeleton */}
+                  <div className="space-y-3">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-4/5" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                  </div>
+                  
+                  {/* Tags Skeleton */}
+                  <div className="mt-8 pt-6 border-t border-gray-100">
+                    <div className="flex items-center gap-2">
+                      <Skeleton className="h-4 w-12" />
+                      <Skeleton className="h-6 w-20" />
+                      <Skeleton className="h-6 w-24" />
+                    </div>
+                  </div>
+                  
+                  {/* Social Share Skeleton */}
+                  <div className="mt-6 pt-6 border-t border-gray-100">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <Skeleton className="h-4 w-16" />
+                        <div className="flex gap-2">
+                          <Skeleton className="h-8 w-8" />
+                          <Skeleton className="h-8 w-8" />
+                          <Skeleton className="h-8 w-8" />
+                        </div>
+                      </div>
+                      <Skeleton className="h-8 w-20" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Author Bio Skeleton */}
+              <div className="bg-white rounded-lg shadow-sm p-6 mt-6">
+                <Skeleton className="h-6 w-32 mb-4" />
+                <div className="flex items-start gap-4">
+                  <Skeleton className="h-16 w-16 rounded-full flex-shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <Skeleton className="h-5 w-32" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-2/3" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar Skeleton */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-24 space-y-6">
+                {/* Article Stats Skeleton */}
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                  <Skeleton className="h-5 w-24 mb-4" />
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Skeleton className="h-4 w-12" />
+                      <Skeleton className="h-4 w-8" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Skeleton className="h-4 w-12" />
+                      <Skeleton className="h-4 w-8" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Actions Skeleton */}
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                  <Skeleton className="h-5 w-28 mb-4" />
+                  <div className="space-y-3">
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
