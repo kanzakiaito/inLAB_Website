@@ -88,6 +88,10 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
             setCurrentLikes(foundArticle.likes)
             setCurrentViews(foundArticle.views)
 
+            // Check if user has already liked this article
+            const likedArticles = JSON.parse(localStorage.getItem('likedArticles') || '[]')
+            setIsLiked(likedArticles.includes(foundArticle.id))
+
             // Increment view count
             await incrementViews(foundArticle.id)
           }
@@ -104,14 +108,18 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
 
   const incrementViews = async (articleId: string) => {
     try {
-      await fetch(`/api/article/views`, {
+      const response = await fetch(`/api/article/view`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ articleId }),
       })
-      setCurrentViews((prev) => prev + 1)
+      
+      if (response.ok) {
+        const data = await response.json()
+        setCurrentViews(data.views)
+      }
     } catch (error) {
       console.error("Error incrementing views:", error)
     }
@@ -119,19 +127,34 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
 
   const handleLike = async () => {
     if (!article) return
+    
+    // Store like status in localStorage to prevent multiple likes
+    const likedArticlesKey = 'likedArticles'
+    const likedArticles = JSON.parse(localStorage.getItem(likedArticlesKey) || '[]')
+    const alreadyLiked = likedArticles.includes(article.id)
+    
+    if (alreadyLiked) {
+      // User already liked this article
+      return
+    }
 
     try {
-      const response = await fetch(`/api/article/likes`, {
+      const response = await fetch(`/api/article/like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ articleId: article.id, increment: !isLiked }),
+        body: JSON.stringify({ articleId: article.id }),
       })
 
       if (response.ok) {
-        setIsLiked(!isLiked)
-        setCurrentLikes((prev) => (isLiked ? prev - 1 : prev + 1))
+        const data = await response.json()
+        setIsLiked(true)
+        setCurrentLikes(data.likes)
+        
+        // Save to localStorage
+        likedArticles.push(article.id)
+        localStorage.setItem(likedArticlesKey, JSON.stringify(likedArticles))
       }
     } catch (error) {
       console.error("Error updating likes:", error)
@@ -254,9 +277,8 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
 
                 {/* Article Title */}
                 <h1
-                  className={`text-3xl lg:text-4xl font-bold mb-6 text-gray-900 leading-tight ${
-                    language === "th" ? "font-kanit" : "font-sans"
-                  }`}
+                  className={`text-3xl lg:text-4xl font-bold mb-6 text-gray-900 leading-tight ${language === "th" ? "font-kanit" : "font-sans"
+                    }`}
                 >
                   {article.title}
                 </h1>
@@ -292,9 +314,20 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
                   </div>
                 </div>
 
+                {/* Article Image */}
+                <div className="relative h-64 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+                  <Image
+                    src={article.image || '/img/placeholder.png'}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+
                 {/* Article Content */}
                 <div className="prose prose-lg max-w-none">
-                  <div 
+                  <div
                     className={`text-gray-800 leading-relaxed ${language === "th" ? "font-kanit" : "font-sans"}`}
                     dangerouslySetInnerHTML={{ __html: article.description }}
                   />
@@ -510,11 +543,10 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
                       onClick={handleLike}
                       variant={isLiked ? "default" : "outline"}
                       size="sm"
-                      className={`${
-                        isLiked
+                      className={`${isLiked
                           ? "bg-orange-500 hover:bg-orange-600 text-white"
                           : "border-orange-500 text-orange-500 hover:bg-orange-50"
-                      }`}
+                        }`}
                     >
                       <ThumbsUp className="w-4 h-4 mr-2" />
                       {currentLikes}
@@ -570,11 +602,10 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
                   <Button
                     onClick={handleLike}
                     variant={isLiked ? "default" : "outline"}
-                    className={`w-full ${
-                      isLiked
+                    className={`w-full ${isLiked
                         ? "bg-orange-500 hover:bg-orange-600 text-white"
                         : "border-orange-500 text-orange-500 hover:bg-orange-50"
-                    }`}
+                      }`}
                   >
                     <ThumbsUp className="w-4 h-4 mr-2" />
                     {isLiked ? "Liked" : "Like"}

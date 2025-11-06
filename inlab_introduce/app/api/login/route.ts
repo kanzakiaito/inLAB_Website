@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { compare } from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
+import { createToken } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
@@ -23,6 +24,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
   }
 
-  // You can set a cookie or return a token here
-  return NextResponse.json({ message: "Login successful" });
+  // Create JWT token
+  const token = await createToken(user.id, user.username);
+
+  // Set cookie
+  const response = NextResponse.json({ 
+    message: "Login successful",
+    user: { id: user.id, username: user.username }
+  });
+  
+  response.cookies.set("auth-token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+  });
+
+  return response;
 }

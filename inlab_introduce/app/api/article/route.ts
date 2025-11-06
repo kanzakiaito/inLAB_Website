@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { PrismaClient } from "@prisma/client"
+import { getAuthUser } from "@/lib/auth"
 
 const prisma = new PrismaClient()
 
@@ -32,6 +33,12 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  // Check authentication
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const articleData = await request.json()
 
@@ -75,6 +82,12 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
+  // Check authentication
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const articleData = await request.json()
 
@@ -117,6 +130,12 @@ export async function PUT(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  // Check authentication
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { searchParams } = new URL(request.url)
     const articleId = searchParams.get("id")

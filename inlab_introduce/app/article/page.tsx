@@ -29,6 +29,7 @@ export default function ArticlePage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [articleToDelete, setArticleToDelete] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   const router = useRouter();
   const pathname = usePathname();
@@ -110,6 +111,11 @@ export default function ArticlePage() {
   };
 
   const handleAddArticle = () => {
+    if (!isAuthenticated) {
+      router.push("/admin/login");
+      return;
+    }
+    
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -122,12 +128,20 @@ export default function ArticlePage() {
 
   const handleEditArticle = (e: React.MouseEvent, article: Article) => {
     e.stopPropagation(); // Prevent card click
+    if (!isAuthenticated) {
+      router.push("/admin/login");
+      return;
+    }
     const formattedDate = article.date.replace(/-/g, '-');
     router.push(`/article/${formattedDate}/${article.id}/edit`);
   };
 
   const handleDeleteArticle = (e: React.MouseEvent, articleId: string) => {
     e.stopPropagation(); // Prevent card click
+    if (!isAuthenticated) {
+      router.push("/admin/login");
+      return;
+    }
     setArticleToDelete(articleId);
     setDeleteDialogOpen(true);
   };
@@ -171,6 +185,15 @@ export default function ArticlePage() {
   };
 
   useEffect(() => {
+    async function checkAuth() {
+      try {
+        const res = await fetch("/api/auth/check");
+        setIsAuthenticated(res.ok);
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    }
+    
     async function fetchArticles() {
       try {
         const res = await fetch("/api/article", { cache: "no-store" });
@@ -182,6 +205,8 @@ export default function ArticlePage() {
         setArticles([]);
       }
     }
+    
+    checkAuth();
     fetchArticles();
   }, []);
 
@@ -298,17 +323,19 @@ export default function ArticlePage() {
       <div className="bg-white flex-grow py-12">
         <div className="container mx-auto px-4">
           {/* Add Article Button */}
-          <div className="flex justify-end mb-8">
-            <Button
-              onClick={handleAddArticle}
-              className={`bg-orange-500 hover:bg-orange-600 text-black font-bold px-6 py-3 ${
-                language === "th" ? "font-kanit" : "font-mono"
-              }`}
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              {t.addArticle}
-            </Button>
-          </div>
+          {isAuthenticated && (
+            <div className="flex justify-end mb-8">
+              <Button
+                onClick={handleAddArticle}
+                className={`bg-orange-500 hover:bg-orange-600 text-black font-bold px-6 py-3 ${
+                  language === "th" ? "font-kanit" : "font-mono"
+                }`}
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                {t.addArticle}
+              </Button>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {articles.map((article) => (
@@ -318,26 +345,28 @@ export default function ArticlePage() {
                 onClick={() => handleArticleClick(article)}
               >
                 {/* Action buttons overlay */}
-                <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    onClick={(e) => handleEditArticle(e, article)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white p-2"
-                    title={t.editArticle}
-                  >
-                    <Edit className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={(e) => handleDeleteArticle(e, article.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white p-2"
-                    title={t.deleteArticle}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </div>
+                {isAuthenticated && (
+                  <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={(e) => handleEditArticle(e, article)}
+                      className="bg-blue-500 hover:bg-blue-600 text-white p-2"
+                      title={t.editArticle}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={(e) => handleDeleteArticle(e, article.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white p-2"
+                      title={t.deleteArticle}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
 
                 <div className="relative">
                   {/* Category Badge */}
