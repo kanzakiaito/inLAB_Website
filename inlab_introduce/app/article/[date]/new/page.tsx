@@ -27,6 +27,8 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
   const [language, setLanguage] = useState<Language>("en")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
+  const [existingCategories, setExistingCategories] = useState<string[]>([])
+  const [isAddingNewCategory, setIsAddingNewCategory] = useState(false)
   const router = useRouter()
   const [resolvedParams, setResolvedParams] = useState<{ date: string } | null>(null)
 
@@ -90,6 +92,23 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
   useEffect(() => {
     params.then(setResolvedParams)
   }, [params])
+
+  // Fetch existing categories from articles
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/article")
+        if (res.ok) {
+          const data = await res.json()
+          const categories = [...new Set(data.articles.map((article: any) => article.category))] as string[]
+          setExistingCategories(categories.filter(Boolean)) // Remove empty categories
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error)
+      }
+    }
+    fetchCategories()
+  }, [])
 
   // Fetch user profile
   useEffect(() => {
@@ -274,6 +293,68 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
               >
                 {t.category}
               </label>
+              
+              {!isAddingNewCategory ? (
+                <div className="space-y-2">
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value) => {
+                      if (value === "__add_new__") {
+                        setIsAddingNewCategory(true)
+                        handleInputChange("category", "")
+                      } else {
+                        handleInputChange("category", value)
+                      }
+                    }}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a category or add new" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {existingCategories.map((cat) => (
+                        <SelectItem key={cat} value={cat}>
+                          {cat}
+                        </SelectItem>
+                      ))}
+                      <SelectItem value="__add_new__" className="text-orange-500 font-medium">
+                        + Add New Category
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {formData.category && !isAddingNewCategory && (
+                    <p className="text-xs text-gray-500">
+                      Selected: <span className="font-medium">{formData.category}</span>
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Input
+                      type="text"
+                      value={formData.category}
+                      onChange={(e) => handleInputChange("category", e.target.value)}
+                      placeholder="Enter new category name"
+                      className="flex-1"
+                      required
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setIsAddingNewCategory(false)
+                        handleInputChange("category", "")
+                      }}
+                      className="px-3"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    Creating new category: <span className="font-medium text-orange-500">{formData.category || "..."}</span>
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Author */}

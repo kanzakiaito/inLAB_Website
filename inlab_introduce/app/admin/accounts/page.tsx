@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Users, Trash2, UserPlus, ArrowLeft, Newspaper } from "lucide-react";
+import { Users, Trash2, UserPlus, ArrowLeft, Newspaper, Edit } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -39,10 +39,15 @@ export default function AccountManagement() {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [userToEdit, setUserToEdit] = useState<User | null>(null);
+  const [editUsername, setEditUsername] = useState("");
+  const [editPassword, setEditPassword] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [editMessage, setEditMessage] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -85,6 +90,14 @@ export default function AccountManagement() {
   const handleDeleteClick = (user: User) => {
     setUserToDelete(user);
     setDeleteDialogOpen(true);
+  };
+
+  const handleEditClick = (user: User) => {
+    setUserToEdit(user);
+    setEditUsername(user.username);
+    setEditPassword("");
+    setEditMessage("");
+    setEditDialogOpen(true);
   };
 
   const handleDeleteConfirm = async () => {
@@ -135,6 +148,51 @@ export default function AccountManagement() {
       }
     } catch (error) {
       setMessage("✗ Error creating user");
+    }
+  };
+
+  const handleEditConfirm = async () => {
+    if (!userToEdit) return;
+    setEditMessage("");
+
+    try {
+      const updateData: any = {
+        userId: userToEdit.id,
+      };
+
+      // Only include username if it's changed
+      if (editUsername !== userToEdit.username) {
+        updateData.username = editUsername;
+      }
+
+      // Only include password if provided
+      if (editPassword.trim()) {
+        updateData.password = editPassword;
+      }
+
+      const res = await fetch("/api/users/update", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updateData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setEditMessage("✓ Account updated successfully!");
+        setTimeout(() => {
+          setEditDialogOpen(false);
+          setUserToEdit(null);
+          setEditUsername("");
+          setEditPassword("");
+          setEditMessage("");
+          fetchUsers();
+        }, 1500);
+      } else {
+        setEditMessage(`✗ ${data.message || "Failed to update account"}`);
+      }
+    } catch (error) {
+      setEditMessage("✗ Error updating account");
     }
   };
 
@@ -355,23 +413,110 @@ export default function AccountManagement() {
                       Created: {new Date(user.createdAt).toLocaleDateString()}
                     </div>
                   </div>
-                  {user.username !== "kanzaki_aito" && (
+                  <div className="flex gap-2">
                     <Button
-                      onClick={() => handleDeleteClick(user)}
-                      variant="destructive"
+                      onClick={() => handleEditClick(user)}
+                      variant="outline"
                       size="sm"
-                      className="bg-red-900/50 hover:bg-red-900 text-red-400 hover:text-white"
+                      className="border-orange-500/50 text-orange-400 hover:bg-orange-500/10"
                     >
-                      <Trash2 className="w-4 h-4 mr-2" />
-                      Delete
+                      <Edit className="w-4 h-4 mr-2" />
+                      Edit
                     </Button>
-                  )}
+                    {user.username !== "kanzaki_aito" && (
+                      <Button
+                        onClick={() => handleDeleteClick(user)}
+                        variant="destructive"
+                        size="sm"
+                        className="bg-red-900/50 hover:bg-red-900 text-red-400 hover:text-white"
+                      >
+                        <Trash2 className="w-4 h-4 mr-2" />
+                        Delete
+                      </Button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
       </div>
+
+      {/* Edit Account Dialog */}
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent className="bg-gray-900 text-white border-orange-500/30">
+          <DialogHeader>
+            <DialogTitle className="text-orange-400">Edit Account</DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Update username or password for{" "}
+              <span className="text-orange-400 font-mono">{userToEdit?.username}</span>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div>
+              <Label htmlFor="edit-username" className="text-gray-300">
+                Username
+              </Label>
+              <Input
+                id="edit-username"
+                type="text"
+                value={editUsername}
+                onChange={(e) => setEditUsername(e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="Enter new username"
+              />
+            </div>
+            <div>
+              <Label htmlFor="edit-password" className="text-gray-300">
+                New Password
+              </Label>
+              <Input
+                id="edit-password"
+                type="password"
+                value={editPassword}
+                onChange={(e) => setEditPassword(e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="Leave blank to keep current password"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Leave blank if you don't want to change the password
+              </p>
+            </div>
+            {editMessage && (
+              <div
+                className={`text-sm p-2 rounded ${
+                  editMessage.startsWith("✓")
+                    ? "bg-green-900/50 text-green-400"
+                    : "bg-red-900/50 text-red-400"
+                }`}
+              >
+                {editMessage}
+              </div>
+            )}
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setEditDialogOpen(false);
+                setUserToEdit(null);
+                setEditUsername("");
+                setEditPassword("");
+                setEditMessage("");
+              }}
+              className="border-gray-600 text-gray-300 hover:bg-gray-800"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleEditConfirm}
+              className="bg-orange-500 hover:bg-orange-600 text-black font-bold"
+            >
+              Update Account
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>

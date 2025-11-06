@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import TipTapEditor from "@/components/TipTapEditor"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowLeft, Globe, User as UserIcon } from "lucide-react"
+import { ArrowLeft, Globe, User as UserIcon, X } from "lucide-react"
 
 type Language = "en" | "th"
 
@@ -38,6 +38,8 @@ export default function EditArticlePage({ params }: { params: Promise<{ date: st
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
+  const [existingCategories, setExistingCategories] = useState<string[]>([])
+  const [isAddingNewCategory, setIsAddingNewCategory] = useState(false)
   const router = useRouter()
   const [resolvedParams, setResolvedParams] = useState<{ date: string; slug: string } | null>(null)
 
@@ -99,6 +101,23 @@ export default function EditArticlePage({ params }: { params: Promise<{ date: st
   useEffect(() => {
     params.then(setResolvedParams)
   }, [params])
+
+  // Fetch existing categories from articles
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/article")
+        if (res.ok) {
+          const data = await res.json()
+          const categories = [...new Set(data.articles.map((article: any) => article.category))] as string[]
+          setExistingCategories(categories.filter(Boolean)) // Remove empty categories
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error)
+      }
+    }
+    fetchCategories()
+  }, [])
 
   // Fetch user profile
   useEffect(() => {
@@ -303,23 +322,68 @@ export default function EditArticlePage({ params }: { params: Promise<{ date: st
               >
                 {t.category}
               </label>
-              <Select
-                value={formData.category}
-                onValueChange={(value) => {
-                  handleInputChange("category", value)
-                }}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((category, index) => (
-                    <SelectItem key={index} value={category.en}>
-                      {category[language]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              
+              {!isAddingNewCategory ? (
+                <div className="space-y-2">
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value) => {
+                      if (value === "__add_new__") {
+                        setIsAddingNewCategory(true)
+                        handleInputChange("category", "")
+                      } else {
+                        handleInputChange("category", value)
+                      }
+                    }}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a category or add new" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {existingCategories.map((cat) => (
+                        <SelectItem key={cat} value={cat}>
+                          {cat}
+                        </SelectItem>
+                      ))}
+                      <SelectItem value="__add_new__" className="text-orange-500 font-medium">
+                        + Add New Category
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {formData.category && !isAddingNewCategory && (
+                    <p className="text-xs text-gray-500">
+                      Selected: <span className="font-medium">{formData.category}</span>
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Input
+                      type="text"
+                      value={formData.category}
+                      onChange={(e) => handleInputChange("category", e.target.value)}
+                      placeholder="Enter new category name"
+                      className="flex-1"
+                      required
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setIsAddingNewCategory(false)
+                        handleInputChange("category", "")
+                      }}
+                      className="px-3"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    Creating new category: <span className="font-medium text-orange-500">{formData.category || "..."}</span>
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Author */}
