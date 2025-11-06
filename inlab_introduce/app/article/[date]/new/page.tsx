@@ -24,7 +24,7 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
     description: "",
     category: "",
     author: "",
-    imageUrl: "/img/article/default.png",
+    imageUrl: "/img/placeholder.png",
   })
 
   const translations = {

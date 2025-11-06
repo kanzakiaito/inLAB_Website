@@ -347,12 +347,14 @@ export default function ArticlePage() {
                     </Badge>
                   </div>
                   {/* Article Image */}
-                  <div className="relative h-48 bg-gradient-to-br from-gray-800 to-gray-900">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-6xl font-staatliches text-orange-400">
-                        {article.title.split(' ')[0]}
-                      </div>
-                    </div>
+                  <div className="relative h-64 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+                    <Image
+                      src={article.image || '/img/placeholder.png'}
+                      alt={article.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   </div>
                 </div>
                 <CardContent className="p-6">
