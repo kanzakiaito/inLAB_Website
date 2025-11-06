@@ -302,7 +302,7 @@ export default function CoreTeam() {
       },
       detailedDescription: {
         en: "🔒 CLASSIFIED INFORMATION 🔒\n\nAccess Denied. Clearance Level: TOP SECRET\n\nA new specialist has been recruited to join the ISV Andøya Expedition crew. Their expertise and background are currently under wraps as preparations for their official debut are underway.\n\nRumors suggest they bring unique skills that will revolutionize our research capabilities. The countdown to revelation has begun...\n\n[DATA REDACTED]",
-        th: "🔒 ความล้บสุยอด 🔒\n\nการเข้าถึงถูกปฏิเสธ. ระดับความลับ: TOP SECRET\n\nสมาชิกใหม่ประจำทีมสำรวจ ISV Andøya ได้มาถึงแล้ว เพียงแต่ข้อมูลของเขายังคงถูกปิดบังอย่างแน่นหนานี่สิ...\n\nมีข่าวลือมาว่าความสามารถเฉพาะของเขา สามารถทำให้วิทยาศาสตร์สั่นคลอนได้เลยล่ะ มาร่วมกันนับถอยหลังสู่การเปิดเผยตัวตนของเขากันดีกว่า...\n\n[DATA REDACTED]",
+        th: "🔒 ความล้บสุดยอด 🔒\n\nการเข้าถึงถูกปฏิเสธ. ระดับความลับ: TOP SECRET\n\nสมาชิกใหม่ประจำทีมสำรวจ ISV Andøya ได้มาถึงแล้ว เพียงแต่ข้อมูลของเขายังคงถูกปิดบังอย่างแน่นหนานี่สิ...\n\nมีข่าวลือมาว่าความสามารถเฉพาะของเขา สามารถทำให้วิทยาศาสตร์สั่นคลอนได้เลยล่ะ มาร่วมกันนับถอยหลังสู่การเปิดเผยตัวตนของเขากันดีกว่า...\n\n[DATA REDACTED]",
       },
       birthday: {
         en: "???",
@@ -615,7 +615,7 @@ export default function CoreTeam() {
               >
                 <div className="relative w-full select-none pointer-events-none">
                   {member.name === "???" ? (
-                    <div className="w-full h-[200px] bg-gradient-to-br from-purple-900 via-gray-900 to-black flex items-center justify-center relative overflow-hidden">
+                    <div className="w-full h-[200px] bg-gradient-to-br from-purple-900 via-gray-900 to-black flex items-end justify-center pb-8 relative overflow-hidden">
                       <div className="absolute inset-0 bg-[url('/img/bg/working_space.png')] opacity-10 blur-sm"></div>
                       <div className="text-6xl text-purple-400 animate-pulse z-10">🔒</div>
                       <div className="absolute top-0 left-0 w-full h-full">
@@ -763,21 +763,43 @@ export default function CoreTeam() {
         <DialogContent className="sm:max-w-lg md:max-w-xl lg:max-w-5xl max-h-[90vh] overflow-y-auto rounded-lg shadow-lg p-0">
           {selectedMember && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-              {/* Left Section: Orange background */}
-              <div className="md:col-span-1 flex flex-col items-center justify-start bg-orange-400 py-10 px-6 rounded-t-lg md:rounded-t-none md:rounded-l-lg">
-                <Image
-                  src={selectedMember.model || "/placeholder.svg"}
-                  alt={selectedMember.name}
-                  width={180}
-                  height={180}
-                  className="rounded-lg object-cover mb-4 shadow-lg select-none pointer-events-none"
-                />
-                <h3 className="text-lg font-bold text-gray-900 font-mono">
+              {/* Left Section: Orange background or Purple for secret member */}
+              <div className={`md:col-span-1 flex flex-col items-center justify-start py-10 px-6 rounded-t-lg md:rounded-t-none md:rounded-l-lg ${
+                selectedMember.name === "???" 
+                  ? "bg-gradient-to-br from-purple-900 via-gray-900 to-black" 
+                  : "bg-orange-400"
+              }`}>
+                {selectedMember.name === "???" ? (
+                  <div className="w-[180px] h-[180px] bg-gradient-to-br from-purple-900 via-gray-900 to-black flex items-center justify-center rounded-lg shadow-lg mb-4 relative overflow-hidden border-2 border-purple-500">
+                    <div className="absolute inset-0 bg-[url('/img/bg/working_space.png')] opacity-10 blur-sm"></div>
+                    <div className="text-6xl text-purple-400 animate-pulse z-10">🔒</div>
+                    <div className="absolute top-0 left-0 w-full h-full">
+                      <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
+                      <div className="absolute top-3/4 right-1/3 w-1 h-1 bg-purple-300 rounded-full animate-ping delay-100"></div>
+                      <div className="absolute bottom-1/4 left-2/3 w-1.5 h-1.5 bg-purple-500 rounded-full animate-ping delay-200"></div>
+                    </div>
+                  </div>
+                ) : (
+                  <Image
+                    src={selectedMember.model || "/placeholder.svg"}
+                    alt={selectedMember.name}
+                    width={180}
+                    height={180}
+                    className="rounded-lg object-cover mb-4 shadow-lg select-none pointer-events-none"
+                  />
+                )}
+                <h3 className={`text-lg font-bold font-mono ${
+                  selectedMember.name === "???" ? "text-white" : "text-gray-900"
+                }`}>
                   {selectedMember.name}
                 </h3>
                 <Badge
                   variant="outline"
-                  className={`text-orange-400 border-orange-400 font-mono bg-black whitespace-nowrap mb-2`}
+                  className={`font-mono whitespace-nowrap mb-2 ${
+                    selectedMember.name === "???" 
+                      ? "text-white border-purple-400 bg-purple-900/50" 
+                      : "text-orange-400 border-orange-400 bg-black"
+                  }`}
                 >
                   {selectedMember.department[language]}
                 </Badge>
@@ -866,17 +888,31 @@ export default function CoreTeam() {
               {/* Right Section: Black background, white text */}
               <div className="md:col-span-2 bg-black text-white py-10 px-4 md:px-10 flex flex-col rounded-b-lg md:rounded-b-none md:rounded-r-lg">
                 <div className="flex justify-center items-center mb-4">
-                  <Image
-                    src={selectedMember.logo || "/img/placeholder.png"}
-                    alt={selectedMember.name}
-                    width={200}
-                    height={200}
-                    className="w-auto h-auto object-cover select-none pointer-events-none"
-                  />
+                  {selectedMember.name === "???" ? (
+                    <div className="w-[200px] h-[200px] bg-gradient-to-br from-purple-900 via-gray-900 to-black flex items-center justify-center shadow-lg relative overflow-hidden border-2 border-purple-500">
+                      <div className="absolute inset-0 bg-[url('/img/bg/working_space.png')] opacity-10 blur-sm"></div>
+                      <div className="text-8xl text-purple-400 animate-pulse z-10">🔒</div>
+                      <div className="absolute top-0 left-0 w-full h-full">
+                        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
+                        <div className="absolute top-3/4 right-1/3 w-1 h-1 bg-purple-300 rounded-full animate-ping delay-100"></div>
+                        <div className="absolute bottom-1/4 left-2/3 w-1.5 h-1.5 bg-purple-500 rounded-full animate-ping delay-200"></div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Image
+                      src={selectedMember.logo || "/img/placeholder.png"}
+                      alt={selectedMember.name}
+                      width={200}
+                      height={200}
+                      className="w-auto h-auto object-cover select-none pointer-events-none"
+                    />
+                  )}
                 </div>
                 <div className="mb-6">
                   <h4
-                    className={`bg-orange-400 rounded-lg text-center text-lg font-bold text-white mb-3 font-mono`}
+                    className={`rounded-lg text-center text-lg font-bold text-white mb-3 font-mono ${
+                      selectedMember.name === "???" ? "bg-purple-600" : "bg-orange-400"
+                    }`}
                   >
                     Description
                   </h4>
