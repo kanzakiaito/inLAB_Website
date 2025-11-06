@@ -59,7 +59,6 @@ export default function CoreTeam() {
       coreTeam: "CORE TEAM",
       intern: "INTERN",
       aboutUs: "ABOUT US",
-      viewProfile: "View Profile",
       birthday: "Birthday",
       fanmark: "Fanmark",
       specialize: "specialize",
@@ -85,7 +84,6 @@ export default function CoreTeam() {
       coreTeam: "ทีมหลัก",
       intern: "นักศึกษาฝึกงาน",
       aboutUs: "เกี่ยวกับเรา",
-      viewProfile: "ดูโปรไฟล์",
       birthday: "วันเกิด",
       specialize: "ความสำเร็จ",
       socialLinks: "ลิงก์โซเชียล",
@@ -95,7 +93,7 @@ export default function CoreTeam() {
 
   const navigationItems = [
     {
-      title: { en: "CORE TEAM", th: "CORE TEAM" },
+      title: { en: "OUR TEAM", th: "OUR TEAM" },
       members: { en: "SCIENCE", th: "SCIENCE" },
       code: "CT-01",
       link: "team",
@@ -286,6 +284,50 @@ export default function CoreTeam() {
       mail: "bas.whatthe@gmail.com"
     },
     quote: {en: "Just a code, that being a little bit VTuber", th: "Code มีชีวิต... ที่กลายมาเป็น VTuber ได้น่ะ"},
+    },
+    {
+      name: "???",
+      department: { en: "CLASSIFIED", th: "ข้อมูลลับ" },
+      code: "???-?",
+      AOI: {
+        en: ["???", "???", "???"],
+        th: ["???", "???", "???"],
+      },
+      avatar: "/img/placeholder.png",
+      logo: "/img/placeholder.png",
+      model: "/img/placeholder.png",
+      description: {
+        en: "A mysterious new member has joined the expedition... Their identity remains classified. Stay tuned for the grand reveal!",
+        th: "สมาชิกปริศนาได้เข้าสู๋ยานของเราแล้ว ว่าแต่... เขาเป้นใคร พบกันเร็ว ๆ นี้",
+      },
+      detailedDescription: {
+        en: "🔒 CLASSIFIED INFORMATION 🔒\n\nAccess Denied. Clearance Level: TOP SECRET\n\nA new specialist has been recruited to join the ISV Andøya Expedition crew. Their expertise and background are currently under wraps as preparations for their official debut are underway.\n\nRumors suggest they bring unique skills that will revolutionize our research capabilities. The countdown to revelation has begun...\n\n[DATA REDACTED]",
+        th: "🔒 ความล้บสุยอด 🔒\n\nการเข้าถึงถูกปฏิเสธ. ระดับความลับ: TOP SECRET\n\nสมาชิกใหม่ประจำทีมสำรวจ ISV Andøya ได้มาถึงแล้ว เพียงแต่ข้อมูลของเขายังคงถูกปิดบังอย่างแน่นหนานี่สิ...\n\nมีข่าวลือมาว่าความสามารถเฉพาะของเขา สามารถทำให้วิทยาศาสตร์สั่นคลอนได้เลยล่ะ มาร่วมกันนับถอยหลังสู่การเปิดเผยตัวตนของเขากันดีกว่า...\n\n[DATA REDACTED]",
+      },
+      birthday: {
+        en: "???",
+        th: "???",
+      },
+      fanmark: "�❓✨",
+      specialize: {
+        en: [
+          "[REDACTED]",
+          "[CLASSIFIED]",
+          "[TOP SECRET]",
+        ],
+        th: [
+          "[REDACTED]",
+          "[CLASSIFIED]",
+          "[TOP SECRET]",
+        ],
+      },
+      socials: {
+      youtube: "",
+      twitter: "",
+      twitch: "",
+      mail: ""
+    },
+    quote: {en: "Coming Soon... 🌟", th: "เร็วๆ นี้... 🌟"},
     },
   ];
 
@@ -560,35 +602,60 @@ export default function CoreTeam() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
             {members.map((member, index) => (
               <Card
                 key={index}
-                className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 py-0"
+                className={`overflow-hidden transition-all duration-300 cursor-pointer py-0 ${
+                  member.name === "???" 
+                    ? "bg-gradient-to-br from-gray-900 via-purple-900 to-black border-2 border-purple-500 shadow-2xl shadow-purple-500/50 hover:shadow-purple-500/70 animate-pulse" 
+                    : "hover:shadow-xl hover:scale-105"
+                }`}
                 onClick={() => handleMemberClick(member)}
               >
                 <div className="relative w-full select-none pointer-events-none">
-                  <Image
-                    src={member.avatar || "/img/placeholder.png"}
-                    alt={member.name}
-                    width={200}
-                    height={200}
-                    className="w-full h-full object-cover"
-                  />
-                  <Badge className="absolute top-3 right-3 bg-orange-500 hover:bg-orange-600 font-mono">
+                  {member.name === "???" ? (
+                    <div className="w-full h-[200px] bg-gradient-to-br from-purple-900 via-gray-900 to-black flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-[url('/img/bg/working_space.png')] opacity-10 blur-sm"></div>
+                      <div className="text-6xl text-purple-400 animate-pulse z-10">🔒</div>
+                      <div className="absolute top-0 left-0 w-full h-full">
+                        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
+                        <div className="absolute top-3/4 right-1/3 w-1 h-1 bg-purple-300 rounded-full animate-ping delay-100"></div>
+                        <div className="absolute bottom-1/4 left-2/3 w-1.5 h-1.5 bg-purple-500 rounded-full animate-ping delay-200"></div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Image
+                      src={member.avatar || "/img/placeholder.png"}
+                      alt={member.name}
+                      width={200}
+                      height={200}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                  <Badge className={`absolute top-3 right-3 font-mono ${
+                    member.name === "???" 
+                      ? "bg-purple-600 hover:bg-purple-700 border border-purple-400" 
+                      : "bg-orange-500 hover:bg-orange-600"
+                  }`}>
                     {member.code}
                   </Badge>
                 </div>
 
                 <CardContent className="p-6">
                   <div className="mb-4">
-                    <h3 className="text-xl font-bold text-gray-900 mb-1 font-mono">
+                    <h3 className={`text-xl font-bold mb-1 font-mono ${
+                      member.name === "???" ? "text-white" : "text-gray-900"
+                    }`}>
                       {member.name}
                     </h3>
                     <Badge
   variant="outline"
   className={`
-    text-orange-600 border-orange-600 font-mono
+    ${member.name === "???" 
+      ? "text-white border-purple-400" 
+      : "text-orange-600 border-orange-600"
+    } font-mono
     whitespace-pre-line break-words
     max-w-full block
     text-xs sm:text-sm
@@ -602,9 +669,11 @@ export default function CoreTeam() {
                   </div>
 
                   <p
-                    className={`text-sm text-gray-600 mb-4 font-mono text-left ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
+                    className={`text-sm mb-4 font-mono text-left ${
+                      member.name === "???" 
+                        ? "text-white" 
+                        : "text-gray-600"
+                    } ${language === "th" ? "font-kanit" : "font-mono"}`}
                   >
                     {member.description[language]}
                   </p>
@@ -635,7 +704,7 @@ export default function CoreTeam() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
             {internMembers.map((member, index) => (
               <Card
                 key={index}
@@ -682,15 +751,6 @@ export default function CoreTeam() {
                   >
                     {member.description[language]}
                   </p>
-
-                  <Button
-                    variant="outline"
-                    className={`w-full text-orange-500 border-orange-500 hover:bg-orange-500 hover:text-white ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
-                  >
-                    {t.viewProfile}
-                  </Button>
                 </CardContent>
               </Card>
             ))}
