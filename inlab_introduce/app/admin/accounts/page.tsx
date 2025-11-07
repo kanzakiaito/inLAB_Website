@@ -44,8 +44,14 @@ export default function AccountManagement() {
   const [userToEdit, setUserToEdit] = useState<User | null>(null);
   const [editUsername, setEditUsername] = useState("");
   const [editPassword, setEditPassword] = useState("");
+  const [editAuthorName, setEditAuthorName] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editAvatarImage, setEditAvatarImage] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [newAuthorName, setNewAuthorName] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [newAvatarImage, setNewAvatarImage] = useState("");
   const [message, setMessage] = useState("");
   const [editMessage, setEditMessage] = useState("");
   const router = useRouter();
@@ -96,6 +102,9 @@ export default function AccountManagement() {
     setUserToEdit(user);
     setEditUsername(user.username);
     setEditPassword("");
+    setEditAuthorName(user.authorName || "");
+    setEditDescription(user.description || "");
+    setEditAvatarImage(user.avatarImage || "");
     setEditMessage("");
     setEditDialogOpen(true);
   };
@@ -133,7 +142,13 @@ export default function AccountManagement() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: newUsername, password: newPassword }),
+        body: JSON.stringify({ 
+          username: newUsername, 
+          password: newPassword,
+          authorName: newAuthorName || null,
+          description: newDescription || null,
+          avatarImage: newAvatarImage || null,
+        }),
       });
 
       const data = await res.json();
@@ -142,6 +157,9 @@ export default function AccountManagement() {
         setMessage("✓ User created successfully!");
         setNewUsername("");
         setNewPassword("");
+        setNewAuthorName("");
+        setNewDescription("");
+        setNewAvatarImage("");
         fetchUsers();
       } else {
         setMessage(`✗ ${data.message || "Failed to create user"}`);
@@ -170,6 +188,21 @@ export default function AccountManagement() {
         updateData.password = editPassword;
       }
 
+      // Include author name (can be empty)
+      if (editAuthorName !== (userToEdit.authorName || "")) {
+        updateData.authorName = editAuthorName;
+      }
+
+      // Include description (can be empty)
+      if (editDescription !== (userToEdit.description || "")) {
+        updateData.description = editDescription;
+      }
+
+      // Include avatar image (can be empty)
+      if (editAvatarImage !== (userToEdit.avatarImage || "")) {
+        updateData.avatarImage = editAvatarImage;
+      }
+
       const res = await fetch("/api/users/update", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -185,6 +218,9 @@ export default function AccountManagement() {
           setUserToEdit(null);
           setEditUsername("");
           setEditPassword("");
+          setEditAuthorName("");
+          setEditDescription("");
+          setEditAvatarImage("");
           setEditMessage("");
           fetchUsers();
         }, 1500);
@@ -346,6 +382,70 @@ export default function AccountManagement() {
                   placeholder="Enter password"
                 />
               </div>
+              <div>
+                <Label htmlFor="new-authorname" className="text-gray-300">
+                  Author Name (Optional)
+                </Label>
+                <Input
+                  id="new-authorname"
+                  type="text"
+                  value={newAuthorName}
+                  onChange={(e) => setNewAuthorName(e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-white"
+                  placeholder="Enter author name for articles"
+                />
+              </div>
+              <div>
+                <Label htmlFor="new-description" className="text-gray-300">
+                  Description (Optional)
+                </Label>
+                <textarea
+                  id="new-description"
+                  value={newDescription}
+                  onChange={(e) => setNewDescription(e.target.value)}
+                  className="w-full min-h-[80px] bg-gray-800 border border-gray-700 text-white rounded-md p-2 resize-none"
+                  placeholder="Enter author description"
+                />
+              </div>
+              <div>
+                <Label htmlFor="new-avatar" className="text-gray-300">
+                  Avatar Image (Optional)
+                </Label>
+                <Input
+                  id="new-avatar"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setNewAvatarImage(reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                  className="bg-gray-800 border-gray-700 text-white"
+                />
+                {newAvatarImage && (
+                  <div className="mt-2">
+                    <img
+                      src={newAvatarImage}
+                      alt="Preview"
+                      className="w-20 h-20 rounded-full object-cover border-2 border-orange-500/50"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setNewAvatarImage("")}
+                      className="mt-2 text-xs border-red-500/50 text-red-400 hover:bg-red-500/10"
+                    >
+                      Remove Image
+                    </Button>
+                  </div>
+                )}
+              </div>
               {message && (
                 <div
                   className={`text-sm p-2 rounded ${
@@ -444,11 +544,11 @@ export default function AccountManagement() {
 
       {/* Edit Account Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-        <DialogContent className="bg-gray-900 text-white border-orange-500/30">
+        <DialogContent className="bg-gray-900 text-white border-orange-500/30 max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-orange-400">Edit Account</DialogTitle>
             <DialogDescription className="text-gray-400">
-              Update username or password for{" "}
+              Update all account information for{" "}
               <span className="text-orange-400 font-mono">{userToEdit?.username}</span>
             </DialogDescription>
           </DialogHeader>
@@ -482,6 +582,78 @@ export default function AccountManagement() {
                 Leave blank if you don't want to change the password
               </p>
             </div>
+            <div>
+              <Label htmlFor="edit-authorname" className="text-gray-300">
+                Author Name
+              </Label>
+              <Input
+                id="edit-authorname"
+                type="text"
+                value={editAuthorName}
+                onChange={(e) => setEditAuthorName(e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="Enter author name for articles"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                This will be used as the author name in articles
+              </p>
+            </div>
+            <div>
+              <Label htmlFor="edit-description" className="text-gray-300">
+                Description
+              </Label>
+              <textarea
+                id="edit-description"
+                value={editDescription}
+                onChange={(e) => setEditDescription(e.target.value)}
+                className="w-full min-h-[80px] bg-gray-800 border border-gray-700 text-white rounded-md p-2 resize-none"
+                placeholder="Enter author description"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Brief description about the author
+              </p>
+            </div>
+            <div>
+              <Label htmlFor="edit-avatar" className="text-gray-300">
+                Avatar Image
+              </Label>
+              <Input
+                id="edit-avatar"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setEditAvatarImage(reader.result as string);
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                className="bg-gray-800 border-gray-700 text-white"
+              />
+              {editAvatarImage && (
+                <div className="mt-2">
+                  <img
+                    src={editAvatarImage}
+                    alt="Preview"
+                    className="w-20 h-20 rounded-full object-cover border-2 border-orange-500/50"
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setEditAvatarImage("")}
+                    className="mt-2 text-xs border-red-500/50 text-red-400 hover:bg-red-500/10"
+                  >
+                    Remove Image
+                  </Button>
+                </div>
+              )}
+              <p className="text-xs text-gray-500 mt-1">
+                Upload an image file for the avatar
+              </p>
+            </div>
             {editMessage && (
               <div
                 className={`text-sm p-2 rounded ${
@@ -502,6 +674,9 @@ export default function AccountManagement() {
                 setUserToEdit(null);
                 setEditUsername("");
                 setEditPassword("");
+                setEditAuthorName("");
+                setEditDescription("");
+                setEditAvatarImage("");
                 setEditMessage("");
               }}
               className="border-gray-600 text-gray-300 hover:bg-gray-800"

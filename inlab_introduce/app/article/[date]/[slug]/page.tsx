@@ -134,6 +134,52 @@ export default function ArticleReadPage({ params }: { params: Promise<{ date: st
     fetchArticle()
   }, [resolvedParams])
 
+  // Update meta tags for social media sharing
+  useEffect(() => {
+    if (article) {
+      // Update document title
+      document.title = `${article.title} - inLAB Outreach Division`
+      
+      // Update or create meta tags
+      const updateMetaTag = (property: string, content: string) => {
+        let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement
+        if (!meta) {
+          meta = document.createElement('meta')
+          meta.setAttribute('property', property)
+          document.head.appendChild(meta)
+        }
+        meta.content = content
+      }
+
+      const updateMetaTagName = (name: string, content: string) => {
+        let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement
+        if (!meta) {
+          meta = document.createElement('meta')
+          meta.setAttribute('name', name)
+          document.head.appendChild(meta)
+        }
+        meta.content = content
+      }
+
+      // Open Graph tags
+      updateMetaTag('og:title', article.title)
+      updateMetaTag('og:description', article.description.replace(/<[^>]*>/g, '').substring(0, 200))
+      updateMetaTag('og:image', article.image || '/img/INLABLOGO.png')
+      updateMetaTag('og:url', window.location.href)
+      updateMetaTag('og:type', 'article')
+      updateMetaTag('og:site_name', 'inLAB - Outreach Division')
+
+      // Twitter Card tags
+      updateMetaTagName('twitter:card', 'summary_large_image')
+      updateMetaTagName('twitter:title', article.title)
+      updateMetaTagName('twitter:description', article.description.replace(/<[^>]*>/g, '').substring(0, 200))
+      updateMetaTagName('twitter:image', article.image || '/img/INLABLOGO.png')
+
+      // Additional meta tags
+      updateMetaTagName('description', article.description.replace(/<[^>]*>/g, '').substring(0, 160))
+    }
+  }, [article])
+
   const fetchAuthorProfile = async (authorName: string) => {
     try {
       // Fetch all users and find the one matching the author name

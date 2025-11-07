@@ -25,7 +25,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { userId, username, password } = body;
+    const { userId, username, password, authorName, description, avatarImage } = body;
 
     if (!userId) {
       return NextResponse.json(
@@ -69,6 +69,21 @@ export async function PATCH(request: NextRequest) {
 
     if (password && password.trim()) {
       updateData.password = await bcrypt.hash(password, 10);
+    }
+
+    // Update author name if provided
+    if (authorName !== undefined) {
+      updateData.authorName = authorName || null;
+    }
+
+    // Update description if provided
+    if (description !== undefined) {
+      updateData.description = description || null;
+    }
+
+    // Update avatar image if provided
+    if (avatarImage !== undefined) {
+      updateData.avatarImage = avatarImage || null;
     }
 
     // Update user
