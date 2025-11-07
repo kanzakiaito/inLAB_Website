@@ -34,9 +34,9 @@ export async function GET() {
     const totalLikes = articles.reduce((sum, article) => sum + article.likes, 0);
     const totalShares = articles.reduce((sum, article) => sum + article.shares, 0);
 
-    // For kanzaki_aito, include page traffic data
+    // For archbas, include page traffic data
     let pageTraffic = null;
-    if (user.username === "kanzaki_aito") {
+    if (user.username === "archbas") {
       // This would connect to your analytics service
       // For now, returning mock data structure
       pageTraffic = {

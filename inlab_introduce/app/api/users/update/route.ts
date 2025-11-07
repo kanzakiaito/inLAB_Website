@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export async function PATCH(request: NextRequest) {
   try {
-    // Check if user is authenticated and is kanzaki_aito
+    // Check if user is authenticated and is archbas
     const authUser = await getAuthUser();
     
     if (!authUser) {
@@ -17,9 +17,9 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    if (authUser.username !== "kanzaki_aito") {
+    if (authUser.username !== "archbas") {
       return NextResponse.json(
-        { message: "Only kanzaki_aito can update accounts" },
+        { message: "Only archbas can update accounts" },
         { status: 403 }
       );
     }

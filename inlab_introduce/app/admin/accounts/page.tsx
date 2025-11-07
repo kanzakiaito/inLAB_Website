@@ -63,7 +63,7 @@ export default function AccountManagement() {
         return;
       }
       const data = await res.json();
-      if (data.user.username !== "kanzaki_aito") {
+      if (data.user.username !== "archbas") {
         router.push("/admin/dashboard");
         return;
       }
@@ -395,7 +395,7 @@ export default function AccountManagement() {
                       <div>
                         <h3 className="font-mono text-orange-400">
                           {user.username}
-                          {user.username === "kanzaki_aito" && (
+                          {user.username === "archbas" && (
                             <span className="ml-2 text-xs bg-orange-500 text-black px-2 py-1 rounded">
                               SUPER ADMIN
                             </span>
@@ -423,7 +423,7 @@ export default function AccountManagement() {
                       <Edit className="w-4 h-4 mr-2" />
                       Edit
                     </Button>
-                    {user.username !== "kanzaki_aito" && (
+                    {user.username !== "archbas" && (
                       <Button
                         onClick={() => handleDeleteClick(user)}
                         variant="destructive"

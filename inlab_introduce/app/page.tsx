@@ -43,10 +43,10 @@ export default function InLAB() {
       communityDescription: "Get in touch with our inLAB specialist",
       joinDiscord: "Join Discord",
       // Navigation items
-      coreTeam: "CORE TEAM",
+      coreTeam: "OUR TEAM",
       intern: "INTERN",
       aboutUs: "ABOUT US",
-      coreTeamTitle: "CORE TEAM",
+      coreTeamTitle: "OUR TEAM",
       internTeamTitle: "INTERN",
       coreTeamDescription:
         "Meet the pioneer specialists who form the backbone of inLAB, driving innovation and leading our key initiatives.",
@@ -64,10 +64,10 @@ export default function InLAB() {
         "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
       joinDiscord: "เข้าร่วม Discord",
       // Navigation items
-      coreTeam: "CORE TEAM",
+      coreTeam: "OUR TEAM",
       intern: "INTERN",
       aboutUs: "ABOUT US",
-      coreTeamTitle: "CORE TEAM",
+      coreTeamTitle: "OUR TEAM",
       internTeamTitle: "INTERN",
       coreTeamDescription:
         "พบกับเหล่า Specialist ผู้ก่อตั้ง inLAB กลุ่มวีทูปเบอร์สายวิทย์ที่เต็มเปี่ยมไปด้วยงานวิจัยและ Content สุดจะหาทำ",
@@ -245,7 +245,7 @@ export default function InLAB() {
       {/* Team Information Section */}
       <div className="bg-white flex-grow">
         <div className="w-full">
-          {/* Core Team Section */}
+          {/* OUR TEAM Section */}
           <div className="mb-0 bg-orange-400">
             <div className="flex flex-col lg:flex-row min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] xl:min-h-[70vh]">
               {/* Left side - Text content */}
@@ -258,9 +258,8 @@ export default function InLAB() {
                 </a>
                 <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
                   <p
-                    className={`text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 text-left leading-relaxed whitespace-pre-wrap ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
+                    className={`text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 text-left leading-relaxed whitespace-pre-wrap ${language === "th" ? "font-kanit" : "font-mono"
+                      }`}
                   >
                     {t.coreTeamDescription}
                   </p>
@@ -270,104 +269,35 @@ export default function InLAB() {
 
               <div className="lg:w-3/4 relative overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto">
                 <div className="flex justify-center items-center h-full">
-  <div
-    style={{
-      display: "inline-block",
-      border: "8px solid",
-      borderImage:
-        "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
-      borderRadius: "0.5rem",
-      boxSizing: "border-box",
-      background: "black", // optional: for contrast behind transparent images
-      maxWidth: "100%",
-      maxHeight: "100%",
-    }}
-  >
-    <Image
-      src="/img/Team/inLAB_Core.png"
-      alt="Core Team"
-      width={800} // set your image width
-      height={500} // set your image height
-      className="object-contain object-center"
-      onContextMenu={handleContextMenu}
-      onDragStart={handleDragStart}
-      style={{
-        display: "block",
-        borderRadius: "0.5rem",
-        maxWidth: "100%",
-        height: "auto",
-      }}
-    />
-  </div>
-</div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="h-3 w-full bg-black" // Added w-full to ensure it spans the whole width
-            style={{
-              borderImage:
-                "repeating-linear-gradient(90deg, black 0, black 10px, orange 10px, orange 20px) 8",
-              borderWidth: "3px 0 3px 0", // Apply border to top and botto
-              borderStyle: "solid",
-            }}
-          ></div>
-
-          {/* Intern Team Section */}
-          <div className="mb-0 bg-gray-800">
-            <div className="flex flex-col lg:flex-row min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] xl:min-h-[70vh]">
-              {/* Left side - Image */}
-              <div className="lg:w-3/4 relative order-2 lg:order-1 overflow-hidden h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto flex items-center justify-center">
-                <div className="flex justify-center items-center h-full">
-  <div
-    style={{
-      display: "inline-block",
-      border: "8px solid",
-      borderImage:
-        "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
-      borderRadius: "0.5rem",
-      boxSizing: "border-box",
-      background: "black",
-      maxWidth: "100%",
-      maxHeight: "100%",
-    }}
-  >
-    <Image
-      src="/img/Team/inLAB_Intern.png"
-      alt="Intern Team"
-      width={800} // set your image width
-      height={500} // set your image height
-      className="object-contain object-center"
-      onContextMenu={handleContextMenu}
-      onDragStart={handleDragStart}
-      style={{
-        display: "block",
-        borderRadius: "0.5rem",
-        maxWidth: "100%",
-        height: "auto",
-      }}
-    />
-  </div>
-</div>
-          
-              </div>
-              {/* Right side - Text content */}
-              <div className="lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 md:py-16 lg:py-20 order-1 lg:order-2">
-                <a
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-staatliches text-orange-400 mb-4 sm:mb-6 md:mb-8 text-right underline"
-                  href="/intern"
-                >
-                  {t.internTeamTitle}
-                </a>
-                <div className="min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] xl:min-h-[160px]">
-                  <p
-                    className={`text-sm sm:text-base md:text-lg lg:text-xl text-orange-500 text-right leading-relaxed whitespace-pre-wrap ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
+                  <div
+                    style={{
+                      display: "inline-block",
+                      border: "8px solid",
+                      borderImage:
+                        "repeating-linear-gradient(45deg, black 0, black 10px, orange 10px, orange 20px) 8",
+                      borderRadius: "0.5rem",
+                      boxSizing: "border-box",
+                      background: "black", // optional: for contrast behind transparent images
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                    }}
                   >
-                    {t.internTeamDescription}
-                  </p>
+                    <Image
+                      src="/img/Team/inLAB_Core.png"
+                      alt="OUR TEAM"
+                      width={800} // set your image width
+                      height={500} // set your image height
+                      className="object-contain object-center"
+                      onContextMenu={handleContextMenu}
+                      onDragStart={handleDragStart}
+                      style={{
+                        display: "block",
+                        borderRadius: "0.5rem",
+                        maxWidth: "100%",
+                        height: "auto",
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -389,16 +319,14 @@ export default function InLAB() {
       <div className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4 text-center">
           <h3
-            className={`text-2xl font-bold mb-4 ${
-              language === "th" ? "font-kanit" : "font-mono"
-            }`}
+            className={`text-2xl font-bold mb-4 ${language === "th" ? "font-kanit" : "font-mono"
+              }`}
           >
             {t.joinCommunity}
           </h3>
           <p
-            className={`text-gray-400 mb-6 max-w-2xl mx-auto ${
-              language === "th" ? "font-kanit" : "font-mono"
-            }`}
+            className={`text-gray-400 mb-6 max-w-2xl mx-auto ${language === "th" ? "font-kanit" : "font-mono"
+              }`}
           >
             {t.communityDescription}
           </p>
@@ -413,9 +341,8 @@ export default function InLAB() {
               <Button
                 size="lg"
                 variant="outline"
-                className={`bg-indigo-500 border-white text-white hover:bg-white hover:text-black cursor-pointer ${
-                  language === "th" ? "font-kanit" : "font-mono"
-                }`}
+                className={`bg-indigo-500 border-white text-white hover:bg-white hover:text-black cursor-pointer ${language === "th" ? "font-kanit" : "font-mono"
+                  }`}
               >
                 <Image
                   src={

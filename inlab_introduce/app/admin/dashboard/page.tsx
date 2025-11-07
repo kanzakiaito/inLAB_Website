@@ -258,7 +258,7 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {currentUser?.username === "kanzaki_aito" && (
+          {currentUser?.username === "archbas" && (
             <Card className="bg-black/50 border-orange-500/30 text-white hover:border-orange-500 transition-colors cursor-pointer"
               onClick={() => router.push("/admin/accounts")}>
               <CardHeader>
@@ -318,8 +318,8 @@ export default function AdminDashboard() {
               </Card>
             </div>
 
-            {/* Page Traffic (kanzaki_aito only) */}
-            {analytics.pageTraffic && currentUser?.username === "kanzaki_aito" && (
+            {/* Page Traffic (archbas only) */}
+            {analytics.pageTraffic && currentUser?.username === "archbas" && (
               <Card className="bg-black/50 border-orange-500/30 text-white mb-8">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-orange-400">

@@ -46,18 +46,14 @@ export default function CoreTeam() {
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
       meetTalent: "Meet Our Talent",
-      coreTeamTitle: "CORE TEAM",
-      internTeamTitle: "INTERN",
+      coreTeamTitle: "OUR TEAM",
       coreTeamDescription:
         "Discover the exceptional inLAB specialists who drive our outreach initiatives, each contributing distinctive insights and specialized experience to elevate your experience.",
-      internDescription:
-        "Discover our talented interns, bringing fresh perspectives and new experience to everyone.",
       follow: "Follow",
       joinCommunity: "Join Our Community",
       communityDescription: "Get in touch with our inLAB specialist",
       joinDiscord: "Join Discord",
-      coreTeam: "CORE TEAM",
-      intern: "INTERN",
+      coreTeam: "OUR TEAM",
       aboutUs: "ABOUT US",
       birthday: "Birthday",
       fanmark: "Fanmark",
@@ -70,19 +66,15 @@ export default function CoreTeam() {
       subtitle: "Outreach division",
       section: "ISV Andøya Expedition",
       meetTalent: "พบกับพรสวรรค์ของเรา",
-      coreTeamTitle: "CORE TEAM",
-      internTeamTitle: "INTERN",
+      coreTeamTitle: "OUR TEAM",
       coreTeamDescription:
         "มาทำความรู้จักกับเหล่า Specialist กลุ่มผู้นำจาก inLAB ผู้ซึ่งเป็นหัวใจสำคัญของเรา\nที่มาพร้อมกับความรู้เฉพาะทางและประสบการณ์อันโดดเด่น\nเพื่อยกระดับประสบการณ์เชิงวิทยาศาสตร์ให้กับทุกคน!",
-      internDescription:
-        "พบกับ Intern ประจำ inLAB\nที่พร้อมมอบความรู้ใหม่ ๆ และประสบการณ์สุดล้ำค่ากับคุณ!",
       follow: "ติดตาม",
       joinCommunity: "เข้าร่วมห้องปฏิบัติการของพวกเรา",
       communityDescription:
         "ร่วมพูดคุยกับเหล่า Specialist ใน inLAB อย่างใกล้ชิดได้ที่นี่",
       joinDiscord: "เข้าร่วม Discord",
       coreTeam: "ทีมหลัก",
-      intern: "นักศึกษาฝึกงาน",
       aboutUs: "เกี่ยวกับเรา",
       birthday: "วันเกิด",
       specialize: "ความสำเร็จ",
@@ -286,6 +278,61 @@ export default function CoreTeam() {
     quote: {en: "Just a code, that being a little bit VTuber", th: "Code มีชีวิต... ที่กลายมาเป็น VTuber ได้น่ะ"},
     },
     {
+      name: "ARITHMOS",
+      department: { en: "ACTUARY", th: "ACTUARY" },
+      code: "A5M-A",
+      AOI: {
+        en: [
+          "Mathematics",
+          "Actuary",
+          "Finance",
+          "Statistics",
+          "Science",
+          "Programming",
+        ],
+        th: [
+          "คณิตศาสตร์",
+          "คณิตศาสตร์ประกันภัย",
+          "ไฟแนนซ์",
+          "สถิติ",
+          "วิทยาศาสตร์",
+          "Programming",
+        ],
+      },
+      avatar: "/img/inLAB_Intern/Arithmos.png",
+      logo: "/img/Logo/Arithmos.png",
+      model: "/img/Model/Arithmos.png",
+      description: {
+        en: "A mathematician, a lifetime devoted to numbers and mathematical principles, often losing sleep to games.",
+        th: "นักคณิตศาสตร์ผู้อยู่กับตัวเลขมาทั้งชีวิต ผู้เข้าใจถึงหลักการคณิตและอดนอนเพราะเล่นเกม",
+      },
+      detailedDescription: {
+        en: "A mathematician who has dedicated his life to numbers, often foregoing sleep in his quest to understand everything in mathematics. He also enjoys gaming late into the night (well, more often than not...).\n\nCurrently, he's on board the ISV Andøya Expedition, where he applies mathematical principles to analyze various risks within the vessel.",
+        th: "นักคณิตศาสตร์ผู้ใช้ชีวิตกับตัวเลขมาทั้งชีวิต มักจะอดหลับอดนอนเพราะพยายามจะเรียนรู้เพื่อเข้าใจทุกสิ่งอย่างในวิชาคณิตศาสตร์และมีเล่นเกมตอนกลางคืนบ้าง (ไม่บ้างหรอก ส่วนใหญ่เลยแหละ...)\n\nปัจจุบัน เขาได้ขึ้นมาอยู่บนยาน ISV Andøya Expedition เพื่อวิเคราะห์ความเสี่ยงต่าง ๆ ภายในยานโดยใช้หลักการทางคณิตศาสตร์",
+      },
+      birthday: {
+        en: "2nd July",
+        th: "2 กรกฎาคม",
+      },
+      fanmark: "🧮",
+      specialize: {
+        en: [
+          "Mathematics",
+          "Actuary",
+          "Finance",
+          "Statistics",
+        ],
+        th: [
+          "คณิตศาสตร์",
+          "คณิตศาสตร์ประกันภัย",
+          "ไฟแนนซ์",
+          "สถิติ",
+        ],
+      },
+      socials: { youtube: "https://www.youtube.com/@ArithmosCh", twitter: "https://x.com/arithmosch", twitch: "https://twitch.tv/arithmosch", mail: "", github: "" },
+      quote: { en: "Numbers never lie.", th: "ตัวเลขไม่เคยโกหกใคร" },
+    },
+    {
       name: "???",
       department: { en: "CLASSIFIED", th: "ข้อมูลลับ" },
       code: "???-?",
@@ -390,61 +437,6 @@ export default function CoreTeam() {
       },
       socials: { youtube: "https://www.youtube.com/@KZK_Aito", twitter: "https://x.com/kanzaki_aito", twitch: "https://www.twitch.tv/kanzaki_aito", mail: "kanzaki.aitovt@gmail.com", github: "https://github.com/kanzakiaito" },
       quote: { en: "Predict the future, code the present.", th: "ผมก็เป็นแค่โปรแกรมเมอร์... ที่ดูดวงเป็นนิดหน่อยน่ะ" },
-    },
-    {
-      name: "ARITHMOS",
-      department: { en: "ACTUARY", th: "ACTUARY" },
-      code: "A3M-IA",
-      AOI: {
-        en: [
-          "Mathematics",
-          "Actuary",
-          "Finance",
-          "Statistics",
-          "Science",
-          "Programming",
-        ],
-        th: [
-          "คณิตศาสตร์",
-          "คณิตศาสตร์ประกันภัย",
-          "ไฟแนนซ์",
-          "สถิติ",
-          "วิทยาศาสตร์",
-          "Programming",
-        ],
-      },
-      avatar: "/img/inLAB_Intern/Arithmos.png",
-      logo: "/img/Logo/Arithmos.png",
-      model: "/img/Model/Arithmos.png",
-      description: {
-        en: "A mathematician, a lifetime devoted to numbers and mathematical principles, often losing sleep to games.",
-        th: "นักคณิตศาสตร์ผู้อยู่กับตัวเลขมาทั้งชีวิต ผู้เข้าใจถึงหลักการคณิตและอดนอนเพราะเล่นเกม",
-      },
-      detailedDescription: {
-        en: "A mathematician who has dedicated his life to numbers, often foregoing sleep in his quest to understand everything in mathematics. He also enjoys gaming late into the night (well, more often than not...).\n\nCurrently, he's on board the ISV Andøya Expedition, where he applies mathematical principles to analyze various risks within the vessel.",
-        th: "นักคณิตศาสตร์ผู้ใช้ชีวิตกับตัวเลขมาทั้งชีวิต มักจะอดหลับอดนอนเพราะพยายามจะเรียนรู้เพื่อเข้าใจทุกสิ่งอย่างในวิชาคณิตศาสตร์และมีเล่นเกมตอนกลางคืนบ้าง (ไม่บ้างหรอก ส่วนใหญ่เลยแหละ...)\n\nปัจจุบัน เขาได้ขึ้นมาอยู่บนยาน ISV Andøya Expedition เพื่อวิเคราะห์ความเสี่ยงต่าง ๆ ภายในยานโดยใช้หลักการทางคณิตศาสตร์",
-      },
-      birthday: {
-        en: "2nd July",
-        th: "2 กรกฎาคม",
-      },
-      fanmark: "🧮",
-      specialize: {
-        en: [
-          "Mathematics",
-          "Actuary",
-          "Finance",
-          "Statistics",
-        ],
-        th: [
-          "คณิตศาสตร์",
-          "คณิตศาสตร์ประกันภัย",
-          "ไฟแนนซ์",
-          "สถิติ",
-        ],
-      },
-      socials: { youtube: "https://www.youtube.com/@ArithmosCh", twitter: "https://x.com/arithmosch", twitch: "https://twitch.tv/arithmosch", mail: "", github: "" },
-      quote: { en: "Numbers never lie.", th: "ตัวเลขไม่เคยโกหกใคร" },
     },
   ];
 
@@ -575,14 +567,14 @@ export default function CoreTeam() {
 
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-5xl lg:text-6xl text-shadow-md text-white font-staatliches leading-tight">
-            CORE TEAM
+            OUR TEAM
           </h1>
         </div>
       </div>
 
       <div className="h-4 bg-black"></div>
 
-      {/* Core Team Members Section */}
+      {/* OUR TEAM Members Section */}
       <div className="bg-white pt-12 pb-8">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -674,80 +666,6 @@ export default function CoreTeam() {
                         ? "text-white" 
                         : "text-gray-600"
                     } ${language === "th" ? "font-kanit" : "font-mono"}`}
-                  >
-                    {member.description[language]}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Intern Team Members Section */}
-      <div className="bg-gray-50 py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2
-              className={`text-4xl font-bold mb-4 text-orange-500 ${
-                language === "th" ? "font-kanit" : "font-staatliches"
-              }`}
-            >
-              {t.internTeamTitle}
-            </h2>
-            <p
-              className={`text-lg text-gray-600 max-w-2xl mx-auto whitespace-pre-wrap ${
-                language === "th" ? "font-kanit" : "font-mono"
-              }`}
-            >
-              {t.internDescription}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-            {internMembers.map((member, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 py-0"
-                onClick={() => handleMemberClick(member)}
-              >
-                <div className="relative w-full select-none pointer-events-none">
-                  <Image
-                    src={member.avatar || "/img/placeholder.png"}
-                    alt={member.name}
-                    width={200}
-                    height={200}
-                    className="w-full h-full object-cover"
-                  />
-                  <Badge className="absolute top-3 right-3 bg-orange-500 hover:bg-orange-600 font-mono">
-                    {member.code}
-                  </Badge>
-                </div>
-
-                <CardContent className="p-6">
-                  <div className="mb-4">
-                    <h3 className="text-xl font-bold text-gray-900 mb-1 font-mono">
-                      {member.name}
-                    </h3>
-                    <Badge
-  className={`
-    text-orange-600 border-orange-600 font-mono
-    whitespace-pre-line break-words
-    max-w-full block
-    text-xs sm:text-sm
-    px-2 py-1
-    overflow-hidden text-ellipsis
-  `}
-  style={{ wordBreak: "break-word", whiteSpace: "pre-line" }}
->
-  {member.department[language]}
-</Badge>
-                  </div>
-
-                  <p
-                    className={`text-sm text-gray-600 mb-4 font-mono text-left ${
-                      language === "th" ? "font-kanit" : "font-mono"
-                    }`}
                   >
                     {member.description[language]}
                   </p>

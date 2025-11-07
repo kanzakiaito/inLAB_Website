@@ -4,12 +4,12 @@ import { getAuthUser } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
-// GET all users (kanzaki_aito only)
+// GET all users (archbas only)
 export async function GET() {
   try {
     const user = await getAuthUser();
     
-    if (!user || user.username !== "kanzaki_aito") {
+    if (!user || user.username !== "archbas") {
       return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
     }
 
@@ -32,21 +32,21 @@ export async function GET() {
   }
 }
 
-// DELETE user (kanzaki_aito only)
+// DELETE user (archbas only)
 export async function DELETE(request: NextRequest) {
   try {
     const user = await getAuthUser();
     
-    if (!user || user.username !== "kanzaki_aito") {
+    if (!user || user.username !== "archbas") {
       return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
     }
 
     const { userId } = await request.json();
 
-    // Prevent deleting kanzaki_aito account
+    // Prevent deleting archbas account
     const userToDelete = await prisma.user.findUnique({ where: { id: userId } });
-    if (userToDelete?.username === "kanzaki_aito") {
-      return NextResponse.json({ message: "Cannot delete kanzaki_aito account" }, { status: 403 });
+    if (userToDelete?.username === "archbas") {
+      return NextResponse.json({ message: "Cannot delete archbas account" }, { status: 403 });
     }
 
     await prisma.user.delete({ where: { id: userId } });
