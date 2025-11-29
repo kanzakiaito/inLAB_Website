@@ -3,19 +3,19 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
   try {
-    const { articleId } = await request.json();
+    const { articleId, action } = await request.json();
 
     if (!articleId) {
       return NextResponse.json({ error: "Article ID is required" }, { status: 400 });
     }
 
+    const updateData = action === 'unlike'
+      ? { likes: { decrement: 1 } }
+      : { likes: { increment: 1 } };
+
     const article = await prisma.article.update({
       where: { id: articleId },
-      data: {
-        likes: {
-          increment: 1,
-        },
-      },
+      data: updateData,
     });
 
     return NextResponse.json({

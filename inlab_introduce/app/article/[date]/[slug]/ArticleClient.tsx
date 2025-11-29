@@ -230,10 +230,7 @@ export default function ArticleClient({ params }: { params: Promise<{ date: stri
         const likedArticles = JSON.parse(localStorage.getItem(likedArticlesKey) || '[]')
         const alreadyLiked = likedArticles.includes(article.id)
 
-        if (alreadyLiked) {
-            // User already liked this article
-            return
-        }
+        const action = alreadyLiked ? 'unlike' : 'like'
 
         try {
             const response = await fetch(`/api/article/like`, {
@@ -241,16 +238,26 @@ export default function ArticleClient({ params }: { params: Promise<{ date: stri
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ articleId: article.id }),
+                body: JSON.stringify({
+                    articleId: article.id,
+                    action
+                }),
             })
 
             if (response.ok) {
                 const data = await response.json()
-                setIsLiked(true)
+                setIsLiked(!alreadyLiked)
                 setCurrentLikes(data.likes)
 
-                // Save to localStorage
-                likedArticles.push(article.id)
+                // Update localStorage
+                if (action === 'like') {
+                    likedArticles.push(article.id)
+                } else {
+                    const index = likedArticles.indexOf(article.id)
+                    if (index > -1) {
+                        likedArticles.splice(index, 1)
+                    }
+                }
                 localStorage.setItem(likedArticlesKey, JSON.stringify(likedArticles))
             }
         } catch (error) {
@@ -858,19 +865,37 @@ export default function ArticleClient({ params }: { params: Promise<{ date: stri
                                 <div className="space-y-3">
                                     <Button
                                         variant="outline"
-                                        className="w-full justify-start text-left"
-                                        onClick={() => handleShare("copy")}
-                                    >
-                                        <Share2 className="w-4 h-4 mr-2" />
-                                        {t.shareArticle}
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        className="w-full justify-start text-left"
+                                        className={`w-full justify-center ${isLiked
+                                            ? "bg-orange-50 text-orange-600 border-orange-200 hover:bg-orange-100"
+                                            : "text-orange-500 border-orange-200 hover:bg-orange-50"}`}
                                         onClick={handleLike}
                                     >
                                         <ThumbsUp className="w-4 h-4 mr-2" />
-                                        {t.likeArticle}
+                                        Like
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        className="w-full justify-center text-blue-600 border-blue-200 hover:bg-blue-50"
+                                        onClick={() => handleShare("facebook")}
+                                    >
+                                        <Facebook className="w-4 h-4 mr-2" />
+                                        Facebook
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        className="w-full justify-center text-sky-500 border-sky-200 hover:bg-sky-50"
+                                        onClick={() => handleShare("twitter")}
+                                    >
+                                        <Twitter className="w-4 h-4 mr-2" />
+                                        Twitter
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        className="w-full justify-center text-gray-600 border-gray-200 hover:bg-gray-50"
+                                        onClick={() => handleShare("copy")}
+                                    >
+                                        <Link className="w-4 h-4 mr-2" />
+                                        Copy Link
                                     </Button>
                                 </div>
                             </div>
