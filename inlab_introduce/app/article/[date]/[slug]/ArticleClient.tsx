@@ -7,7 +7,21 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import LogoutButton from "@/components/LogoutButton"
-import { ArrowLeft, Globe, Eye, ThumbsUp, Share2, Calendar, User, Facebook, Twitter, Link } from "lucide-react"
+import { ArrowLeft, Globe, Eye, ThumbsUp, Calendar, User, Facebook, Twitter, Link, Check } from "lucide-react"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+    DialogClose,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+
 
 type Language = "en" | "th"
 
@@ -40,6 +54,13 @@ export default function ArticleClient({ params }: { params: Promise<{ date: stri
     const [authorProfile, setAuthorProfile] = useState<AuthorProfile | null>(null)
     const router = useRouter()
     const [resolvedParams, setResolvedParams] = useState<{ date: string; slug: string } | null>(null)
+    const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
+
+    const handleCopyLink = () => {
+        const url = window.location.href
+        navigator.clipboard.writeText(url)
+        setIsShareDialogOpen(true)
+    }
 
     const translations = {
         en: {
@@ -892,11 +913,32 @@ export default function ArticleClient({ params }: { params: Promise<{ date: stri
                                     <Button
                                         variant="outline"
                                         className="w-full justify-center text-gray-600 border-gray-200 hover:bg-gray-50"
-                                        onClick={() => handleShare("copy")}
+                                        onClick={handleCopyLink}
                                     >
                                         <Link className="w-4 h-4 mr-2" />
                                         Copy Link
                                     </Button>
+
+                                    <Dialog open={isShareDialogOpen} onOpenChange={setIsShareDialogOpen}>
+                                        <DialogContent className="sm:max-w-md text-center flex flex-col items-center justify-center p-10">
+                                            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                                                <Check className="w-8 h-8 text-green-600" />
+                                            </div>
+                                            <DialogHeader className="mb-2">
+                                                <DialogTitle className="text-2xl font-bold text-center">Link Copied!</DialogTitle>
+                                            </DialogHeader>
+                                            <div className="text-gray-500 text-center mb-6">
+                                                The article link has been copied to your clipboard.
+                                            </div>
+                                            <DialogFooter className="sm:justify-center w-full">
+                                                <DialogClose asChild>
+                                                    <Button type="button" className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white">
+                                                        Done
+                                                    </Button>
+                                                </DialogClose>
+                                            </DialogFooter>
+                                        </DialogContent>
+                                    </Dialog>
                                 </div>
                             </div>
                         </div>

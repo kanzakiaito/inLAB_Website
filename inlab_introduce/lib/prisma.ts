@@ -13,7 +13,7 @@ const createPrismaClient = () => {
         return new PrismaClient({
             adapter,
             log: ['error'],
-        })
+        } as any)
     }
 
     // Fallback for non-Neon databases
