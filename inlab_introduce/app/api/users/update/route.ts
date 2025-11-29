@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { getAuthUser } from "@/lib/auth";
-
-const prisma = new PrismaClient();
 
 export async function PATCH(request: NextRequest) {
   try {
     // Check if user is authenticated and is archbas
     const authUser = await getAuthUser();
-    
+
     if (!authUser) {
       return NextResponse.json(
         { message: "Unauthorized" },

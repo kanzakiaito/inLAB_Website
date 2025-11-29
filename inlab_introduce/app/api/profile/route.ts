@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
 
 // GET current user profile
 export async function GET() {
   try {
     const authUser = await getAuthUser();
-    
+
     if (!authUser) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
@@ -36,7 +34,7 @@ export async function GET() {
 export async function PATCH(request: NextRequest) {
   try {
     const authUser = await getAuthUser();
-    
+
     if (!authUser) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
@@ -44,11 +42,11 @@ export async function PATCH(request: NextRequest) {
     const { authorName, description, avatarImage, password } = await request.json();
 
     const updateData: any = {};
-    
+
     if (authorName !== undefined) updateData.authorName = authorName;
     if (description !== undefined) updateData.description = description;
     if (avatarImage !== undefined) updateData.avatarImage = avatarImage;
-    
+
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 10);
       updateData.password = hashedPassword;

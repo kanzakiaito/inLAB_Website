@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
-
-const prisma = new PrismaClient();
 
 // GET all users (archbas only)
 export async function GET() {
   try {
     const user = await getAuthUser();
-    
+
     if (!user || user.username !== "archbas") {
       return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
     }
@@ -36,7 +34,7 @@ export async function GET() {
 export async function DELETE(request: NextRequest) {
   try {
     const user = await getAuthUser();
-    
+
     if (!user || user.username !== "archbas") {
       return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
     }

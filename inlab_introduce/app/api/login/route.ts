@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { compare } from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { createToken } from "@/lib/auth";
-
-const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   const { username, password } = await req.json();
@@ -28,11 +26,11 @@ export async function POST(req: NextRequest) {
   const token = await createToken(user.id, user.username);
 
   // Set cookie
-  const response = NextResponse.json({ 
+  const response = NextResponse.json({
     message: "Login successful",
     user: { id: user.id, username: user.username }
   });
-  
+
   response.cookies.set("auth-token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
