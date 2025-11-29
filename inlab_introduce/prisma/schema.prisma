@@ -19,18 +19,20 @@ model User {
 }
 
 model Article {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  author      String
-  date        DateTime
-  views       Int      @default(0)
-  likes       Int      @default(0)
-  category    String
-  image       String
-  content     String?
-  createdAt   DateTime @default(now())
-  shares      Int      @default(0)
-  slug        String?
-  updatedAt   DateTime @default(now()) @updatedAt
+  id                 String   @id @default(uuid())
+  title              String
+  description        String
+  author             String
+  authorDescription  String?
+  authorAvatar       String?
+  date               DateTime
+  views              Int      @default(0)
+  likes              Int      @default(0)
+  category           String
+  image              String
+  content            String?
+  createdAt          DateTime @default(now())
+  shares             Int      @default(0)
+  slug               String?
+  updatedAt          DateTime @default(now()) @updatedAt
 }
