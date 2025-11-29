@@ -50,6 +50,8 @@ export async function POST(request: NextRequest) {
         likes: 0,
         category: articleData.category,
         image: articleData.image,
+        authorDescription: articleData.authorDescription || null,
+        authorAvatar: articleData.authorAvatar || null,
       },
     })
 
@@ -98,6 +100,8 @@ export async function PUT(request: NextRequest) {
         date: new Date(articleData.date),
         category: articleData.category,
         image: articleData.image,
+        authorDescription: articleData.authorDescription || null,
+        authorAvatar: articleData.authorAvatar || null,
       },
     })
 

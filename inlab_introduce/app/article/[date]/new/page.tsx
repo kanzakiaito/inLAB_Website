@@ -23,12 +23,17 @@ interface UserProfile {
   avatarImage: string | null
 }
 
+type AuthorType = 'own' | 'other' | 'guest'
+
 export default function NewArticlePage({ params }: { params: Promise<{ date: string }> }) {
   const [language, setLanguage] = useState<Language>("en")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   const [existingCategories, setExistingCategories] = useState<string[]>([])
   const [isAddingNewCategory, setIsAddingNewCategory] = useState(false)
+  const [allUsers, setAllUsers] = useState<UserProfile[]>([])
+  const [authorType, setAuthorType] = useState<AuthorType>('own')
+  const [selectedUserId, setSelectedUserId] = useState<string>('')
   const router = useRouter()
   const [resolvedParams, setResolvedParams] = useState<{ date: string } | null>(null)
 
@@ -38,6 +43,8 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
     category: "",
     author: "",
     imageUrl: "/img/placeholder.png",
+    authorDescription: "",
+    authorAvatar: "",
   })
 
   const [imageInputType, setImageInputType] = useState<"url" | "upload">("url")
@@ -110,6 +117,22 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
     fetchCategories()
   }, [])
 
+  // Fetch all users for author selection
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch("/api/users")
+        if (res.ok) {
+          const data = await res.json()
+          setAllUsers(data.users || [])
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error)
+      }
+    }
+    fetchUsers()
+  }, [])
+
   // Fetch user profile
   useEffect(() => {
     const fetchProfile = async () => {
@@ -146,9 +169,9 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!resolvedParams) return
-    
+
     setIsSubmitting(true)
 
     try {
@@ -167,6 +190,8 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
         author: formData.author,
         date: resolvedParams.date.replace(/\//g, "-"),
         image: finalImageUrl,
+        authorDescription: authorType === 'guest' ? formData.authorDescription : null,
+        authorAvatar: authorType === 'guest' ? formData.authorAvatar : null,
       }
 
       const response = await fetch("/api/article", {
@@ -240,9 +265,8 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
       <div className="flex-grow bg-white py-12">
         <div className="container mx-auto px-4 max-w-full">
           <h1
-            className={`text-3xl font-bold text-center mb-8 text-orange-500 ${
-              language === "th" ? "font-kanit" : "font-staatliches"
-            }`}
+            className={`text-3xl font-bold text-center mb-8 text-orange-500 ${language === "th" ? "font-kanit" : "font-staatliches"
+              }`}
           >
             {t.createNewArticle}
           </h1>
@@ -251,9 +275,8 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
             {/* Title */}
             <div>
               <label
-                className={`block text-sm font-medium text-gray-700 mb-2 ${
-                  language === "th" ? "font-kanit" : "font-mono"
-                }`}
+                className={`block text-sm font-medium text-gray-700 mb-2 ${language === "th" ? "font-kanit" : "font-mono"
+                  }`}
               >
                 {t.titleRequired}
               </label>
@@ -270,9 +293,8 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
             {/* Description (Rich Text) */}
             <div>
               <label
-                className={`block text-sm font-medium text-gray-700 mb-2 ${
-                  language === "th" ? "font-kanit" : "font-mono"
-                }`}
+                className={`block text-sm font-medium text-gray-700 mb-2 ${language === "th" ? "font-kanit" : "font-mono"
+                  }`}
               >
                 {t.descriptionRequired}
               </label>
@@ -287,13 +309,12 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
             {/* Category */}
             <div>
               <label
-                className={`block text-sm font-medium text-gray-700 mb-2 ${
-                  language === "th" ? "font-kanit" : "font-mono"
-                }`}
+                className={`block text-sm font-medium text-gray-700 mb-2 ${language === "th" ? "font-kanit" : "font-mono"
+                  }`}
               >
                 {t.category}
               </label>
-              
+
               {!isAddingNewCategory ? (
                 <div className="space-y-2">
                   <Select
@@ -357,73 +378,227 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
               )}
             </div>
 
-            {/* Author */}
+            {/* Author Selection */}
             <div>
               <label
-                className={`block text-sm font-medium text-gray-700 mb-2 ${
-                  language === "th" ? "font-kanit" : "font-mono"
-                }`}
+                className={`block text-sm font-medium text-gray-700 mb-3 ${language === "th" ? "font-kanit" : "font-mono"}`}
               >
                 {t.author}
               </label>
-              
-              {/* Author Profile Display */}
-              {userProfile && (
-                <div className="mb-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <div className="flex items-center gap-4">
-                    {userProfile.avatarImage ? (
-                      <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-orange-500 flex-shrink-0">
-                        <Image
-                          src={userProfile.avatarImage}
-                          alt={userProfile.authorName || userProfile.username}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-16 h-16 rounded-full bg-gray-300 border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
-                        <UserIcon className="w-8 h-8 text-gray-600" />
-                      </div>
-                    )}
-                    <div className="flex-1">
-                      <div className="font-semibold text-gray-900">
-                        {userProfile.authorName || userProfile.username}
-                      </div>
-                      {userProfile.description && (
-                        <div className="text-sm text-gray-600 mt-1">
-                          {userProfile.description}
+
+              {/* Author Type Selection */}
+              <div className="space-y-4">
+                {/* Radio Buttons */}
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="authorType"
+                      value="own"
+                      checked={authorType === 'own'}
+                      onChange={(e) => {
+                        setAuthorType(e.target.value as AuthorType)
+                        if (userProfile) {
+                          handleInputChange("author", userProfile.authorName || userProfile.username)
+                        }
+                      }}
+                      className="w-4 h-4 text-orange-500"
+                    />
+                    <span className="text-sm">My Profile</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="authorType"
+                      value="other"
+                      checked={authorType === 'other'}
+                      onChange={(e) => setAuthorType(e.target.value as AuthorType)}
+                      className="w-4 h-4 text-orange-500"
+                    />
+                    <span className="text-sm">Another User</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="authorType"
+                      value="guest"
+                      checked={authorType === 'guest'}
+                      onChange={(e) => {
+                        setAuthorType(e.target.value as AuthorType)
+                        handleInputChange("author", "")
+                      }}
+                      className="w-4 h-4 text-orange-500"
+                    />
+                    <span className="text-sm">Guest Author</span>
+                  </label>
+                </div>
+
+                {/* Own Profile Display */}
+                {authorType === 'own' && userProfile && (
+                  <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-4">
+                      {userProfile.avatarImage ? (
+                        <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-orange-500 flex-shrink-0">
+                          <Image
+                            src={userProfile.avatarImage}
+                            alt={userProfile.authorName || userProfile.username}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 rounded-full bg-gray-300 border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
+                          <UserIcon className="w-8 h-8 text-gray-600" />
                         </div>
                       )}
-                      <div className="text-xs text-gray-500 mt-1">
-                        @{userProfile.username}
+                      <div className="flex-1">
+                        <div className="font-semibold text-gray-900">
+                          {userProfile.authorName || userProfile.username}
+                        </div>
+                        {userProfile.description && (
+                          <div className="text-sm text-gray-600 mt-1">
+                            {userProfile.description}
+                          </div>
+                        )}
+                        <div className="text-xs text-gray-500 mt-1">
+                          @{userProfile.username}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
-              
-              <Input
-                type="text"
-                value={formData.author}
-                onChange={(e) => handleInputChange("author", e.target.value)}
-                placeholder="Author name"
-                required
-                className="w-full"
-                readOnly={!!userProfile?.authorName}
-              />
-              {userProfile?.authorName && (
-                <p className="text-xs text-gray-500 mt-1">
-                  Author name is set from your profile. Update it in Profile Settings to change.
-                </p>
-              )}
+                )}
+
+                {/* Other User Selection */}
+                {authorType === 'other' && (
+                  <div className="space-y-3">
+                    <Select
+                      value={selectedUserId}
+                      onValueChange={(userId) => {
+                        setSelectedUserId(userId)
+                        const selectedUser = allUsers.find(u => u.id === userId)
+                        if (selectedUser) {
+                          handleInputChange("author", selectedUser.authorName || selectedUser.username)
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a user" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {allUsers.map((user) => (
+                          <SelectItem key={user.id} value={user.id}>
+                            {user.authorName || user.username} (@{user.username})
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    {/* Selected User Preview */}
+                    {selectedUserId && allUsers.find(u => u.id === selectedUserId) && (
+                      <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex items-center gap-4">
+                          {(() => {
+                            const selectedUser = allUsers.find(u => u.id === selectedUserId)!
+                            return (
+                              <>
+                                {selectedUser.avatarImage ? (
+                                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-orange-500 flex-shrink-0">
+                                    <Image
+                                      src={selectedUser.avatarImage}
+                                      alt={selectedUser.authorName || selectedUser.username}
+                                      fill
+                                      className="object-cover"
+                                    />
+                                  </div>
+                                ) : (
+                                  <div className="w-12 h-12 rounded-full bg-gray-300 border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
+                                    <UserIcon className="w-6 h-6 text-gray-600" />
+                                  </div>
+                                )}
+                                <div className="flex-1">
+                                  <div className="font-semibold text-sm text-gray-900">
+                                    {selectedUser.authorName || selectedUser.username}
+                                  </div>
+                                  {selectedUser.description && (
+                                    <div className="text-xs text-gray-600 mt-0.5">
+                                      {selectedUser.description}
+                                    </div>
+                                  )}
+                                </div>
+                              </>
+                            )
+                          })()}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Guest Author Input */}
+                {authorType === 'guest' && (
+                  <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div>
+                      <Label className="text-xs">Guest Author Name *</Label>
+                      <Input
+                        type="text"
+                        value={formData.author}
+                        onChange={(e) => handleInputChange("author", e.target.value)}
+                        placeholder="Enter guest author name"
+                        required
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Guest Description (Optional)</Label>
+                      <Input
+                        type="text"
+                        value={formData.authorDescription}
+                        onChange={(e) => handleInputChange("authorDescription", e.target.value)}
+                        placeholder="e.g., Guest Researcher, External Contributor"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Guest Avatar URL (Optional)</Label>
+                      <Input
+                        type="url"
+                        value={formData.authorAvatar}
+                        onChange={(e) => handleInputChange("authorAvatar", e.target.value)}
+                        placeholder="https://example.com/avatar.jpg"
+                        className="mt-1"
+                      />
+                    </div>
+                    {formData.authorAvatar && (
+                      <div className="flex items-center gap-3 p-3 bg-white rounded border">
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-orange-500 flex-shrink-0">
+                          <Image
+                            src={formData.authorAvatar}
+                            alt="Guest avatar preview"
+                            fill
+                            className="object-cover"
+                            onError={(e) => {
+                              e.currentTarget.src = "/img/placeholder.png"
+                            }}
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-sm">{formData.author || 'Guest Author'}</div>
+                          {formData.authorDescription && (
+                            <div className="text-xs text-gray-600">{formData.authorDescription}</div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Thumbnail Image Section */}
             <div>
               <Label
-                className={`text-sm font-medium text-gray-700 ${
-                  language === "th" ? "font-kanit" : "font-mono"
-                }`}
+                className={`text-sm font-medium text-gray-700 ${language === "th" ? "font-kanit" : "font-mono"
+                  }`}
               >
                 Thumbnail Image
               </Label>
@@ -546,9 +721,8 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className={`flex-1 bg-orange-500 hover:bg-orange-600 text-black font-bold py-3 ${
-                  language === "th" ? "font-kanit" : "font-mono"
-                }`}
+                className={`flex-1 bg-orange-500 hover:bg-orange-600 text-black font-bold py-3 ${language === "th" ? "font-kanit" : "font-mono"
+                  }`}
               >
                 {isSubmitting ? "Saving..." : t.saveArticle}
               </Button>
@@ -563,7 +737,7 @@ export default function NewArticlePage({ params }: { params: Promise<{ date: str
             </div>
           </form>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   )
 }
