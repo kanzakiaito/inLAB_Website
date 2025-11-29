@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 
-// GET all users (archbas only)
+// GET all users (authenticated users can view)
 export async function GET() {
   try {
     const user = await getAuthUser();
 
-    if (!user || user.username !== "archbas") {
+    if (!user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
     }
 
