@@ -2,15 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 
-// GET all users (authenticated users can view)
+// GET all users (public access for viewing author profiles)
 export async function GET() {
   try {
-    const user = await getAuthUser();
-
-    if (!user) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
-    }
-
+    // No authentication required - users list is public for displaying author information
     const users = await prisma.user.findMany({
       select: {
         id: true,

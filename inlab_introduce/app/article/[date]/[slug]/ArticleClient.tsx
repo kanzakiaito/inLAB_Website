@@ -182,10 +182,15 @@ export default function ArticleClient({ params }: { params: Promise<{ date: stri
                 meta.content = content
             }
 
+            // Ensure image URL is absolute for social media crawlers
+            const imageUrl = article.image?.startsWith('http')
+                ? article.image
+                : `https://inlab-outreach.vercel.app${article.image || '/img/INLABLOGO.png'}`
+
             // Open Graph tags
             updateMetaTag('og:title', article.title)
             updateMetaTag('og:description', article.description.replace(/<[^>]*>/g, '').substring(0, 200))
-            updateMetaTag('og:image', article.image || '/img/INLABLOGO.png')
+            updateMetaTag('og:image', imageUrl)
             updateMetaTag('og:url', window.location.href)
             updateMetaTag('og:type', 'article')
             updateMetaTag('og:site_name', 'inLAB - Outreach Division')
@@ -194,7 +199,7 @@ export default function ArticleClient({ params }: { params: Promise<{ date: stri
             updateMetaTagName('twitter:card', 'summary_large_image')
             updateMetaTagName('twitter:title', article.title)
             updateMetaTagName('twitter:description', article.description.replace(/<[^>]*>/g, '').substring(0, 200))
-            updateMetaTagName('twitter:image', article.image || '/img/INLABLOGO.png')
+            updateMetaTagName('twitter:image', imageUrl)
 
             // Additional meta tags
             updateMetaTagName('description', article.description.replace(/<[^>]*>/g, '').substring(0, 160))
